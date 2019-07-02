@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateLembagaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,16 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('lembagas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->integer('id_user');
             $table->string('nama')->nullable();
+            $table->string('email')->nullable();
             $table->text('alamat')->nullable();
-            $table->integer('jenis_kelamin')->nullable();
             $table->string('no_hp')->nullable();
-            $table->string('foto')->nullable();
-            $table->string('role')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('deletedAt')->nullable();
-            $table->rememberToken();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
+            $table->timestamp('deletedAt')->nullable();
         });
     }
 
@@ -37,6 +33,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('lembagas');
     }
 }
