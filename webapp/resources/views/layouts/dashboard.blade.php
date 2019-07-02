@@ -31,7 +31,7 @@
                             <div class="left-side">
                                 <!-- Logo -->
                                 <div id="logo">
-                                    <a href="index.html"><img src="images/logo.png" alt=""></a>
+                                    <a href="index.html"><img src="{{ asset('images/logo.png') }}" alt=""></a>
                                     <a href="index.html" class="dashboard-logo aisi-logo-dashboard">
                                         <span>{{ config('app.name', 'Laravel') }}</span>
                                     </a>
@@ -155,7 +155,7 @@
                                 <div class="header-widget">
                                     <!-- User Menu -->
                                     <div class="user-menu">
-                                        <div class="user-name"><span><img src="images/dashboard-avatar.jpg" alt=""></span>{{ Auth::user()->name }}</div>
+                                        <div class="user-name"><span><img src="{{ asset('images/dashboard-avatar.jpg') }}" alt=""></span>{{ Auth::user()->name }}</div>
                                         <ul>
                                             <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
                                             <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
@@ -234,6 +234,7 @@
         <script src="{{ asset('js/template/counterup.min.js') }}"></script>
         <script src="{{ asset('js/template/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('js/template/tooltips.min.js') }}"></script>
+        <script src="{{ asset('js/sweetalert.min.js') }}"></script>
         @stack('customJs')
         <script src="{{ asset('js/template/custom.js') }}"></script>
     </body>

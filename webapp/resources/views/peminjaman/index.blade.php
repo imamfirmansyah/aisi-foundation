@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Daftar Barang dan Inventaris')
-@section('pageHeader', 'Daftar Barang dan Inventaris')
+@section('pageTitle', 'Daftar Peminjaman')
+@section('pageHeader', 'Daftar Peminjaman')
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('plugin/datatables/datatables.min.css')}}">
@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-12 text-right">
-        <a href="{{ route('barang.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a>
+        <a href="{{ route('peminjaman.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a>
     </div>
 
     <div class="col-md-12">
@@ -19,11 +19,12 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
-                    <th>Jenis</th>
+                    <th>Barang</th>
+                    <th>Member</th>
+                    <th>Kegiatan</th>
+                    <th>Tgl Pinjam</th>
+                    <th>Tgl Kembali</th>
                     <th>Status</th>
-                    <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -31,13 +32,14 @@
                 @foreach($data as $key => $val)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $val->kode_barang }}</td>
-                    <td>{{ $val->nama }}</td>
-                    <td>{{ $val->jenis_barang }}</td>
+                    <td>{{ @$val->barang->nama }}</td>
+                    <td>{{ @$val->user->nama }}</td>
+                    <td>{{ @$val->kegiatan->judul }}</td>
+                    <td>{{ $val->tgl_pinjam }}</td>
+                    <td>{{ $val->tgl_kembali }}</td>
                     <td>{{ $val->status }}</td>
-                    <td><img src="{{ url('storage/'.$val->foto) }}" width="100" height="100"></td>
                     <td>
-                        <a href="{{ route('barang.detail',['id'=>$val->id]) }}" class="button">Edit</a>
+                        <a href="{{ route('peminjaman.detail',['id'=>$val->id]) }}" class="button">Edit</a>
                         <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="button">Hapus</a>
                     </td>
                 </tr>
@@ -46,11 +48,12 @@
             <tfoot>
                 <tr>
                     <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
-                    <th>Jenis</th>
+                    <th>Barang</th>
+                    <th>Member</th>
+                    <th>Kegiatan</th>
+                    <th>Tgl Pinjam</th>
+                    <th>Tgl Kembali</th>
                     <th>Status</th>
-                    <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </tfoot>
@@ -72,8 +75,8 @@
 
     function deleteData(id) {
         swal({
-            title: "Yakin Hapus Data Barang?",
-            text : "Data barang akan dihapus permanen",
+            title: "Yakin Hapus Data Peminjaman?",
+            text : "Data peminjaman akan dihapus permanen",
             icon: "warning",
             buttons: {
                 cancel:true,
@@ -86,7 +89,7 @@
             .then((process) => {
                 if(process){
                     $.ajax({
-                        url: "{{ route('barang.delete') }}",
+                        url: "{{ route('peminjaman.delete') }}",
                         type: "POST",
                         data: {
                             '_token': '{{csrf_token()}}',
@@ -94,8 +97,8 @@
                         },
                         success: function(data) {
                             swal({
-                                title: 'Berhasil Hapus Barang!',
-                                text: 'Barang berhasil di hapus',
+                                title: 'Berhasil Hapus Peminjaman!',
+                                text: 'Peminjaman berhasil di hapus',
                                 icon: 'success',
                                 timer: '2000'
                             });
@@ -111,7 +114,7 @@
                         }
                     });
                 }else{
-                    swal('Data barang tidak jadi dihapus');
+                    swal('Data peminjaman tidak jadi dihapus');
                 }
             });
     }

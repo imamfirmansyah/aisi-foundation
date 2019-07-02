@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function lembaga(){
+        return $this->hasOne(Lembaga::class,'id_user','id');
+    }
+
+    public function peminjaman(){
+        return $this->hasMany(Peminjaman::class,'id_user','id');
+    }
+
 }

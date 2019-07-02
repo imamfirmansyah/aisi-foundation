@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Daftar Barang dan Inventaris')
-@section('pageHeader', 'Daftar Barang dan Inventaris')
+@section('pageTitle', 'Daftar Kegiatan')
+@section('pageHeader', 'Daftar Kegiatan')
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('plugin/datatables/datatables.min.css')}}">
@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-12 text-right">
-        <a href="{{ route('barang.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a>
+        <a href="{{ route('kegiatan.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a>
     </div>
 
     <div class="col-md-12">
@@ -19,11 +19,10 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
-                    <th>Jenis</th>
+                    <th>Lembaga</th>
+                    <th>Judul</th>
+                    <th>Tgl Kegiatan</th>
                     <th>Status</th>
-                    <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -31,13 +30,12 @@
                 @foreach($data as $key => $val)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $val->kode_barang }}</td>
-                    <td>{{ $val->nama }}</td>
-                    <td>{{ $val->jenis_barang }}</td>
+                    <td>{{ @$val->lembaga->nama }}</td>
+                    <td>{{ $val->judul }}</td>
+                    <td>{{ $val->tgl_kegiatan }}</td>
                     <td>{{ $val->status }}</td>
-                    <td><img src="{{ url('storage/'.$val->foto) }}" width="100" height="100"></td>
                     <td>
-                        <a href="{{ route('barang.detail',['id'=>$val->id]) }}" class="button">Edit</a>
+                        <a href="{{ route('kegiatan.detail',['id'=>$val->id]) }}" class="button">Edit</a>
                         <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="button">Hapus</a>
                     </td>
                 </tr>
@@ -46,11 +44,10 @@
             <tfoot>
                 <tr>
                     <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
-                    <th>Jenis</th>
+                    <th>Lembaga</th>
+                    <th>Judul</th>
+                    <th>Tgl Kegiatan</th>
                     <th>Status</th>
-                    <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </tfoot>
@@ -72,8 +69,8 @@
 
     function deleteData(id) {
         swal({
-            title: "Yakin Hapus Data Barang?",
-            text : "Data barang akan dihapus permanen",
+            title: "Yakin Hapus Data Kegiatan?",
+            text : "Data kegiatan akan dihapus permanen",
             icon: "warning",
             buttons: {
                 cancel:true,
@@ -86,7 +83,7 @@
             .then((process) => {
                 if(process){
                     $.ajax({
-                        url: "{{ route('barang.delete') }}",
+                        url: "{{ route('kegiatan.delete') }}",
                         type: "POST",
                         data: {
                             '_token': '{{csrf_token()}}',
@@ -94,8 +91,8 @@
                         },
                         success: function(data) {
                             swal({
-                                title: 'Berhasil Hapus Barang!',
-                                text: 'Barang berhasil di hapus',
+                                title: 'Berhasil Hapus Kegiatan!',
+                                text: 'Kegiatan berhasil di hapus',
                                 icon: 'success',
                                 timer: '2000'
                             });
@@ -111,7 +108,7 @@
                         }
                     });
                 }else{
-                    swal('Data barang tidak jadi dihapus');
+                    swal('Data kegiatan tidak jadi dihapus');
                 }
             });
     }
