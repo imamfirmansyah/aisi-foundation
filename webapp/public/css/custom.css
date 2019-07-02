@@ -4,4 +4,48 @@
   line-height: 80px;
   font-size: 24px;
 }
+.aisi-logo-dashboard:hover {
+  color: #fff;
+}
 
+table {
+  background-color: #fff;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+  margin-bottom: 0;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+  float: right;
+}
+div.dataTables_wrapper div.dataTables_filter input {
+  margin-bottom: 0;
+}
+
+.dataTables_paginate li.page-item.disabled {
+  display: none;
+}
+.dataTables_paginate li.page-item.active a {
+  background-color: #fa5b0f !important;
+  color: #fff;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role=row] > td:first-child, table.dataTable.dtr-inline.collapsed > tbody > tr[role=row] > th:first-child {
+  display: -webkit-box;
+  display: flex;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role=row] > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role=row] > th:first-child:before {
+  background-color: #00a948;
+  left: 7px;
+  top: 18px;
+  line-height: 16px;
+  text-indent: 0px !important;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+  background-color: #f30c0c;
+}

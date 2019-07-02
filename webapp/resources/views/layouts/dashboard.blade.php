@@ -6,12 +6,16 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
+        <title>{{ config('app.name', 'Laravel') }} - @yield('pageTitle')</title>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/main-color.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/colors/orange.css') }}">
+        @stack('customCss')
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
     </head>
     <body>
         <div id="app">
@@ -41,7 +45,7 @@
                                     </button>
                                 </div>
                                 <!-- Main Navigation -->
-                                <!-- <nav id="navigation" class="style-1">
+                                <nav id="navigation" class="style-1">
                                     <ul id="responsive">
                                     
                                         <li><a href="#">Home</a>
@@ -140,7 +144,7 @@
                                         </li>
                                         
                                     </ul>
-                                    </nav> -->
+                                    </nav>
                                 <!-- <div class="clearfix"></div> -->
                                 <!-- Main Navigation / End -->
                             </div>
@@ -180,213 +184,39 @@
                 </header>
                 <div class="clearfix"></div>
                 <!-- Header Container / End -->
+
                 <!-- Dashboard -->
                 <div id="dashboard">
-                    <!-- Navigation
-                        ================================================== -->
-                    <!-- Responsive Navigation Trigger -->
-                    <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
-                    <div class="dashboard-nav">
-                        <div class="dashboard-nav-inner">
-                            <ul data-submenu-title="Menu Utama">
-                                <li class="active"><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-                                <!-- <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages <span class="nav-tag messages">2</span></a></li> -->
-                                <li><a href="dashboard-bookings.html"><i class="fa fa-calendar-check-o"></i> Barang & Inventaris</a></li>
-                                <li><a href="dashboard-add-listing.html"><i class="sl sl-icon-plus"></i> Peminjaman</a></li>
-                            </ul>
-                            <ul data-submenu-title="Kegiatan">
-                                <li>
-                                    <a><i class="sl sl-icon-layers"></i> List Kegiatan</a>
-                                    <ul>
-                                        <li><a href="dashboard-my-listings.html">Active <span class="nav-tag green">6</span></a></li>
-                                        <li><a href="dashboard-my-listings.html">Pending <span class="nav-tag yellow">1</span></a></li>
-                                        <li><a href="dashboard-my-listings.html">Expired <span class="nav-tag red">2</span></a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="dashboard-wallet.html"><i class="sl sl-icon-wallet"></i> Bantuan Dana</a></li>
-                                <!-- <li><a href="dashboard-reviews.html"><i class="sl sl-icon-star"></i> Reviews</a></li> -->
-                                <!-- <li><a href="dashboard-bookmarks.html"><i class="sl sl-icon-heart"></i> Bookmarks</a></li> -->
-                            </ul>
-                            <ul data-submenu-title="Member">
-                                <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-people"></i> List Member</a></li>
-                                <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>
-                                <li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Navigation / End -->
-                    <!-- Content
-                        ================================================== -->
+                    @include('layouts.navigation')
+
                     <div class="dashboard-content">
-                        <!-- Titlebar -->
-                        <div id="titlebar">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h2>Hallo, Selamat Datang!</h2>
-                                    <!-- Breadcrumbs -->
-                                    <nav id="breadcrumbs">
-                                        <ul>
-                                            <li><a href="#">Home</a></li>
-                                            <li>Dashboard</li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- page header -->
+                        @include('layouts.page_header')
+                        <!-- page header end here -->
+
                         <!-- Notice -->
-                        <!-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="notification success closeable margin-bottom-30">
-                                    <p>Your listing <strong>Hotel Govendor</strong> has been approved!</p>
-                                    <a class="close" href="#"></a>
-                                </div>
-                            </div>
-                            </div> -->
-                        <!-- Content -->
-                        <div class="row">
-                            <!-- Item -->
-                            <div class="col-lg-3 col-md-6">
-                                <div class="dashboard-stat color-1">
-                                    <div class="dashboard-stat-content">
-                                        <h4>19</h4>
-                                        <span>Kegiatan Berjalan</span>
-                                    </div>
-                                    <div class="dashboard-stat-icon"><i class="im im-icon-Map2"></i></div>
-                                </div>
-                            </div>
-                            <!-- Item -->
-                            <div class="col-lg-3 col-md-6">
-                                <div class="dashboard-stat color-2">
-                                    <div class="dashboard-stat-content">
-                                        <h4>27</h4>
-                                        <span>Pengajuan Dana</span>
-                                    </div>
-                                    <div class="dashboard-stat-icon"><i class="im im-icon-Line-Chart"></i></div>
-                                </div>
-                            </div>
-                            <!-- Item -->
-                            <div class="col-lg-3 col-md-6">
-                                <div class="dashboard-stat color-3">
-                                    <div class="dashboard-stat-content">
-                                        <h4>87</h4>
-                                        <span>Total Member</span>
-                                    </div>
-                                    <div class="dashboard-stat-icon"><i class="im im-icon-Add-UserStar"></i></div>
-                                </div>
-                            </div>
-                            <!-- Item -->
-                            <div class="col-lg-3 col-md-6">
-                                <div class="dashboard-stat color-4">
-                                    <div class="dashboard-stat-content">
-                                        <h4>23</h4>
-                                        <span>Kegiatan Selesai</span>
-                                    </div>
-                                    <div class="dashboard-stat-icon"><i class="im im-icon-Heart"></i></div>
-                                </div>
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="notification success closeable margin-bottom-30">
+                                <p>Your listing <strong>Hotel Govendor</strong> has been approved!</p>
+                                <a class="close" href="#"></a>
                             </div>
                         </div>
-                        <div class="row">
-                            <!-- Recent Activity -->
-                            <div class="col-lg-12 col-md-12">
-                                <div class="dashboard-list-box with-icons margin-top-20">
-                                    <h4>Panduan Penggunaan</h4>
-                                    <ul>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-layers"></i> Menu <strong><a href="#">List Kegiatan </a></strong> berisi Informasi Seluruh Kegiatan Yayasan
-                                            <a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-plus"></i> Menu <strong><a href="#">Peminjaman</a></strong> berisi Informasi Seluruh Data Peminjaman Baik oleh Lembaga maupun oleh Pelajar
-                                            <a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-user"></i> Menu <strong><a href="#">My Profile</a></strong> untuk melakukan perubahan informasi profil akun
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-wallet"></i> Menu <strong><a href="#">Bantuan Dana</a></strong> memberikan informasi penggunaan dana yang dialokasikan untuk menunjang kegiatan
-                                            <a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-heart"></i> Someone bookmarked your <strong><a href="#">Burger House</a></strong> listing!
-                                            <a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-star"></i> John Doe left a review 
-                                            <div class="numerical-rating" data-rating="4.0"></div>
-                                            on <strong><a href="#">Burger House</a></strong>
-                                            <a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-star"></i> Jack Perry left a review 
-                                            <div class="numerical-rating" data-rating="2.5"></div>
-                                            on <strong><a href="#">Tom's Restaurant</a></strong>
-                                            <a href="#" class="close-list-item"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Invoices -->
-                            <div class="col-lg-6 col-md-12">
-                                <div class="dashboard-list-box invoices with-icons margin-top-20">
-                                    <h4>Invoices</h4>
-                                    <ul>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-doc"></i>
-                                            <strong>Professional Plan</strong>
-                                            <ul>
-                                                <li class="unpaid">Unpaid</li>
-                                                <li>Order: #00124</li>
-                                                <li>Date: 20/07/2019</li>
-                                            </ul>
-                                            <div class="buttons-to-right">
-                                                <a href="dashboard-invoice.html" class="button gray">View Invoice</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-doc"></i>
-                                            <strong>Extended Plan</strong>
-                                            <ul>
-                                                <li class="paid">Paid</li>
-                                                <li>Order: #00108</li>
-                                                <li>Date: 14/07/2019</li>
-                                            </ul>
-                                            <div class="buttons-to-right">
-                                                <a href="dashboard-invoice.html" class="button gray">View Invoice</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-doc"></i>
-                                            <strong>Extended Plan</strong>
-                                            <ul>
-                                                <li class="paid">Paid</li>
-                                                <li>Order: #00097</li>
-                                                <li>Date: 10/07/2019</li>
-                                            </ul>
-                                            <div class="buttons-to-right">
-                                                <a href="dashboard-invoice.html" class="button gray">View Invoice</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <i class="list-box-icon sl sl-icon-doc"></i>
-                                            <strong>Basic Plan</strong>
-                                            <ul>
-                                                <li class="paid">Paid</li>
-                                                <li>Order: #00091</li>
-                                                <li>Date: 30/06/2019</li>
-                                            </ul>
-                                            <div class="buttons-to-right">
-                                                <a href="dashboard-invoice.html" class="button gray">View Invoice</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Copyrights -->
-                            <div class="col-md-12">
-                                <div class="copyrights">© 2019 Listeo. All Rights Reserved.</div>
+                    </div> -->
+
+                    <!-- content -->
+                    @yield('content')
+                    <!-- content end here -->
+
+                    <div class="row">
+                        <!-- Copyrights -->
+                        <div class="col-md-12">
+                            <div class="copyrights">
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Sistem Informasi Yayasan {{ config('app.name', 'Laravel') }}
                             </div>
                         </div>
                     </div>
+
                     <!-- Content / End -->
                 </div>
                 <!-- Dashboard / End -->
@@ -404,6 +234,7 @@
         <script src="{{ asset('js/template/counterup.min.js') }}"></script>
         <script src="{{ asset('js/template/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('js/template/tooltips.min.js') }}"></script>
+        @stack('customJs')
         <script src="{{ asset('js/template/custom.js') }}"></script>
     </body>
 </html>
