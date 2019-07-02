@@ -16,7 +16,7 @@ class DanaSeeder extends Seeder
 
         $danas = array();
 
-        $status = ['DISETUJUI','DITOLAK'];
+        $status = ['DISETUJUI','DITOLAK','PROSES'];
 
         for ($i=1; $i <= 50; $i++) {
             $data = [
@@ -26,13 +26,13 @@ class DanaSeeder extends Seeder
                 'keterangan' => $faker->sentence($nb = 2, $asText = true),
                 'tgl_pengajuan'=> $faker->date(),
                 'tgl_pencairan'=> $faker->date(),
-                'status'=> $status[mt_rand(0,1)],
+                'status'=> $status[mt_rand(0,2)],
                 'created_at' => $faker->dateTime(),
                 'updated_at' => $faker->dateTime()
             ];
             array_push($danas, $data);
         }
 
-        DB::table('danas')->insert($danas);
+        DB::table('dana')->insert($danas);
     }
 }

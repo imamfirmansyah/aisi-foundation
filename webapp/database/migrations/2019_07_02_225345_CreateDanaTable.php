@@ -13,7 +13,7 @@ class CreateDanaTable extends Migration
      */
     public function up()
     {
-        Schema::create('danas', function (Blueprint $table) {
+        Schema::create('dana', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_kegiatan');
             $table->decimal('jumlah_pengajuan',8,0)->nullable();
@@ -34,6 +34,6 @@ class CreateDanaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('danas');
+        Schema::dropIfExists('dana');
     }
 }

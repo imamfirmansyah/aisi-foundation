@@ -16,7 +16,7 @@ class BarangSeeder extends Seeder
 
         $barangs = array();
 
-        $status = ['ACTIVE','INACTIVE'];
+        $status = ['TERSEDIA','TIDAK TERSEDIA'];
         $jenis_barang = ['ATK','ELEKTRONIK','RUANGAN'];
 
         for ($i=1; $i <= 50; $i++) {
@@ -33,6 +33,6 @@ class BarangSeeder extends Seeder
             array_push($barangs, $data);
         }
 
-        DB::table('barangs')->insert($barangs);
+        DB::table('barang')->insert($barangs);
     }
 }

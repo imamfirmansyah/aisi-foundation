@@ -27,6 +27,6 @@ class DokumentasiSeeder extends Seeder
             array_push($dokumentasis, $data);
         }
 
-        DB::table('dokumentasis')->insert($dokumentasis);
+        DB::table('dokumentasi')->insert($dokumentasis);
     }
 }

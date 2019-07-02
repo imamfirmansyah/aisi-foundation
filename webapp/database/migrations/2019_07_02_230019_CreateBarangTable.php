@@ -13,7 +13,7 @@ class CreateBarangTable extends Migration
      */
     public function up()
     {
-        Schema::create('barangs', function (Blueprint $table) {
+        Schema::create('barang', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('kode_barang')->nullable();
             $table->string('nama')->nullable();
@@ -33,6 +33,6 @@ class CreateBarangTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barangs');
+        Schema::dropIfExists('barang');
     }
 }

@@ -13,7 +13,7 @@ class CreateDokumentasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('dokumentasis', function (Blueprint $table) {
+        Schema::create('dokumentasi', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_kegiatan')->nullable();
             $table->text('keterangan')->nullable();
@@ -30,6 +30,6 @@ class CreateDokumentasiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dokumentasis');
+        Schema::dropIfExists('dokumentasi');
     }
 }

@@ -30,6 +30,6 @@ class LembagaSeeder extends Seeder
             array_push($lembagas, $data);
         }
 
-        DB::table('lembagas')->insert($lembagas);
+        DB::table('lembaga')->insert($lembagas);
     }
 }

@@ -13,7 +13,7 @@ class CreateLembagaTable extends Migration
      */
     public function up()
     {
-        Schema::create('lembagas', function (Blueprint $table) {
+        Schema::create('lembaga', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_user');
             $table->string('nama')->nullable();
@@ -33,6 +33,6 @@ class CreateLembagaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lembagas');
+        Schema::dropIfExists('lembaga');
     }
 }

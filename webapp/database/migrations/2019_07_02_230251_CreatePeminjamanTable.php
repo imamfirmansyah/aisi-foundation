@@ -13,7 +13,7 @@ class CreatePeminjamanTable extends Migration
      */
     public function up()
     {
-        Schema::create('peminjamans', function (Blueprint $table) {
+        Schema::create('peminjaman', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_barang')->nullable();
             $table->integer('id_user')->nullable();
@@ -34,6 +34,6 @@ class CreatePeminjamanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peminjamans');
+        Schema::dropIfExists('peminjaman');
     }
 }

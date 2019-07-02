@@ -16,7 +16,7 @@ class PeminjamanSeeder extends Seeder
 
         $peminjamans = array();
 
-        $status = ['ACTIVE','INACTIVE'];
+        $status = ['DIPINJAM','DIKEMBALIKAN'];
 
         for ($i=1; $i <= 50; $i++) {
             $data = [
@@ -33,6 +33,6 @@ class PeminjamanSeeder extends Seeder
             array_push($peminjamans, $data);
         }
 
-        DB::table('peminjamans')->insert($peminjamans);
+        DB::table('peminjaman')->insert($peminjamans);
     }
 }

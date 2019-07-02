@@ -21,7 +21,7 @@ class KegiatanSeeder extends Seeder
         for ($i=1; $i <= 50; $i++) {
             $data = [
                 'id_lembaga' => mt_rand(1,50),
-                'judul' => $faker->title,
+                'judul' => $faker->sentence($nb = 1, $asText = true),
                 'deskripsi' => $faker->sentence($nb = 5, $asText = true),
                 'proposal_kegiatan' => 'kegiatan/test.doc',
                 'tgl_kegiatan'=> $faker->date(),
@@ -32,6 +32,6 @@ class KegiatanSeeder extends Seeder
             array_push($kegiatans, $data);
         }
 
-        DB::table('kegiatans')->insert($kegiatans);
+        DB::table('kegiatan')->insert($kegiatans);
     }
 }
