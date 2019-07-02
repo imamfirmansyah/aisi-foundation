@@ -78,25 +78,22 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-md-6">
-                                    <div class="interactive-effect">
+                                <div class="col-md-12">
+                                    <div class="radios">
                                         <div class="radio">
-                                            <input type="radio" name="remember[]" value="1">
-                                            <label for="remember">
-                                                Remember Me
-                                                <span class="radio-label"></span>
+                                            <input type="radio" id="radio-lembaga" name="radio-role">
+                                            <label for="radio-lembaga">
+                                                <div class="checker"></div>Lembaga
+                                            </label>
+                                        </div>
+
+                                        <div class="radio">
+                                            <input type="radio" id="radio-umum" name="radio-role">
+                                            <label for="radio-umum">
+                                                <div class="checker"></div>Umum
                                             </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="radio">
-                                            <input type="radio" name="remember[]" value="0">
-                                            <label for="remember">
-                                                Remember Me 1
-                                                <span class="radio-label"></span>
-                                            </label>
-                                        </div>
                                 </div>
                             </div>
                             
@@ -127,7 +124,7 @@
     </div>
 </div>
 
-<div class="container">
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -199,5 +196,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
