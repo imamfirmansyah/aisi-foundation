@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+
     return view('dashboard');
 });
 
@@ -23,6 +24,7 @@ Route::get('/dashboard', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::get('/barang','BarangController@index')->name('barang.index');
 Route::get('/barang-detail/{id}','BarangController@detail')->name('barang.detail');

@@ -1,11 +1,11 @@
 <!-- Navigation -->
 
 <!-- Responsive Navigation Trigger -->
-<a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
+<a href="{{ route('dashboard') }}" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
 <div class="dashboard-nav">
     <div class="dashboard-nav-inner">
         <ul data-submenu-title="Menu Utama">
-            <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
+            <li><a href="{{ route('dashboard') }}"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
             <!-- <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages <span class="nav-tag messages">2</span></a></li> -->
             <li class="{{ Request::is('barang*') ? 'active' : '' }}">
                 <a href="{{ route('barang.index') }}"><i class="fa fa-calendar-check-o"></i> Barang & Inventaris</a>
