@@ -86,6 +86,7 @@
                 <div class="col-md-12">
                     <table id="pricing-list-container">
                         <tr class="pricing-list-item pattern">
+                            @if(!empty(@$data['kegiatan']->dokumentasi))
                             @foreach(@$data['kegiatan']->dokumentasi as $key => $dokumentasi)
                             <td>
                                 <div class="fm-move"><i class="sl sl-icon-cursor-move"></i></div>
@@ -95,6 +96,7 @@
                                 <div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div>
                             </td>
                             @endforeach
+                            @endif
                         </tr>
                     </table>
                     <a href="#" class="button add-pricing-list-item">Add Item</a>
