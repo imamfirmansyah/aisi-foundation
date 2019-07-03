@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dokumentasi extends Model
 {
-    protected $table = 'dokumentasis';
+    protected $table = 'dokumentasi';
 
     public function kegiatan(){
         return $this->belongsTo(Kegiatan::class,'id_kegiatan','id');

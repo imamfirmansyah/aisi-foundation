@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kegiatan extends Model
 {
-    protected $table = 'kegiatans';
+    protected $table = 'kegiatan';
 
     public function dana(){
         return $this->hasOne(Dana::class,'id_kegiatan','id');

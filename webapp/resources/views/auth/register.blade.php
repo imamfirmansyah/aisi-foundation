@@ -26,13 +26,13 @@
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <div class="input-with-icon medium-icons">
-                                        <input id="name" type="text" placeholder="Nama" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required>
+                                        <input id="nama" type="text" placeholder="Nama" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ old('nama') }}" required>
                                         <i class="im im-icon-Male"></i>
                                     </div>
 
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('nama'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('nama') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -81,14 +81,14 @@
                                 <div class="col-md-12">
                                     <div class="radios">
                                         <div class="radio">
-                                            <input type="radio" id="radio-lembaga" name="radio-role">
+                                            <input type="radio" id="radio-lembaga" name="role" value="LEMBAGA">
                                             <label for="radio-lembaga">
                                                 <div class="checker"></div>Lembaga
                                             </label>
                                         </div>
 
                                         <div class="radio">
-                                            <input type="radio" id="radio-umum" name="radio-role">
+                                            <input type="radio" id="radio-umum" name="role" value="UMUM">
                                             <label for="radio-umum">
                                                 <div class="checker"></div>Umum
                                             </label>
