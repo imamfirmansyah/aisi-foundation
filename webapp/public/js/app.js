@@ -49383,10 +49383,10 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\aisi-foundation\webapp\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\xampp\htdocs\aisi-foundation\webapp\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! C:\xampp\htdocs\aisi-foundation\webapp\resources\sass\custom.scss */"./resources/sass/custom.scss");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\aisi-foundation\webapp\resources\sass\login.scss */"./resources/sass/login.scss");
+__webpack_require__(/*! C:\xampp\htdocs\aisi_foundation\webapp\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\xampp\htdocs\aisi_foundation\webapp\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\aisi_foundation\webapp\resources\sass\custom.scss */"./resources/sass/custom.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\aisi_foundation\webapp\resources\sass\login.scss */"./resources/sass/login.scss");
 
 
 /***/ })

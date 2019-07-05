@@ -107,7 +107,7 @@ html, body, #app {
 }
 
 .right-aisi-container {
-  height: 100vh;
+  align-self: stretch;
   display: -webkit-box;
   display: flex;
   -webkit-box-orient: horizontal;
