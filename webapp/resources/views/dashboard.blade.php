@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('pageTitle', 'Dashboard')
-@section('pageHeader', 'Hallo '.\Auth::user()->nama.', Selamat Datang!')
+@section('pageHeader', 'Hallo '. Auth::user()->nama.', Selamat Datang!')
 
 @section('content')
 

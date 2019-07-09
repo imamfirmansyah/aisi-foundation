@@ -31,8 +31,10 @@
                             <div class="left-side">
                                 <!-- Logo -->
                                 <div id="logo">
-                                    <a href="index.html"><img src="{{ asset('images/logo.png') }}" alt=""></a>
-                                    <a href="index.html" class="dashboard-logo aisi-logo-dashboard">
+                                    <a href="{{ url('/') }}" class="aisi-logo-dashboard">
+                                        <span>{{ config('app.name', 'Laravel') }}</span>
+                                    </a>
+                                    <a href="{{ url('/') }}" class="dashboard-logo aisi-logo-dashboard">
                                         <span>{{ config('app.name', 'Laravel') }}</span>
                                     </a>
                                 </div>
@@ -44,10 +46,11 @@
                                     </span>
                                     </button>
                                 </div>
+                                
                                 <!-- Main Navigation -->
                                 <nav id="navigation" class="style-1">
                                     <ul id="responsive">
-                                    
+                                        
                                         <li><a href="#">Home</a>
                                             <ul>
                                                 <li><a href="index.html">Home 1</a></li>
@@ -57,7 +60,7 @@
                                                 <li><a href="index-5.html">Home 5</a></li>
                                             </ul>
                                         </li>
-                                    
+                                        
                                         <li><a href="#">Listings</a>
                                             <ul>
                                                 <li><a href="#">List Layout</a>
@@ -91,7 +94,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                    
+                                        
                                         <li><a class="current" href="#">User Panel</a>
                                             <ul>
                                                 <li><a href="dashboard.html">Dashboard</a></li>
@@ -106,45 +109,45 @@
                                                 <li><a href="dashboard-invoice.html">Invoice</a></li>
                                             </ul>
                                         </li>
-                                    
+                                        
                                         <li><a href="#">Pages</a>
                                             <div class="mega-menu mobile-styles three-columns">
-                                    
-                                                    <div class="mega-menu-section">
-                                                        <ul>
-                                                            <li class="mega-menu-headline">Pages #1</li>
-                                                            <li><a href="pages-user-profile.html"><i class="sl sl-icon-user"></i> User Profile</a></li>
-                                                            <li><a href="pages-booking.html"><i class="sl sl-icon-check"></i> Booking Page</a></li>
-                                                            <li><a href="pages-add-listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>
-                                                            <li><a href="pages-blog.html"><i class="sl sl-icon-docs"></i> Blog</a></li>
-                                                        </ul>
-                                                    </div>
-                                    
-                                                    <div class="mega-menu-section">
-                                                        <ul>
-                                                            <li class="mega-menu-headline">Pages #2</li>
-                                                            <li><a href="pages-contact.html"><i class="sl sl-icon-envelope-open"></i> Contact</a></li>
-                                                            <li><a href="pages-coming-soon.html"><i class="sl sl-icon-hourglass"></i> Coming Soon</a></li>
-                                                            <li><a href="pages-404.html"><i class="sl sl-icon-close"></i> 404 Page</a></li>
-                                                            <li><a href="pages-masonry-filtering.html"><i class="sl sl-icon-equalizer"></i> Masonry Filtering</a></li>
-                                                        </ul>
-                                                    </div>
-                                    
-                                                    <div class="mega-menu-section">
-                                                        <ul>
-                                                            <li class="mega-menu-headline">Other</li>
-                                                            <li><a href="pages-elements.html"><i class="sl sl-icon-settings"></i> Elements</a></li>
-                                                            <li><a href="pages-pricing-tables.html"><i class="sl sl-icon-tag"></i> Pricing Tables</a></li>
-                                                            <li><a href="pages-typography.html"><i class="sl sl-icon-pencil"></i> Typography</a></li>
-                                                            <li><a href="pages-icons.html"><i class="sl sl-icon-diamond"></i> Icons</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    
+                                                
+                                                <div class="mega-menu-section">
+                                                    <ul>
+                                                        <li class="mega-menu-headline">Pages #1</li>
+                                                        <li><a href="pages-user-profile.html"><i class="sl sl-icon-user"></i> User Profile</a></li>
+                                                        <li><a href="pages-booking.html"><i class="sl sl-icon-check"></i> Booking Page</a></li>
+                                                        <li><a href="pages-add-listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>
+                                                        <li><a href="pages-blog.html"><i class="sl sl-icon-docs"></i> Blog</a></li>
+                                                    </ul>
+                                                </div>
+                                                
+                                                <div class="mega-menu-section">
+                                                    <ul>
+                                                        <li class="mega-menu-headline">Pages #2</li>
+                                                        <li><a href="pages-contact.html"><i class="sl sl-icon-envelope-open"></i> Contact</a></li>
+                                                        <li><a href="pages-coming-soon.html"><i class="sl sl-icon-hourglass"></i> Coming Soon</a></li>
+                                                        <li><a href="pages-404.html"><i class="sl sl-icon-close"></i> 404 Page</a></li>
+                                                        <li><a href="pages-masonry-filtering.html"><i class="sl sl-icon-equalizer"></i> Masonry Filtering</a></li>
+                                                    </ul>
+                                                </div>
+                                                
+                                                <div class="mega-menu-section">
+                                                    <ul>
+                                                        <li class="mega-menu-headline">Other</li>
+                                                        <li><a href="pages-elements.html"><i class="sl sl-icon-settings"></i> Elements</a></li>
+                                                        <li><a href="pages-pricing-tables.html"><i class="sl sl-icon-tag"></i> Pricing Tables</a></li>
+                                                        <li><a href="pages-typography.html"><i class="sl sl-icon-pencil"></i> Typography</a></li>
+                                                        <li><a href="pages-icons.html"><i class="sl sl-icon-diamond"></i> Icons</a></li>
+                                                    </ul>
+                                                </div>
+                                                
                                             </div>
                                         </li>
                                         
                                     </ul>
-                                    </nav>
+                                </nav>
                                 <!-- <div class="clearfix"></div> -->
                                 <!-- Main Navigation / End -->
                             </div>
@@ -155,7 +158,7 @@
                                 <div class="header-widget">
                                     <!-- User Menu -->
                                     <div class="user-menu">
-                                        <div class="user-name"><span><img src="{{ asset('images/dashboard-avatar.jpg') }}" alt=""></span>{{ Auth::user()->name }}</div>
+                                        <div class="user-name"><span><img src="{{ asset('images/dashboard-avatar.jpg') }}" alt=""></span>{{ Auth::user()->nama }}</div>
                                         <ul>
                                             <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
                                             <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>

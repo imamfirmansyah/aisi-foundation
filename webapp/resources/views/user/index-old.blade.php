@@ -8,56 +8,49 @@
 @endpush
 
 @section('content')
+
 <div class="row">
+    <div class="col-md-12 text-right">
+        <a href="{{ route('user.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a>
+    </div>
+
     <div class="col-md-12">
-        <a href="{{ route('user.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a>
-        
         <table id="example-table" class="basic-table">
             <thead>
                 <tr>
+                    <th>No</th>
                     <th>Nama</th>
                     <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th></th>
+                    <th>No Hp</th>
+                    <th>Kelamin</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($data as $key => $val)
                 <tr>
-                    <td>
-                        @php
-                            if ( $val->role === "LEMBAGA" ) {
-                                $circle_class = "color-yellow";
-                            } elseif ( $val->role === "UMUM" ) {
-                                $circle_class = "color-red";
-                            } elseif ( $val->role === "STAFF" ) {
-                                $circle_class = "color-green";
-                            } else {
-                                $circle_class = "color-blue";
-                            }
-                        @endphp
-
-                        <span class="datatables-circle-character color-gradient-green {{ $circle_class }}">{{ substr($val->nama, 0, 1) }}</span>
-                        {{ $val->nama }}
-                    </td>
+                    <td>{{ $key+1 }}</td>
+                    <td>{{ $val->nama }}</td>
                     <td>{{ $val->email }}</td>
-                    <td>{{ $val->role }}</td>
-                    <td>                        
-                        {!! $val->jenis_kelamin == 1 ? '<div class="datatables-hexagon-character"><i class="fa fa-check"></i></div> Verified' : '<div class="datatables-hexagon-character unverified"><i class="fa fa-close"></i></div> Unverified' !!}
-                    </td>
+                    <td>{{ $val->no_hp }}</td>
+                    <td>{{ $val->jenis_kelamin == 1 ? 'Pria' : 'Wanita' }}</td>
                     <td>
-                        <div class="aisi-datatables-action">
-                            <a class="aisi-datatables-action-button"></a>
-                            <div class="aisi-datatables-action-content">
-                                <a href="{{ route('user.detail',['id'=>$val->id]) }}" class="aisi-datatables-item"><i class="fa fa-pencil"></i> Ubah</a>
-                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a>
-                            </div>
-                        </div>
+                        <a href="{{ route('user.detail',['id'=>$val->id]) }}" class="button">Edit</a>
+                        <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="button">Hapus</a>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <th>No</th>
+                    <th>Kode</th>
+                    <th>Nama</th>
+                    <th>Jenis</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </tfoot>
         </table>
     </div>    
 </div>
@@ -69,12 +62,12 @@
     $(document).ready(function() {
         $('#example-table').DataTable({
             responsive: true,
-            "dom" : '<"aisi-datatables"<"aisi-datatables-header"lf>t<"aisi-datatables-footer"ip>>',
+            buttons: [
+                { extend: "create" },
+            ],
         });
 
         $('div.dataTables_paginate').addClass("pagination");
-        $(".aisi-datatables-button-add").prependTo(".aisi-datatables-header");
-
     } );
 
     function deleteData(id) {

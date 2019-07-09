@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function index($type = 'ALL')
     {
-        if($type == 'ALL') {
+        if( $type == 'ALL' ) {
             $data = User::all();
         }else{
             $data  = User::where('role',$type)->get();

@@ -5,7 +5,9 @@
 <div class="dashboard-nav">
     <div class="dashboard-nav-inner">
         <ul data-submenu-title="Menu Utama">
-            <li><a href="{{ route('dashboard') }}"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
+            <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}"><i class="sl sl-icon-home"></i> Dashboard</a>
+            </li>
             <!-- <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages <span class="nav-tag messages">2</span></a></li> -->
             <li class="{{ Request::is('barang*') ? 'active' : '' }}">
                 <a href="{{ route('barang.index') }}"><i class="fa fa-calendar-check-o"></i> Barang & Inventaris</a>
@@ -13,7 +15,7 @@
             <li><a href="{{ route('peminjaman.index') }}"><i class="sl sl-icon-plus"></i> Peminjaman</a></li>
         </ul>
         <ul data-submenu-title="Kegiatan">
-            <li>
+            <li class="{{ Request::is('kegiatan*') ? 'active' : '' }}">
                 <a><i class="sl sl-icon-layers"></i> List Kegiatan</a>
                 <ul>
                     <li><a href="{{ route('kegiatan.index',['type'=>'ALL']) }}">Semua <span class="nav-tag green">6</span></a></li>
@@ -27,7 +29,7 @@
             <!-- <li><a href="dashboard-bookmarks.html"><i class="sl sl-icon-heart"></i> Bookmarks</a></li> -->
         </ul>
         <ul data-submenu-title="Member">
-            <li>
+            <li class="{{ Request::is('user*') ? 'active' : '' }}">
                 <a><i class="sl sl-icon-people"></i> List Member</a>
                 <ul>
                     <li><a href="{{ route('user.index',['type'=>'ALL']) }}">Semua <span class="nav-tag green">6</span></a></li>

@@ -1,3 +1,21 @@
+#dashboard {
+  background-color: #f4f7fc;
+}
+#dashboard #titlebar h2 {
+  font-weight: bold;
+  font-size: 24px;
+  margin: 0;
+  letter-spacing: 0.8px;
+}
+
+#navigation {
+  display: none;
+}
+
+.user-menu {
+  margin-right: 0;
+}
+
 .aisi-logo-dashboard {
   color: #fff;
   height: 100%;
@@ -104,4 +122,271 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
   box-shadow: inset 0 0 0 2px #ccc;
   -webkit-transition: box-shadow 0.3s ease;
   transition: box-shadow 0.3s ease;
+}
+
+/* data tables */
+.aisi-datatables table,
+.aisi-datatables table.basic-table tr:nth-child(odd) {
+  background-color: #fff;
+}
+.aisi-datatables table.basic-table {
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.125);
+  margin-top: 0 !important;
+}
+.aisi-datatables table.basic-table th {
+  background-color: transparent;
+  color: #101010;
+}
+.aisi-datatables table.basic-table tr th {
+  font-weight: bold;
+}
+.aisi-datatables table.basic-table tr th,
+.aisi-datatables table.basic-table tr td {
+  border-bottom: 1px solid #f3f5f8;
+}
+.aisi-datatables table.basic-table tr:last-child td {
+  border-bottom: none;
+}
+
+.dataTables_wrapper .aisi-datatables-header {
+  margin-bottom: 25px;
+}
+.dataTables_wrapper .aisi-datatables-header label {
+  color: #101010;
+  font-weight: bold !important;
+  margin: 0;
+}
+.dataTables_wrapper .aisi-datatables-header input {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 10px;
+  margin-left: 10px !important;
+}
+.dataTables_wrapper .aisi-datatables-header select {
+  height: 34px;
+  line-height: 34px;
+  padding: 0 10px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+.dataTables_wrapper .aisi-datatables-header div.dataTables_length {
+  display: inline-block;
+  float: right;
+  border-left: 1px solid #cfd4dd;
+  padding-left: 15px;
+  margin-left: 15px;
+}
+.dataTables_wrapper .aisi-datatables-header .aisi-datatables-button-add {
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 4px 20px;
+  line-height: 26px;
+}
+.dataTables_wrapper .aisi-datatables-footer {
+  margin-top: 25px;
+}
+.dataTables_wrapper .aisi-datatables-footer .dataTables_info {
+  padding: 0;
+  float: left;
+}
+.dataTables_wrapper .aisi-datatables-footer div.dataTables_paginate {
+  float: right;
+}
+.dataTables_wrapper .aisi-datatables-footer div.dataTables_paginate ul.pagination {
+  margin: 0;
+}
+.dataTables_wrapper .aisi-datatables-footer .pagination ul li a {
+  line-height: 32px;
+  height: 32px;
+  width: auto;
+}
+.dataTables_wrapper .aisi-datatables-footer .pagination ul li:not(.previous):not(.next) a {
+  width: 32px;
+}
+
+.datatables-circle-character {
+  width: 32px;
+  height: 32px;
+  background-color: red;
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  margin-right: 10px;
+  line-height: 32px;
+  border-radius: 500px;
+}
+
+.datatables-hexagon-character i {
+  color: #fff;
+  font-size: 9px;
+  position: absolute;
+  text-align: center;
+  width: 18px;
+}
+.datatables-hexagon-character {
+  position: relative;
+  width: 18px;
+  height: 10.39px;
+  background-color: #4a90e2;
+  margin: 5.2px 0;
+  display: inline-block;
+  top: 5px;
+  margin-right: 5px;
+}
+.datatables-hexagon-character:before, .datatables-hexagon-character:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+}
+.datatables-hexagon-character:before {
+  bottom: 100%;
+  border-bottom: 5.2px solid #4a90e2;
+}
+.datatables-hexagon-character:after {
+  top: 100%;
+  width: 0;
+  border-top: 5.2px solid #4a90e2;
+}
+.datatables-hexagon-character.unverified {
+  background-color: #f3103c;
+}
+.datatables-hexagon-character.unverified:before {
+  bottom: 100%;
+  border-bottom: 5.2px solid #f3103c;
+}
+.datatables-hexagon-character.unverified:after {
+  border-top: 5.2px solid #f3103c;
+}
+
+.color-green {
+  background-color: #64bc36;
+}
+
+.color-red {
+  background-color: #ee3535;
+}
+
+.color-yellow {
+  background-color: #b9be1c;
+}
+
+.color-blue {
+  background: #004dda;
+}
+
+.aisi-datatables-action {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  width: 33px;
+  height: 44px;
+  width: 44px;
+  line-height: 44px;
+  border-radius: 500px;
+}
+.aisi-datatables-action:hover {
+  background-color: #f7f7f7;
+}
+.aisi-datatables-action:hover .aisi-datatables-action-content {
+  display: block;
+}
+
+.aisi-datatables-action-button {
+  left: 19px;
+  top: -1px;
+}
+.aisi-datatables-action-button, .aisi-datatables-action-button:before, .aisi-datatables-action-button:after {
+  width: 7px;
+  height: 7px;
+  background-color: #d5d7db;
+  position: relative;
+  display: inline-block;
+  border-radius: 500px;
+}
+.aisi-datatables-action-button:before, .aisi-datatables-action-button:after {
+  content: "";
+  position: absolute;
+}
+.aisi-datatables-action-button:before {
+  left: 13px;
+}
+.aisi-datatables-action-button:after {
+  right: 13px;
+}
+
+.aisi-datatables-action-content {
+  cursor: auto;
+  color: #000;
+  background-color: #fff;
+  display: none;
+  position: absolute;
+  min-width: 124px;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  border: 1px solid #c8c8c8;
+  border-radius: 5px;
+  top: 45px;
+  left: -70px;
+}
+.aisi-datatables-action-content:before, .aisi-datatables-action-content:after {
+  content: "";
+  position: absolute;
+}
+.aisi-datatables-action-content:before {
+  left: 77px;
+  top: -15px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 15px 15px 15px;
+  border-color: transparent transparent #c8c8c8 transparent;
+}
+.aisi-datatables-action-content:after {
+  left: 77px;
+  top: -14px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 15px 15px 15px;
+  border-color: transparent transparent #ffffff transparent;
+}
+
+.aisi-datatables-item {
+  width: 100%;
+  display: block;
+  padding: 8px 23px;
+  line-height: 28px;
+  text-align: left;
+  border: none;
+  white-space: normal;
+  float: none;
+  outline: 0;
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 14px;
+}
+.aisi-datatables-item:last-child {
+  border: none;
+}
+.aisi-datatables-item i {
+  font-size: 16px;
+  color: #7d899d;
+  margin-right: 5px;
+}
+
+/* laptop screen size */
+@media only screen and (max-width: 1365px) {
+  .dashboard #logo {
+    background-color: #333;
+    position: absolute;
+    min-width: 260px;
+    margin: 0;
+  }
+
+  .dashboard #logo a {
+    margin-left: 33px;
+  }
 }
