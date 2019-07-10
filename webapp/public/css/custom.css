@@ -8,6 +8,11 @@
   letter-spacing: 0.8px;
 }
 
+input[type=email]:disabled,
+input[type=text]:disabled {
+  background: #dddddd;
+}
+
 #navigation {
   display: none;
 }
@@ -122,6 +127,11 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
   box-shadow: inset 0 0 0 2px #ccc;
   -webkit-transition: box-shadow 0.3s ease;
   transition: box-shadow 0.3s ease;
+}
+
+.aisi-border {
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.06);
 }
 
 /* data tables */

@@ -19,7 +19,7 @@ class CreateDokumentasiTable extends Migration
             $table->text('keterangan')->nullable();
             $table->text('file')->nullable();
             $table->timestamps();
-            $table->timestamp('deletedAt')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

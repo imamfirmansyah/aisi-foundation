@@ -11,7 +11,6 @@
             <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard') }}"><i class="sl sl-icon-home"></i> Dashboard</a>
             </li>
-            <!-- <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages <span class="nav-tag messages">2</span></a></li> -->
             <li class="{{ Request::is('barang*') ? 'active' : '' }}">
                 <a href="{{ route('barang.index') }}"><i class="fa fa-calendar-check-o"></i> Barang & Inventaris</a>
             </li>

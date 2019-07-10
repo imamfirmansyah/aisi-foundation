@@ -22,7 +22,7 @@ class CreateKegiatanTable extends Migration
             $table->date('tgl_kegiatan')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
-            $table->timestamp('deletedAt')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

@@ -1,6 +1,6 @@
-@extends('login_layouts.template')
+@extends('layouts.auth')
 
-@section('pageTitle', 'Login')
+@section('pageTitle', __('Login'))
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('css/login.css')}}">

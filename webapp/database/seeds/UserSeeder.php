@@ -13,14 +13,60 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'nama' => 'kincat only',
-            'email' => 'kincat@gmail.com',
+            'nama' => 'AISI Administrator',
+            'email' => 'app.aisifoundation@gmail.com',
             'password' => bcrypt('1234'),
-            'alamat' => 'depok',
-            'jenis_kelamin' =>1,
-            'no_hp'=>'018329123',
+            'alamat' => 'Depok',
+            'jenis_kelamin' => 1,
+            'no_hp' => '018329123',
             'foto' => 'user/default.png',
             'role' => 'ADMIN',
+            'validate_status' => 1,
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('users')->insert([
+            'nama' => 'KPMD Depok',
+            'email' => 'kpmd@gmail.com',
+            'password' => bcrypt('1234'),
+            'alamat' => 'Depok',
+            'jenis_kelamin' => 1,
+            'no_hp' => '018329123',
+            'foto' => 'user/default.png',
+            'role' => 'LEMBAGA',
+            'validate_status' => 1,
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('users')->insert([
+            'nama' => 'Staff Yayasan AISI',
+            'email' => 'staff.aisifoundation@gmail.com',
+            'password' => bcrypt('1234'),
+            'alamat' => 'Depok',
+            'jenis_kelamin' => 1,
+            'no_hp' => '018329123',
+            'foto' => 'user/default.png',
+            'role' => 'STAFF',
+            'validate_status' => 1,
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('users')->insert([
+            'nama' => 'Imam Firmansyah',
+            'email' => 'imamfirmansyah27@gmail.com',
+            'password' => bcrypt('1234'),
+            'alamat' => 'Depok',
+            'jenis_kelamin' => 1,
+            'no_hp' => '018329123',
+            'foto' => 'user/default.png',
+            'role' => 'UMUM',
+            'validate_status' => 1,
             'email_verified_at' => date('Y-m-d H:i:s'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -42,6 +88,7 @@ class UserSeeder extends Seeder
                 'no_hp'=> $faker->phoneNumber,
                 'foto' => 'user/default.png',
                 'role' => $role[mt_rand(0,3)],
+                'validate_status' => mt_rand(0,1),
                 'email_verified_at' => $faker->dateTime(),
                 'created_at' => $faker->dateTime(),
                 'updated_at' => $faker->dateTime()

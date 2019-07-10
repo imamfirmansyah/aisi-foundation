@@ -22,7 +22,7 @@ class CreateBarangTable extends Migration
             $table->text('foto')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
-            $table->timestamp('deletedAt')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

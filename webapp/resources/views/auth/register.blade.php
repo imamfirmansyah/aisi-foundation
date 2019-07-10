@@ -1,6 +1,6 @@
-@extends('login_layouts.template')
+@extends('layouts.auth')
 
-@section('pageTitle', 'Login')
+@section('pageTitle', __('Registrasi'))
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('css/login.css')}}">
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 text-center">
                                     <div class="radios">
                                         <div class="radio">
                                             <input type="radio" id="radio-lembaga" name="role" value="LEMBAGA">
@@ -94,6 +94,12 @@
                                             </label>
                                         </div>
                                     </div>
+
+                                    @if ($errors->has('role'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('role') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
                             

@@ -5,8 +5,10 @@
             <!-- Breadcrumbs -->
             <nav id="breadcrumbs">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li>Dashboard</li>
+                    <li><a href="{{ url('/') }}">Dashboard</a></li>
+                    @if(View::hasSection('breadcrumb'))
+                    <li>@yield('breadcrumb')</li>
+                    @endif
                 </ul>
             </nav>
         </div>

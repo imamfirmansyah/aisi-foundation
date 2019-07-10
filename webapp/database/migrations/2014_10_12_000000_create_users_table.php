@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('role')->nullable();
             $table->integer('validate_status')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('deletedAt')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -11,6 +11,11 @@ $primary-color : #fa5b0f;
     }
 }
 
+input[type="email"]:disabled,
+input[type="text"]:disabled {
+  background: #dddddd;
+}
+
 #navigation {
     display: none;
 }
@@ -138,6 +143,10 @@ table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
     }
 }
 
+.aisi-border {
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.06);
+}
 
 /* data tables */
 .aisi-datatables {

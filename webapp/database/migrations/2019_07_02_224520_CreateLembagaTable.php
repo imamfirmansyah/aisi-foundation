@@ -22,7 +22,7 @@ class CreateLembagaTable extends Migration
             $table->string('no_hp')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
-            $table->timestamp('deletedAt')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

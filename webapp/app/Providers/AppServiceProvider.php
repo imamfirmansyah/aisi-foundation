@@ -29,8 +29,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        View::share('jml_user_lembaga', User::where('role','LEMBAGA')->count() );
-        View::share('jml_user_umum', User::where('role','UMUM')->count() );
-        View::share('jml_semua_user', User::count() );
+        if (Schema::hasTable('users'))
+        {
+            View::share('jml_user_lembaga', User::where('role','LEMBAGA')->count() );
+            View::share('jml_user_umum', User::where('role','UMUM')->count() );
+            View::share('jml_semua_user', User::count() );
+        }
     }
 }

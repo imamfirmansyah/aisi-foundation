@@ -2,6 +2,7 @@
 
 @section('pageTitle', 'Daftar Barang dan Inventaris')
 @section('pageHeader', 'Daftar Barang dan Inventaris')
+@section('breadcrumb', 'Barang & Inventaris')
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('plugin/datatables/datatables.min.css')}}">
