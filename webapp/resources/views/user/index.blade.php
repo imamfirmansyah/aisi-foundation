@@ -12,7 +12,7 @@
     <div class="col-md-12">
         <a href="{{ route('user.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a>
         
-        <table id="example-table" class="basic-table">
+        <table id="example-table" class="basic-table" style="width:100%">
             <thead>
                 <tr>
                     <th>Nama</th>
@@ -90,41 +90,41 @@
                 },
             },
         })
-            .then((process) => {
-                if(process){
-                    $.ajax({
-                        url: "{{ route('user.delete') }}",
-                        type: "POST",
-                        data: {
-                            '_token': '{{csrf_token()}}',
-                            'id':id,
-                        },
-                        success: function(data) {
-                            swal({
-                                title: 'Berhasil Hapus Member!',
-                                text: 'Member berhasil di hapus',
-                                icon: 'success',
-                                timer: '2000'
-                            });
-                            table.ajax.reload();
-                        },
-                        error: function(jqXHR, textStatus, errorThrown){
-                            swal({
-                                title: 'System Error',
-                                text: errorThrown,
-                                icon: 'error',
-                                timer: '2000'
-                            });
-                        }
-                    });
-                }else{
-                    swal({
-                        title : 'Data member tidak jadi dihapus',
-                        icon: 'info',
-                        position: 'center',
-                    });
-                }
-            });
+        .then((process) => {
+            if(process){
+                $.ajax({
+                    url: "{{ route('user.delete') }}",
+                    type: "POST",
+                    data: {
+                        '_token': '{{csrf_token()}}',
+                        'id':id,
+                    },
+                    success: function(data) {
+                        swal({
+                            title: 'Berhasil Hapus Member!',
+                            text: 'Member berhasil di hapus',
+                            icon: 'success',
+                            timer: '2000'
+                        });
+                        table.ajax.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        swal({
+                            title: 'System Error',
+                            text: errorThrown,
+                            icon: 'error',
+                            timer: '2000'
+                        });
+                    }
+                });
+            }else{
+                swal({
+                    title : 'Data member tidak jadi dihapus',
+                    icon: 'info',
+                    position: 'center',
+                });
+            }
+        });
     }
 </script>
 @endpush

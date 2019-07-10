@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('no_hp')->nullable();
             $table->string('foto')->nullable();
             $table->string('role')->nullable();
+            $table->integer('validate_status')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('deletedAt')->nullable();
             $table->rememberToken();

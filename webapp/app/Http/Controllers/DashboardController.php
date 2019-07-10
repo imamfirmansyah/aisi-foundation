@@ -18,7 +18,8 @@ class DashboardController extends Controller
     {
         $data['kegiatan'] = Kegiatan::with('lembaga')->orderBy('created_at','desc')->limit(10)->get();
         $data['peminjaman'] = Peminjaman::with(['kegiatan','user','barang'])->orderBy('created_at','desc')->limit(10)->get();
-        return view('dashboard',['data'=>$data]);
+
+        return view('dashboard', ['data' => $data]);
     }
 
 }

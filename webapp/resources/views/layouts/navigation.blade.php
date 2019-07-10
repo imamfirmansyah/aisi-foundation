@@ -1,7 +1,10 @@
 <!-- Navigation -->
 
 <!-- Responsive Navigation Trigger -->
-<a href="{{ route('dashboard') }}" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
+<a href="{{ route('dashboard') }}" class="dashboard-responsive-nav-trigger">
+    <i class="fa fa-reorder"></i> Dashboard Navigation
+</a>
+
 <div class="dashboard-nav">
     <div class="dashboard-nav-inner">
         <ul data-submenu-title="Menu Utama">
@@ -32,9 +35,9 @@
             <li class="{{ Request::is('user*') ? 'active' : '' }}">
                 <a><i class="sl sl-icon-people"></i> List Member</a>
                 <ul>
-                    <li><a href="{{ route('user.index',['type'=>'ALL']) }}">Semua <span class="nav-tag green">6</span></a></li>
-                    <li><a href="{{ route('user.index',['type'=>'LEMBAGA']) }}">Lembaga <span class="nav-tag yellow">1</span></a></li>
-                    <li><a href="{{ route('user.index',['type'=>'UMUM']) }}">Umum <span class="nav-tag red">2</span></a></li>
+                    <li><a href="{{ route('user.index',['type'=>'ALL']) }}">Semua <span class="nav-tag green">{{ $jml_semua_user }}</span></a></li>
+                    <li><a href="{{ route('user.index',['type'=>'LEMBAGA']) }}">Lembaga <span class="nav-tag yellow">{{ $jml_user_lembaga }}</span></a></li>
+                    <li><a href="{{ route('user.index',['type'=>'UMUM']) }}">Umum <span class="nav-tag red">{{ $jml_user_umum }}</span></a></li>
                 </ul>
             </li>
             <li><a href="{{ route('user.profile') }}"><i class="sl sl-icon-user"></i> My Profile</a></li>

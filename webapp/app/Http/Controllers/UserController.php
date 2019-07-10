@@ -17,16 +17,17 @@ class UserController extends Controller
     {
         if( $type == 'ALL' ) {
             $data = User::all();
-        }else{
-            $data  = User::where('role',$type)->get();
+        } else {
+            $data = User::where('role',$type)->get();
         }
-        return view('user.index',['data'=>$data]);
+        return view('user.index', ['data'=>$data]);
     }
 
     public function detail($id)
     {
         $data = User::with('lembaga')->find($id);
-        return view('user.detail',['data'=>$data]);
+        
+        return view('user.detail', ['data'=>$data]);
     }
 
     public function profile()

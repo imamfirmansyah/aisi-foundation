@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
+
+use App\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-         Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
+
+        View::share('jml_user_lembaga', User::where('role','LEMBAGA')->count() );
+        View::share('jml_user_umum', User::where('role','UMUM')->count() );
+        View::share('jml_semua_user', User::count() );
     }
 }
