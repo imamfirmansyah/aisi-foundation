@@ -13,6 +13,9 @@
             </li>
             <li class="{{ Request::is('barang*') ? 'active' : '' }}">
                 <a href="{{ route('barang.index') }}"><i class="fa fa-calendar-check-o"></i> Barang & Inventaris</a>
+                <ul>
+                    <li><a href="{{ route('barang.trash') }}"><i class="fa fa-trash-o"></i> Restore Data</a></li>
+                </ul>
             </li>
             <li><a href="{{ route('peminjaman.index') }}"><i class="sl sl-icon-plus"></i> Peminjaman</a></li>
         </ul>

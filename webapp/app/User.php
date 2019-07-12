@@ -40,11 +40,13 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
-    public function lembaga(){
+    public function lembaga()
+    {
         return $this->hasOne(Lembaga::class,'id_user','id');
     }
 
-    public function peminjaman(){
+    public function peminjaman()
+    {
         return $this->hasMany(Peminjaman::class,'id_user','id');
     }
 

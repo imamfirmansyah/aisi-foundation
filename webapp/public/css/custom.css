@@ -13,6 +13,17 @@ input[type=text]:disabled {
   background: #dddddd;
 }
 
+input[type=file].aisi-input-file {
+  line-height: normal;
+  padding: 12px 20px;
+}
+
+.aisi-form .invalid-feedback {
+  margin-bottom: 22px;
+  color: #f30c0c;
+  display: block;
+}
+
 #navigation {
   display: none;
 }
@@ -161,6 +172,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
 
 .dataTables_wrapper .aisi-datatables-header {
   margin-bottom: 25px;
+  display: inline-block;
+  width: 100%;
 }
 .dataTables_wrapper .aisi-datatables-header label {
   color: #101010;
@@ -302,6 +315,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
 }
 .aisi-datatables-action:hover .aisi-datatables-action-content {
   display: block;
+}
+.aisi-datatables-action.extra-width .aisi-datatables-action-content {
+  min-width: 186px;
 }
 
 .aisi-datatables-action-button {

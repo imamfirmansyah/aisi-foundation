@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Barang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+use App\Barang;
 
 class BarangController extends Controller
 {
@@ -15,15 +17,150 @@ class BarangController extends Controller
 
     public function index()
     {
-         $data = Barang::all();
+         $data = Barang::orderBy('created_at', 'desc')->get();
          return view('barang.index',['data'=>$data]);
+    }
+
+    public function create()
+    {
+        return view('barang.create');
     }
 
     public function detail($id)
     {
         $data = Barang::find($id);
-        return view('barang.detail',['data'=>$data]);
+        return view('barang.detail', ['data'=>$data] );
     }
 
+    public function save(Request $request)
+    {
+
+        $messages = [
+            'required' => ':attribute wajib diisi!',
+            'image' => ':attribute harus berupa gambar!',
+            'mimes' => ':attribute harus berupa file jpeg, png, jpg',
+            'max' => 'maksimal ukuran :attribute sebesar 2Mb'
+        ];
+
+        $request->validate([
+            'nama' => 'required',
+            'jenis_barang' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ], $messages );
+
+        $barang = new Barang();
+
+        $barang->nama = $request->get('nama');
+        $barang->jenis_barang = $request->get('jenis_barang');
+        $barang->keterangan = $request->get('keterangan');
+        $barang->status = '1';
+        $barang->kode_barang = time();
+        
+        $foto = $request->file('foto');
+        $imageName = time().'_'.str_replace(' ','_', $foto->getClientOriginalName());
+        $foto->move( public_path('storage/barang'), $imageName );
+        $barang->foto = $imageName;
+        
+        $barang->save();
+        
+        return redirect('barang')->with('message', 'Data Barang Berhasil ditambahkan');
+
+    }
+
+    public function edit($id) {
+
+        $data = Barang::find($id);
+        return view('barang.edit', [ 'data' => $data ]);
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        
+        $messages = [
+            'required' => ':attribute wajib diisi!',
+            'image' => ':attribute harus berupa gambar!',
+            'mimes' => ':attribute harus berupa file jpeg, png, jpg',
+            'max' => 'maksimal ukuran :attribute sebesar 2Mb'
+        ];
+
+        if( $request->hasFile('foto') && $request->file('foto')->isValid())  {
+            $request->validate([
+                'nama' => 'required',
+                'jenis_barang' => 'required',
+                'status' => 'required',
+                'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            ], $messages );
+        } else {
+            $request->validate([
+                'nama' => 'required',
+                'status' => 'required',
+                'jenis_barang' => 'required'
+            ], $messages );
+        }
+
+        $barang = Barang::find($id);
+        $barang->nama = $request->get('nama');
+        $barang->jenis_barang = $request->get('jenis_barang');
+        $barang->keterangan = $request->get('keterangan');
+        $barang->status = $request->get('status');
+
+        if( $request->hasFile('foto') && $request->file('foto')->isValid())  {
+            $oldFileName = $barang->foto;
+            
+            $foto = $request->file('foto');
+            $imageName = time().'_'.str_replace(' ','_', $foto->getClientOriginalName());
+            $foto->move( public_path('storage/barang'), $imageName );
+
+            if ( file_exists( public_path('storage/barang/'. $oldFileName ) ) ) {
+                unlink( public_path('storage/barang/'. $oldFileName ) );
+            }
+
+            $barang->foto = $imageName;
+        }
+
+        $barang->save();
+        
+        return redirect('barang')->with('message', 'Data Barang Berhasil diubah');
+    }
+
+    public function delete(Request $request)
+    {
+        $barang = Barang::find($request->id);
+        $barang->delete();
+
+        return redirect('barang')->with('message', 'Data Barang Berhasil dihapus');
+    }
+
+    public function trash()
+    {
+        // mengampil data barang yang sudah dihapus
+        $data = Barang::onlyTrashed()->get();
+
+        return view('barang.restore', [ 'data' => $data ]);
+    }
+
+    public function restore($id)
+    {
+        $data = Barang::onlyTrashed()->where('id', $id);
+        $data->restore();
+        
+        return redirect('barang-trash')->with('message', 'Data Barang Berhasil dikembalikan');
+    }
+
+    public function force_delete(Request $request)
+    {
+        $data = Barang::onlyTrashed()->where( 'id', $request->id );
+
+        $barang = $data->get();
+
+        if ( file_exists( public_path('storage/barang/'. $barang[0]->foto ) ) ) {
+            unlink( public_path('storage/barang/'. $barang[0]->foto ) );
+        }
+
+        $data->forceDelete();
+ 
+        return redirect('barang-trash')->with('message', 'Data Barang Berhasil dihapus Permanent');
+    }
 
 }

@@ -8,7 +8,9 @@ class Lembaga extends Model
 {
     protected $table = 'lembaga';
 
-    public function user(){
-        return $this->belongsTo(User::class,'id_user','id');
+    protected $fillable = ['id_user'];
+
+    public function user() {
+        return $this->belongsTo( User::class,'id_user','id' );
     }
 }

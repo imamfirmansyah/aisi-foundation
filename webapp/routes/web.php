@@ -18,10 +18,19 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
+// Route::resource('barang', 'BarangController');
+
 Route::get('/barang','BarangController@index')->name('barang.index');
+Route::get('/barang-create','BarangController@create')->name('barang.create');
+Route::get('/barang-edit/{id}','BarangController@edit')->name('barang.edit');
+Route::put('/barang-update/{id}','BarangController@update')->name('barang.update');
 Route::get('/barang-detail/{id}','BarangController@detail')->name('barang.detail');
 Route::post('/barang-save','BarangController@save')->name('barang.save');
 Route::post('/barang-delete','BarangController@delete')->name('barang.delete');
+Route::get('/barang-trash', 'BarangController@trash')->name('barang.trash');
+Route::get('/barang-restore/{id}', 'BarangController@restore')->name('barang.restore');
+Route::post('/barang-force-delete', 'BarangController@force_delete')->name('barang.force.delete');
+
 
 Route::get('/user/{type}','UserController@index')->name('user.index');
 Route::get('/user-profile','UserController@profile')->name('user.profile');

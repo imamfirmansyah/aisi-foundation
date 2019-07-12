@@ -12,7 +12,7 @@
     <div class="col-md-12">
         <a href="{{ route('user.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a>
         
-        <table id="example-table" class="basic-table" style="width:100%">
+        <table id="aisi-datatables" class="basic-table" style="width:100%">
             <thead>
                 <tr>
                     <th>Nama</th>
@@ -67,7 +67,8 @@
 <script src="{{ url('plugin/datatables/datatables.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#example-table').DataTable({
+        
+        $('#aisi-datatables').DataTable({
             responsive: true,
             "dom" : '<"aisi-datatables"<"aisi-datatables-header"lf>t<"aisi-datatables-footer"ip>>',
         });

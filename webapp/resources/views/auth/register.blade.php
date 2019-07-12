@@ -81,14 +81,14 @@
                                 <div class="col-md-12 text-center">
                                     <div class="radios">
                                         <div class="radio">
-                                            <input type="radio" id="radio-lembaga" name="role" value="LEMBAGA">
+                                            <input type="radio" id="radio-lembaga" name="role" value="LEMBAGA" {{ old('role') === "LEMBAGA" ? 'checked='.'"'.'checked'.'"' : '' }}>
                                             <label for="radio-lembaga">
                                                 <div class="checker"></div>Lembaga
                                             </label>
                                         </div>
 
                                         <div class="radio">
-                                            <input type="radio" id="radio-umum" name="role" value="UMUM">
+                                            <input type="radio" id="radio-umum" name="role" value="UMUM" {{ old('role') === "UMUM" ? 'checked='.'"'.'checked'.'"' : '' }}>
                                             <label for="radio-umum">
                                                 <div class="checker"></div>Umum
                                             </label>
