@@ -19,7 +19,9 @@
                 </ul>
             </li>
             @endif
+            @if( Auth::user()->role !== 'ADMIN' )
             <li><a href="{{ route('peminjaman.index') }}"><i class="sl sl-icon-plus"></i> Peminjaman</a></li>
+            @endif
         </ul>
         @if( Auth::user()->role !== 'UMUM' )
         <ul data-submenu-title="Kegiatan">
