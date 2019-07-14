@@ -7,6 +7,7 @@ use App\Kegiatan;
 use App\Peminjaman;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeminjamanController extends Controller
 {
@@ -20,6 +21,15 @@ class PeminjamanController extends Controller
     {
         $data = Peminjaman::with(['kegiatan','barang','user'])->get();
         return view('peminjaman.index',['data'=>$data]);
+    }
+
+    public function create()
+    {
+        $data['barang'] = Barang::where('status', 1)->get();
+        $data['user'] = User::all();
+        $data['kegiatan'] = Kegiatan::all();
+
+        return view( 'peminjaman.create', ['data'=>$data] );
     }
 
     public function detail($id)

@@ -11,11 +11,12 @@
 
 <div class="row">
     <div class="col-md-12 text-right">
-        <a href="{{ route('kegiatan.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a>
+        <a href="{{ route('kegiatan.create') }}" class="button text-right">Tambah</a>
+        {{-- <a href="{{ route('kegiatan.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a> --}}
     </div>
 
     <div class="col-md-12">
-        <table id="example-table" class="basic-table">
+        <table id="example-table" class="basic-table" style="width: 100%;">
             <thead>
                 <tr>
                     <th>No</th>

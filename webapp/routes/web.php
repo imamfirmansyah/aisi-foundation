@@ -44,11 +44,13 @@ Route::post('/dana-save','DanaController@save')->name('dana.save');
 Route::post('/dana-delete','DanaController@delete')->name('dana.delete');
 
 Route::get('/kegiatan/{type}','KegiatanController@index')->name('kegiatan.index');
+Route::get('/kegiatan-create','KegiatanController@create')->name('kegiatan.create');
 Route::get('/kegiatan-detail/{id}','KegiatanController@detail')->name('kegiatan.detail');
 Route::post('/kegiatan-save','KegiatanController@save')->name('kegiatan.save');
 Route::post('/kegiatan-delete','KegiatanController@delete')->name('kegiatan.delete');
 
 Route::get('/peminjaman','PeminjamanController@index')->name('peminjaman.index');
+Route::get('/peminjaman-create','PeminjamanController@create')->name('peminjaman.create');
 Route::get('/peminjaman-detail/{id}','PeminjamanController@detail')->name('peminjaman.detail');
 Route::post('/peminjaman-save','PeminjamanController@save')->name('peminjaman.save');
 Route::post('/peminjaman-delete','PeminjamanController@delete')->name('peminjaman.delete');

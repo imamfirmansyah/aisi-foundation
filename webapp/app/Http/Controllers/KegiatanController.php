@@ -25,10 +25,16 @@ class KegiatanController extends Controller
         return view( 'kegiatan.index', ['data'=>$data] );
     }
 
+    public function create()
+    {
+        return view('kegiatan.create');
+    }
+
     public function detail($id)
     {
         $data['kegiatan'] = Kegiatan::with('dokumentasi')->find($id);
         $data['lembaga'] = Lembaga::all();
+        
         return view('kegiatan.detail',['data'=>$data]);
     }
 

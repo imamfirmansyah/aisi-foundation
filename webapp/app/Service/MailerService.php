@@ -10,7 +10,7 @@ class MailerService {
                 function ($message) use ($contact) {
                     $message
                         ->to($contact['email'])
-                        ->subject('[Kincat Site] '.$contact['subject']);
+                        ->subject('[Yayasan AISI Foundation] '.$contact['subject']);
                 });
             $result['status'] = true;
         }catch(\Exception $msg){

@@ -491,6 +491,22 @@ table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
     }
 }
 
+.like-icon:hover, .like-icon.liked {
+    background-color: #64bc36;
+}
+
+.like-icon:before {
+    content: "\f067";
+}
+
+.like-icon:after {
+    content: "\f00c";
+}
+
+.checkbox-hidden {
+    display: none !important;
+}
+
 /* laptop screen size */
 @media only screen and (max-width: 1365px) {
     .dashboard #logo {

@@ -20,7 +20,13 @@
             </li>
             @endif
             @if( Auth::user()->role !== 'ADMIN' )
-            <li><a href="{{ route('peminjaman.index') }}"><i class="sl sl-icon-plus"></i> Peminjaman</a></li>
+            <li class="{{ Request::is('peminjaman*') ? 'active' : '' }}">
+                <a><i class="sl sl-icon-plus"></i>Peminjaman</a>
+                <ul>
+                    <li><a href="{{ route('peminjaman.index') }}"> Daftar Peminjaman</a></li>
+                    <li><a href="{{ route('peminjaman.create') }}"> Pinjam Barang</a></li>
+                </ul>
+            </li>
             @endif
         </ul>
         @if( Auth::user()->role !== 'UMUM' )

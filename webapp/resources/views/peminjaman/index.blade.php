@@ -2,6 +2,7 @@
 
 @section('pageTitle', 'Daftar Peminjaman')
 @section('pageHeader', 'Daftar Peminjaman')
+@section('breadcrumb', 'Daftar Peminjaman')
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('plugin/datatables/datatables.min.css')}}">
@@ -39,9 +40,9 @@
                 @foreach($data as $key => $val)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ @$val->barang->nama }}</td>
-                    <td>{{ @$val->user->nama }}</td>
-                    <td>{{ @$val->kegiatan->judul }}</td>
+                    <td>{{ $val->barang->nama }}</td>
+                    <td>{{ $val->user->nama }}</td>
+                    <td>{{ $val->kegiatan->judul }}</td>
                     <td>{{ $val->tgl_pinjam }}</td>
                     <td>{{ $val->tgl_kembali }}</td>
                     <td>{{ $val->status }}</td>
@@ -166,7 +167,7 @@
         calendar.render();
     });
     /* calendar end here */
-    
+
     function deleteData(id) {
         swal({
             title: "Yakin Hapus Data Peminjaman?",

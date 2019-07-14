@@ -30,13 +30,13 @@ class HomeController extends Controller
     public function sendEmail(Request $request)
     {
         $contact = array();
-        $contact['name'] = 'Kincat';
-        $contact['email'] = 'yohankinata@gmail.com';
-        $contact['subject'] = 'Test Email';
-        $contact['message'] = 'WKWKWKW';
+        $contact['name'] = 'Imam Firmansyah';
+        $contact['email'] = 'imamfirmansyah27@gmail.com';
+        $contact['subject'] = 'Hallo Yayasan AISI';
+        $contact['message'] = 'Hello World';
         $mail = MailerService::contact($contact);
 
-        if($mail['status']){
+        if($mail['status']) {
             return "success";
         }else{
             return "failed";

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 #dashboard {
   background-color: #f4f7fc;
 }
@@ -424,6 +425,22 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
 }
 .user-menu.verified .user-name span:after {
   background-color: #4a90e2;
+}
+
+.like-icon:hover, .like-icon.liked {
+  background-color: #64bc36;
+}
+
+.like-icon:before {
+  content: "\F067";
+}
+
+.like-icon:after {
+  content: "\F00C";
+}
+
+.checkbox-hidden {
+  display: none !important;
 }
 
 /* laptop screen size */
