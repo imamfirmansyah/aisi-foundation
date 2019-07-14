@@ -41,7 +41,12 @@
                 </ul>
             </li>
             @if( Auth::user()->role === 'STAFF' )
-            <li><a href="{{ route('dana.index') }}"><i class="sl sl-icon-wallet"></i> Bantuan Dana</a></li>
+            <li class="{{ Request::is('dana*') ? 'active' : '' }}">
+                <a href="{{ route('dana.index') }}"><i class="sl sl-icon-wallet"></i> Bantuan Dana</a>
+                <ul>
+                    <li><a href="{{ route('dana.grafik') }}"> Grafik</a></li>
+                </ul>
+            </li>
             @endif
         </ul>
         @endif

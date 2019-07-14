@@ -63,4 +63,10 @@ class DanaController extends Controller
 
         return redirect('dana')->with('message', 'Data Dana Berhasil diubah');
     }
+
+    public function grafik() {
+        $data = Dana::where('status', 'DISETUJUI')->get();
+        
+        return view('dana.grafik', ['data' => $data]);
+    }
 }

@@ -137,7 +137,8 @@ class KegiatanController extends Controller
 
                 Dana::create([
                     'id_kegiatan' => $id,
-                    'tgl_pengajuan' => date('Y-m-d')
+                    'tgl_pengajuan' => date('Y-m-d'),
+                    'status' => 'PROSES'
                 ]);
             }
         }

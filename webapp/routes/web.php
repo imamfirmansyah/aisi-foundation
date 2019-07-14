@@ -44,6 +44,7 @@ Route::post('/dana-save','DanaController@save')->name('dana.save');
 Route::post('/dana-delete','DanaController@delete')->name('dana.delete');
 Route::get('/dana-edit/{id}','DanaController@edit')->name('dana.edit');
 Route::put('/dana-update/{id}','DanaController@update')->name('dana.update');
+Route::get('/dana-grafik','DanaController@grafik')->name('dana.grafik');
 
 Route::get('/kegiatan/{type}','KegiatanController@index')->name('kegiatan.index');
 Route::get('/kegiatan-create','KegiatanController@create')->name('kegiatan.create');

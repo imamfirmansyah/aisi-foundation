@@ -25,8 +25,8 @@
             @if($data->status === 'DITERIMA')
             <p>
                 <strong>Informasi Dokumentasi</strong> <br>
-                Link Dokumentasi : <a href="{{ $data['dokumentasi'][0]->file }}">Menuju Link</a> <br>
-                Keterangan Dokumentasi : {{ $data['dokumentasi'][0]->keterangan }} <br>
+                Link Dokumentasi : {!! $data['dokumentasi'][0]->file !== null ? '<a target="_blank" href="'. $data['dokumentasi'][0]->file .'">Menuju Link</a>' : 'Belum Tersedia' !!}<br>
+                Keterangan Dokumentasi : {{ $data['dokumentasi'][0]->keterangan !== null ? $data['dokumentasi'][0]->keterangan : "Belum Tersedia" }} <br>
             </p>
             <p>
                 <strong>Status Pengajuan Dana : {{ $data->dana->status }}</strong>
