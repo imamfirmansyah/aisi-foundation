@@ -16,13 +16,13 @@ class KegiatanController extends Controller
 
     public function index($type = 'ALL')
     {
-        if($type == 'ALL'){
+        if( $type == 'ALL' ) {
             $data = Kegiatan::with('lembaga')->get();
-        }else{
+        } else {
             $data = Kegiatan::with('lembaga')->where('status',$type)->get();
         }
 
-        return view('kegiatan.index',['data'=>$data]);
+        return view( 'kegiatan.index', ['data'=>$data] );
     }
 
     public function detail($id)

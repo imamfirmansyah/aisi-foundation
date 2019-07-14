@@ -31,12 +31,12 @@ Route::get('/barang-trash', 'BarangController@trash')->name('barang.trash');
 Route::get('/barang-restore/{id}', 'BarangController@restore')->name('barang.restore');
 Route::post('/barang-force-delete', 'BarangController@force_delete')->name('barang.force.delete');
 
-
 Route::get('/user/{type}','UserController@index')->name('user.index');
 Route::get('/user-profile','UserController@profile')->name('user.profile');
 Route::get('/user-detail/{id}','UserController@detail')->name('user.detail');
 Route::post('/user-save','UserController@save')->name('user.save');
 Route::post('/user-delete','UserController@delete')->name('user.delete');
+Route::put('/user-update/{id}','UserController@update')->name('user.update');
 
 Route::get('/dana','DanaController@index')->name('dana.index');
 Route::get('/dana-detail/{id}','DanaController@detail')->name('dana.detail');

@@ -28,6 +28,7 @@
                         <div class="listing-item-inner">
                             <h3>{{ $data->nama }}</h3>
                             <span>{{ $data->keterangan }}</span>
+                            <p>Kode Barang <strong>{{ $data->kode_barang}}</strong></p>
                         </div>
                     </div>
                 </div>

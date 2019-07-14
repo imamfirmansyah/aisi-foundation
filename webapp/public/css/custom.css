@@ -18,10 +18,17 @@ input[type=file].aisi-input-file {
   padding: 12px 20px;
 }
 
+.chosen-container {
+  margin-bottom: 16px;
+}
+
 .aisi-form .invalid-feedback {
   margin-bottom: 22px;
   color: #f30c0c;
   display: block;
+}
+.aisi-form input[type=submit] {
+  height: 44px;
 }
 
 #navigation {
@@ -401,6 +408,22 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
   font-size: 16px;
   color: #7d899d;
   margin-right: 5px;
+}
+
+/* profile */
+.aisi-profile-titlebar {
+  margin-top: 0;
+  min-height: 100px;
+}
+.aisi-profile-titlebar .user-profile-avatar {
+  top: 0;
+}
+
+.user-menu .user-name span:after {
+  background-color: #f3103c;
+}
+.user-menu.verified .user-name span:after {
+  background-color: #4a90e2;
 }
 
 /* laptop screen size */

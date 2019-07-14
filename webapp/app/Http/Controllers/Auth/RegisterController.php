@@ -70,6 +70,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
+            'validate_status' => 0
         ]);
 
         if ( $data['role'] === 'LEMBAGA') {

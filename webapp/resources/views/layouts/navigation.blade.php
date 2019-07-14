@@ -11,14 +11,17 @@
             <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard') }}"><i class="sl sl-icon-home"></i> Dashboard</a>
             </li>
+            @if( Auth::user()->role === 'STAFF' )
             <li class="{{ Request::is('barang*') ? 'active' : '' }}">
                 <a href="{{ route('barang.index') }}"><i class="fa fa-calendar-check-o"></i> Barang & Inventaris</a>
                 <ul>
                     <li><a href="{{ route('barang.trash') }}"><i class="fa fa-trash-o"></i> Restore Data</a></li>
                 </ul>
             </li>
+            @endif
             <li><a href="{{ route('peminjaman.index') }}"><i class="sl sl-icon-plus"></i> Peminjaman</a></li>
         </ul>
+        @if( Auth::user()->role !== 'UMUM' )
         <ul data-submenu-title="Kegiatan">
             <li class="{{ Request::is('kegiatan*') ? 'active' : '' }}">
                 <a><i class="sl sl-icon-layers"></i> List Kegiatan</a>
@@ -30,10 +33,10 @@
                 </ul>
             </li>
             <li><a href="{{ route('dana.index') }}"><i class="sl sl-icon-wallet"></i> Bantuan Dana</a></li>
-            <!-- <li><a href="dashboard-reviews.html"><i class="sl sl-icon-star"></i> Reviews</a></li> -->
-            <!-- <li><a href="dashboard-bookmarks.html"><i class="sl sl-icon-heart"></i> Bookmarks</a></li> -->
         </ul>
+        @endif
         <ul data-submenu-title="Member">
+            @if( Auth::user()->role === 'STAFF' )
             <li class="{{ Request::is('user*') ? 'active' : '' }}">
                 <a><i class="sl sl-icon-people"></i> List Member</a>
                 <ul>
@@ -42,7 +45,8 @@
                     <li><a href="{{ route('user.index',['type'=>'UMUM']) }}">Umum <span class="nav-tag red">{{ $jml_user_umum }}</span></a></li>
                 </ul>
             </li>
-            <li><a href="{{ route('user.profile') }}"><i class="sl sl-icon-user"></i> My Profile</a></li>
+            @endif
+            <li class="{{ Request::is('user-detail*') || Request::is('user-profile*') ? 'active' : '' }}"><a href="{{ route('user.profile') }}"><i class="sl sl-icon-user"></i> My Profile</a></li>
             <li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>
         </ul>
     </div>

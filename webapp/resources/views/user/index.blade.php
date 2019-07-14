@@ -10,7 +10,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <a href="{{ route('user.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a>
+        {{-- <a href="{{ route('user.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a> --}}
         
         <table id="aisi-datatables" class="basic-table" style="width:100%">
             <thead>
@@ -18,6 +18,7 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Tanggal</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -43,8 +44,9 @@
                     </td>
                     <td>{{ $val->email }}</td>
                     <td>{{ $val->role }}</td>
-                    <td>                        
-                        {!! $val->jenis_kelamin == 1 ? '<div class="datatables-hexagon-character"><i class="fa fa-check"></i></div> Verified' : '<div class="datatables-hexagon-character unverified"><i class="fa fa-close"></i></div> Unverified' !!}
+                    <td>{{ $val->created_at }}</td>
+                    <td>                       
+                        {!! $val->validate_status === 1 ? '<div class="datatables-hexagon-character tooltip bottom" title="Verified"><i class="fa fa-check"></i></div>' : '<div class="datatables-hexagon-character unverified tooltip bottom" title="Belum Terverifikasi"><i class="fa fa-close"></i></div>' !!}
                     </td>
                     <td>
                         <div class="aisi-datatables-action">
