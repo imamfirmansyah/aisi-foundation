@@ -157,7 +157,7 @@
                                     <div class="header-widget">
                                         <!-- User Menu -->
                                         <div class="user-menu {{ Auth::user()->validate_status ? 'verified' : '' }}">
-                                            <div class="user-name"><span><img src="{{ Auth::user()->foto !== '' ? asset( 'storage/avatar/'. Auth::user()->foto ) : asset( 'storage/avatar-boy.png' ) }}" alt="{{ Auth::user()->nama }}"></span>{{ Auth::user()->nama }}</div>
+                                            <div class="user-name"><span><img src="{{ Auth::user()->foto !== '' ? asset( 'storage/avatar/'. Auth::user()->foto ) : asset( 'storage/avatar/avatar-boy.png' ) }}" alt="{{ Auth::user()->nama }}"></span>{{ Auth::user()->nama }}</div>
                                             <ul>
                                                 {{-- <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li> --}}
                                                 {{-- <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Kegiatan</a></li> --}}

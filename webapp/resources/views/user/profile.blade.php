@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="user-profile-titlebar aisi-profile-titlebar">
-                <div class="user-profile-avatar"><img src="{{ Auth::user()->foto !== null ? url( 'storage/avatar/'. Auth::user()->foto ) : url( 'images/avatar-boy.png' )  }}" alt=""></div>
+                <div class="user-profile-avatar"><img src="{{ Auth::user()->foto !== "" ? url( 'storage/avatar/'. Auth::user()->foto ) : url( 'images/avatar-boy.png' )  }}" alt=""></div>
                 <div class="user-profile-name">
                     <h2>{{ Auth::user()->nama }}</h2>
                 </div>
