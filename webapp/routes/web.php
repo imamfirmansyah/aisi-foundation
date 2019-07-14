@@ -53,3 +53,4 @@ Route::get('/peminjaman-detail/{id}','PeminjamanController@detail')->name('pemin
 Route::post('/peminjaman-save','PeminjamanController@save')->name('peminjaman.save');
 Route::post('/peminjaman-delete','PeminjamanController@delete')->name('peminjaman.delete');
 
+Route::get('/test-email', 'HomeController@sendEmail')->name('sendEmail');
