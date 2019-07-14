@@ -14,7 +14,7 @@ class PeminjamanSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        $peminjamans = array();
+        $peminjaman = array();
 
         $status = ['DIPINJAM','DIKEMBALIKAN'];
 
@@ -30,9 +30,9 @@ class PeminjamanSeeder extends Seeder
                 'created_at' => $faker->dateTime(),
                 'updated_at' => $faker->dateTime()
             ];
-            array_push($peminjamans, $data);
+            array_push($peminjaman, $data);
         }
 
-        DB::table('peminjaman')->insert($peminjamans);
+        DB::table('peminjaman')->insert($peminjaman);
     }
 }
