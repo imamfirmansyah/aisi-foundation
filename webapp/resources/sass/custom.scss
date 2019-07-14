@@ -35,6 +35,11 @@ input[type="file"].aisi-input-file {
 
     input[type="submit"] {
         height: 44px;
+        padding: 0px 20px;
+    }
+
+    input#date-picker {
+        border: 1px solid #dbdbdb;
     }
 }
 

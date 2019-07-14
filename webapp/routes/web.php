@@ -42,12 +42,17 @@ Route::get('/dana','DanaController@index')->name('dana.index');
 Route::get('/dana-detail/{id}','DanaController@detail')->name('dana.detail');
 Route::post('/dana-save','DanaController@save')->name('dana.save');
 Route::post('/dana-delete','DanaController@delete')->name('dana.delete');
+Route::get('/dana-edit/{id}','DanaController@edit')->name('dana.edit');
+Route::put('/dana-update/{id}','DanaController@update')->name('dana.update');
 
 Route::get('/kegiatan/{type}','KegiatanController@index')->name('kegiatan.index');
 Route::get('/kegiatan-create','KegiatanController@create')->name('kegiatan.create');
 Route::get('/kegiatan-detail/{id}','KegiatanController@detail')->name('kegiatan.detail');
 Route::post('/kegiatan-save','KegiatanController@save')->name('kegiatan.save');
 Route::post('/kegiatan-delete','KegiatanController@delete')->name('kegiatan.delete');
+Route::post('/kegiatan-save','KegiatanController@save')->name('kegiatan.save');
+Route::get('/kegiatan-edit/{id}','KegiatanController@edit')->name('kegiatan.edit');
+Route::put('/kegiatan-update/{id}','KegiatanController@update')->name('kegiatan.update');
 
 Route::get('/peminjaman','PeminjamanController@index')->name('peminjaman.index');
 Route::get('/peminjaman-create','PeminjamanController@create')->name('peminjaman.create');

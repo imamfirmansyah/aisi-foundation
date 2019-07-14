@@ -26,10 +26,9 @@ class PeminjamanController extends Controller
     public function create()
     {
         $data['barang'] = Barang::where('status', 1)->get();
-        $data['user'] = User::all();
-        $data['kegiatan'] = Kegiatan::all();
+        $data['kegiatan'] = Kegiatan::where( 'id_lembaga', Auth::user()->lembaga->id )->get();
 
-        return view( 'peminjaman.create', ['data'=>$data] );
+        return view( 'peminjaman.create', [ 'data'=>$data ] );
     }
 
     public function detail($id)

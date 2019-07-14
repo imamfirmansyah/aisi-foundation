@@ -5,8 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 use App\User;
+use App\Kegiatan;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,5 +37,12 @@ class AppServiceProvider extends ServiceProvider
             View::share('jml_user_umum', User::where('role','UMUM')->count() );
             View::share('jml_semua_user', User::count() );
         }
+
+        if ( Schema::hasTable('users') ) {
+            View::share('jml_pengajuan_kegiatan', Kegiatan::where('status','PENGAJUAN')->count() );
+            View::share('jml_kegiatan_diterima', Kegiatan::where('status','DITERIMA')->count() );
+            View::share('jml_kegiatan_ditolak', Kegiatan::where('status','DITOLAK')->count() );
+            View::share('jml_semua_kegiatan', Kegiatan::count() );
+        } 
     }
 }

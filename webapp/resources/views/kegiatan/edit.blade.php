@@ -1,21 +1,22 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Tambah Kegiatan')
-@section('pageHeader', 'Pengajuan Kegiatan')
-@section('breadcrumb', 'Pengajuan Kegiatan')
+@section('pageTitle', 'Ubah Kegiatan')
+@section('pageHeader', 'Ubah Kegiatan')
+@section('breadcrumb', 'Ubah Kegiatan')
 
 @push('customCss')
 
 @endpush
 
 @section('content')
-
+    
     <!-- Section -->
     <div class="add-listing-section aisi-form">
-        <form method="POST" action="{{ route('kegiatan.save') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('kegiatan.update', ['id' => $data['kegiatan']->id]) }}" enctype="multipart/form-data">
+            @method('PUT')
             @csrf
 
-            <input type="hidden" name="id_lembaga" value="{{ Auth::user()->lembaga->id }}">
+            <input type="hidden" name="id_lembaga" value="{{ $data['kegiatan']->id_lembaga }}">
             <!-- Headline -->
             <div class="add-listing-headline">
                 <h3><i class="sl sl-icon-doc"></i> Informasi Kegiatan</h3>
@@ -25,7 +26,7 @@
             <div class="row with-forms">
                 <div class="col-md-12">
                     <h5>Nama Kegiatan</h5>
-                    <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Nama Kegiatan">
+                    <input type="text" name="nama" value="{{ $data['kegiatan']->nama }}" placeholder="Nama Kegiatan">
                     @if ($errors->has('nama'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('nama') }}</strong>
@@ -35,8 +36,7 @@
                 <div class="col-md-12">
                     <h5>Tanggal Kegiatan</h5>
                     <!-- Date Range Picker - docs: http://www.daterangepicker.com/ -->
-                    <input name="tgl_kegiatan" type="text" id="date-picker" value="{{ old('tgl_kegiatan') }}" placeholder="Date" readonly="readonly">
-                    
+                    <input name="tgl_kegiatan" type="text" id="date-picker" value="{{ $data['kegiatan']->tgl_kegiatan }}" placeholder="Date" readonly="readonly">
                     @if ($errors->has('tgl_kegiatan'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('tgl_kegiatan') }}</strong>
@@ -45,7 +45,7 @@
                 </div> 
                 <div class="col-md-12">
                     <h5>Desksripsi Singkat Kegiatan</h5>
-                    <textarea name="deskripsi" cols="40" rows="3" placeholder="Desksripsi Singkat Kegiatan">{{ old('deskripsi') }}</textarea>
+                    <textarea name="deskripsi" cols="40" rows="3" placeholder="Desksripsi Singkat Kegiatan">{{ $data['kegiatan']->deskripsi }}</textarea>
                     @if ($errors->has('deskripsi'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('deskripsi') }}</strong>
@@ -54,14 +54,44 @@
                 </div>
                 <div class="col-md-12">
                     <h5>Proposal Kegiatan</h5>
-                    <small><em>Proposal harus berformat .pdf dan maksimal 5Mb</em></small>
+                    <small><em><a href="{{ url( 'storage/proposal/'. $data['kegiatan']->proposal_kegiatan ) }}">{{ $data['kegiatan']->proposal_kegiatan }}</a></em></small>
                     <input type="file" name="proposal_kegiatan" class="aisi-input-file">
                     @if ($errors->has('proposal_kegiatan'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('proposal_kegiatan') }}</strong>
                     </span>
                     @endif
-                </div>  
+                </div>
+
+                @if ( $data['kegiatan']->status === "DITERIMA" && Auth::user()->role !== 'STAFF')
+                <div class="col-md-12">
+                    <h5>Dokumentasi Kegiatan</h5>
+                    <small><em>Sertakan link google drive yang berisi foto-foto kegiatan dan laporan kegiatan berupa file dokumen pada kolom dibawah ini</em></small>
+                    <input type="text" name="link_file" value="{{ $data['dokumentasi'][0]->file }}" placeholder="Link Dokumentasi Kegiatan">
+                </div>
+                <div class="col-md-12">
+                <h5>Keterangan Dokumentasi</h5>
+                    <textarea name="keterangan" cols="40" rows="3" placeholder="Keterangan Dokumentasi Kegiatan">{{ $data['dokumentasi'][0]->keterangan }}</textarea>
+                </div>
+                @endif
+
+                @if ( Auth::user()->role === 'STAFF')
+                <div class="col-md-12">
+                    <h5>Status Pengajuan</h5>
+                    <select name="status" class="chosen-select-no-single" {{ $data['kegiatan']->status === "DITERIMA" ? 'disabled' : '' }}>
+                        <option value="" label="blank">Pilih status</option>
+                        <option value="DITERIMA" {{ $data['kegiatan']->status === "DITERIMA" ? 'selected' : '' }}>DITERIMA</option>
+                        <option value="DITOLAK" {{ $data['kegiatan']->status === "DITOLAK" ? 'selected' : '' }}>DITOLAK</option>
+                        <option value="PENGAJUAN" {{ $data['kegiatan']->status === "PENGAJUAN" ? 'selected' : '' }}>PENGAJUAN</option>
+                    </select>
+                    @if ($errors->has('status'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('status') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                @endif
+
                 <div class="col-md-6">
                     <input type="submit" class="submit button" value="Simpan">
                 </div>

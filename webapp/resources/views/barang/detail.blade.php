@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 
 @section('pageTitle', 'Barang dan Inventaris')
-@section('pageHeader', empty( $data->id ) ? 'Tambah Barang' : 'Edit Barang')
-@section('breadcrumb', empty( $data->id ) ? 'Tambah Barang' : 'Edit Barang')
+@section('pageHeader', 'Detail Barang')
+@section('breadcrumb', 'Detail Barang')
 
 @push('customCss')
 
@@ -36,6 +36,7 @@
             <a class="button" href="{{ route('barang.index') }}">Kembali</a>
         </div>
     </div>
+    
 @endsection
 @push('customJs')
 

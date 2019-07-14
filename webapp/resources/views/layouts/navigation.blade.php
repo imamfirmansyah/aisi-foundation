@@ -34,13 +34,15 @@
             <li class="{{ Request::is('kegiatan*') ? 'active' : '' }}">
                 <a><i class="sl sl-icon-layers"></i> List Kegiatan</a>
                 <ul>
-                    <li><a href="{{ route('kegiatan.index',['type'=>'ALL']) }}">Semua <span class="nav-tag green">6</span></a></li>
-                    <li><a href="{{ route('kegiatan.index',['type'=>'DITERIMA']) }}">Diterima <span class="nav-tag yellow">1</span></a></li>
-                    <li><a href="{{ route('kegiatan.index',['type'=>'DITOLAK']) }}">Ditolak <span class="nav-tag red">2</span></a></li>
-                    <li><a href="{{ route('kegiatan.index',['type'=>'PENGAJUAN']) }}">Pengajuan <span class="nav-tag blue">2</span></a></li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'ALL']) }}">Semua {!! Auth::user()->role === 'STAFF' ? '<span class="nav-tag green">'. $jml_semua_kegiatan . '</span>' : '' !!}</a></li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'DITERIMA']) }}">Diterima {!! Auth::user()->role === 'STAFF' ? '<span class="nav-tag yellow">'. $jml_kegiatan_diterima . '</span>' : '' !!}</a></li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'DITOLAK']) }}">Ditolak {!! Auth::user()->role === 'STAFF' ? '<span class="nav-tag red">'. $jml_kegiatan_ditolak . '</span>' : '' !!}</a></li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'PENGAJUAN']) }}">Pengajuan {!! Auth::user()->role === 'STAFF' ? '<span class="nav-tag blue">'. $jml_pengajuan_kegiatan . '</span>' : '' !!}</a></li>
                 </ul>
             </li>
+            @if( Auth::user()->role === 'STAFF' )
             <li><a href="{{ route('dana.index') }}"><i class="sl sl-icon-wallet"></i> Bantuan Dana</a></li>
+            @endif
         </ul>
         @endif
         <ul data-submenu-title="Member">

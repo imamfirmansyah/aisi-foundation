@@ -2,6 +2,7 @@
 
 @section('pageTitle', 'Daftar Kegiatan')
 @section('pageHeader', 'Daftar Kegiatan')
+@section('breadcrumb', 'Daftar Kegiatan')
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('plugin/datatables/datatables.min.css')}}">
@@ -10,18 +11,29 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-12 text-right">
-        <a href="{{ route('kegiatan.create') }}" class="button text-right">Tambah</a>
-        {{-- <a href="{{ route('kegiatan.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a> --}}
-    </div>
-
     <div class="col-md-12">
-        <table id="example-table" class="basic-table" style="width: 100%;">
+        @if( session()->has('message') )
+        <div class="notification success closeable margin-bottom-30">
+            <p>{{ session()->get('message') }}</p>
+            <a class="close" href="#"></a>
+        </div>
+        @endif
+        
+        @if( Auth::user()->validate_status && Auth::user()->role !== 'STAFF' && Auth::user()->role !== 'ADMIN' )
+        <a href="{{ route('kegiatan.create') }}" class="button aisi-datatables-button-add">Tambah</a>
+        @else
+        <div class="notification success closeable margin-bottom-30">
+            <p>Pengjuan Kegiatan Hanya untuk Lembaga yang sudah terverifikasi, lengkapi informasi profile anda melalui halaman <a href="{{ url('user-profile') }}">profile</a></p>
+            <a class="close" href="#"></a>
+        </div>
+        @endif
+
+        <table id="aisi-datatables" class="basic-table" style="width: 100%;">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Lembaga</th>
-                    <th>Judul</th>
+                    <th>Nama Kegiatan</th>
                     <th>Tgl Kegiatan</th>
                     <th>Status</th>
                     <th>Aksi</th>
@@ -31,27 +43,22 @@
                 @foreach($data as $key => $val)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ @$val->lembaga->nama }}</td>
-                    <td>{{ $val->judul }}</td>
+                    <td>{{ $val->lembaga->nama }}</td>
+                    <td><a href="{{ route('kegiatan.detail', ['id' => $val->id] ) }}" class="tooltip bottom" title="{{ $val->deskripsi }}">{{ $val->nama }}</a></td>
                     <td>{{ $val->tgl_kegiatan }}</td>
                     <td>{{ $val->status }}</td>
-                    <td>
-                        <a href="{{ route('kegiatan.detail',['id'=>$val->id]) }}" class="button">Edit</a>
-                        <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="button">Hapus</a>
+                    <td>                        
+                        <div class="aisi-datatables-action">
+                            <a class="aisi-datatables-action-button"></a>
+                            <div class="aisi-datatables-action-content">
+                                <a href="{{ route('kegiatan.edit',['id' => $val->id]) }}" class="aisi-datatables-item"><i class="fa fa-pencil"></i> Ubah</a>
+                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th>Lembaga</th>
-                    <th>Judul</th>
-                    <th>Tgl Kegiatan</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </tfoot>
         </table>
     </div>    
 </div>
@@ -61,11 +68,13 @@
 <script src="{{ url('plugin/datatables/datatables.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#example-table').DataTable({
+        $('#aisi-datatables').DataTable({
             responsive: true,
+            "dom" : '<"aisi-datatables"<"aisi-datatables-header"lf>t<"aisi-datatables-footer"ip>>',
         });
 
         $('div.dataTables_paginate').addClass("pagination");
+        $(".aisi-datatables-button-add").prependTo(".aisi-datatables-header");
     } );
 
     function deleteData(id) {

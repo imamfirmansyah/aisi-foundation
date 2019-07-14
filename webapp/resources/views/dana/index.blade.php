@@ -10,12 +10,21 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-12 text-right">
+    {{-- <div class="col-md-12">
         <a href="{{ route('dana.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a>
-    </div>
+    </div> --}}
 
     <div class="col-md-12">
-        <table id="example-table" class="basic-table">
+        @if( session()->has('message') )
+        <div class="notification success closeable margin-bottom-30">
+            <p>{{ session()->get('message') }}</p>
+            <a class="close" href="#"></a>
+        </div>
+        @endif
+
+        {{-- <a href="{{ route('dana.create')  }}" class="button aisi-datatables-button-add">Tambah</a> --}}
+
+        <table id="aisi-datatables" class="basic-table" style="width:100%;">
             <thead>
                 <tr>
                     <th>No</th>
@@ -32,30 +41,24 @@
                 @foreach($data as $key => $val)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $val->kegiatan->judul }}</td>
+                    <td>{{ $val->kegiatan->nama }}</td>
                     <td>{{ number_format($val->jumlah_pengajuan) }}</td>
                     <td>{{ number_format($val->jumlah_pencairan) }}</td>
                     <td>{{ $val->tgl_pengajuan }}</td>
                     <td>{{ $val->tgl_pencairan }}</td>
                     <td>{{ $val->status }}</td>
-                    <td>
-                        <a href="{{ route('dana.detail',['id'=>$val->id]) }}" class="button">Edit</a>
-                        <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="button">Hapus</a>
+                    <td>                        
+                        <div class="aisi-datatables-action">
+                            <a class="aisi-datatables-action-button"></a>
+                            <div class="aisi-datatables-action-content">
+                                <a href="{{ route('dana.edit',['id' => $val->id]) }}" class="aisi-datatables-item"><i class="fa fa-pencil"></i> Ubah</a>
+                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
-                    <th>Jenis</th>
-                    <th>Status</th>
-                    <th>Foto</th>
-                    <th>Aksi</th>
-                </tr>
-            </tfoot>
         </table>
     </div>    
 </div>
@@ -65,11 +68,13 @@
 <script src="{{ url('plugin/datatables/datatables.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#example-table').DataTable({
+        $('#aisi-datatables').DataTable({
             responsive: true,
+            "dom" : '<"aisi-datatables"<"aisi-datatables-header"lf>t<"aisi-datatables-footer"ip>>',
         });
 
         $('div.dataTables_paginate').addClass("pagination");
+        $(".aisi-datatables-button-add").prependTo(".aisi-datatables-header");
     } );
 
     function deleteData(id) {

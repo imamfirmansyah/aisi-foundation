@@ -68,38 +68,31 @@
                     @endforeach
                 </div>
             </div>
-
-
             
-
-        <!-- Title -->
-        <div class="row with-forms">
-            <div class="col-md-6">
-                <h5>Kegiatan</h5>
-                <select class="chosen-select-no-single" >
-                    <option label="blank">Pilih Kegiatan</option>
-                    @foreach($data['kegiatan'] as $key => $kegiatan)
+            <!-- Title -->
+            <div class="row with-forms">
+                <div class="col-md-12">
+                    <h5>Kegiatan</h5>
+                    <select class="chosen-select-no-single" >
+                        <option label="blank">Pilih Kegiatan</option>
+                        @foreach($data['kegiatan'] as $key => $kegiatan)
                         <option {{ @$kegiatan->id == @$data['peminjaman']->id_kegiatan ? 'selected' : '' }}>{{ $kegiatan->judul }}</option>
-                    @endforeach
-                </select>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <h5>Keterangan</h5>
+                    <textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true">{{ @$data['peminjaman']->keterangan }}</textarea>
+                </div>
+                <div class="col-md-12">
+                    <h5>Status</h5>
+                    <select class="chosen-select-no-single" >
+                        <option label="blank">Pilih status</option>
+                        <option {{ @$data['peminjaman']->status == 'ACTIVE' ? 'selected' : '' }}>ACTIVE</option>
+                        <option {{ @$data['peminjaman']->status == 'INACTIVE' ? 'selected' : '' }}>INACTIVE</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h5>Keterangan</h5>
-                <textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true">{{ @$data['peminjaman']->keterangan }}</textarea>
-            </div>
-        </div>
-
-        <!-- Title -->
-        <div class="row with-forms">
-            <div class="col-md-6">
-                <h5>Status</h5>
-                <select class="chosen-select-no-single" >
-                    <option label="blank">Pilih status</option>
-                    <option {{ @$data['peminjaman']->status == 'ACTIVE' ? 'selected' : '' }}>ACTIVE</option>
-                    <option {{ @$data['peminjaman']->status == 'INACTIVE' ? 'selected' : '' }}>INACTIVE</option>
-                </select>
-            </div>
-        </div>
 
         <a class="button margin-top-15">Simpan</a>
         <a class="button margin-top-15" href="{{ route('peminjaman.index') }}">Batal</a>

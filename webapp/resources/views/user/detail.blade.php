@@ -21,7 +21,7 @@
         <form method="POST" action="{{ route('user.update', ['id' => $data->id] ) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-6 col-md-6">
             <div class="dashboard-list-box margin-top-0">
                 <h4 class="gray">Informasi Member</h4>
                 
@@ -111,7 +111,7 @@
         </div>
     
     @if( !empty( $data->lembaga->id ) )
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-6 col-md-6">
             <div class="dashboard-list-box margin-top-0">
                 <h4 class="gray">Informasi Lembaga</h4>
 

@@ -30,6 +30,10 @@ input[type=file].aisi-input-file {
 }
 .aisi-form input[type=submit] {
   height: 44px;
+  padding: 0px 20px;
+}
+.aisi-form input#date-picker {
+  border: 1px solid #dbdbdb;
 }
 
 #navigation {

@@ -10,7 +10,7 @@
     <div class="col-lg-3 col-md-6">
         <div class="dashboard-stat color-1">
             <div class="dashboard-stat-content">
-                <h4>19</h4>
+                <h4>{{ $data['total_kegiatan'] }}</h4>
                 <span>Kegiatan Berjalan</span>
             </div>
             <div class="dashboard-stat-icon"><i class="im im-icon-Map2"></i></div>
@@ -20,7 +20,7 @@
     <div class="col-lg-3 col-md-6">
         <div class="dashboard-stat color-2">
             <div class="dashboard-stat-content">
-                <h4>27</h4>
+                <h4>{{ $data['total_dana'] }}</h4>
                 <span>Pengajuan Dana</span>
             </div>
             <div class="dashboard-stat-icon"><i class="im im-icon-Line-Chart"></i></div>
@@ -30,7 +30,7 @@
     <div class="col-lg-3 col-md-6">
         <div class="dashboard-stat color-3">
             <div class="dashboard-stat-content">
-                <h4>87</h4>
+                <h4>{{ $data['total_member'] }}</h4>
                 <span>Total Member</span>
             </div>
             <div class="dashboard-stat-icon"><i class="im im-icon-Add-UserStar"></i></div>

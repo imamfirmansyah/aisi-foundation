@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Kegiatan extends Model
 {
     protected $table = 'kegiatan';
+    protected $fillable = [
+        'id_lembaga',
+        'nama',
+        'deskripsi',
+        'proposal_kegiatan',
+        'tgl_kegiatan',
+        'status'
+    ];
 
     public function dana(){
         return $this->hasOne(Dana::class,'id_kegiatan','id');
