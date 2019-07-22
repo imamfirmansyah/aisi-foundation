@@ -26,7 +26,9 @@ class PeminjamanController extends Controller
     public function create()
     {
         $data['barang'] = Barang::where('status', 1)->get();
-        $data['kegiatan'] = Kegiatan::where( 'id_lembaga', Auth::user()->lembaga->id )->get();
+        // $data['kegiatan'] = User::with('kegiatan')->get();
+        // $data['kegiatan'] = Kegiatan::where( 'id_lembaga', Auth::user()->lembaga->id )->get();
+        $data['kegiatan'] = Kegiatan::get();
 
         return view( 'peminjaman.create', [ 'data'=>$data ] );
     }
@@ -40,5 +42,18 @@ class PeminjamanController extends Controller
         return view('peminjaman.detail',['data'=>$data]);
     }
 
+    public function save(Request $request)
+    {
+        $messages = [
+            'required' => ':attribute wajib diisi!',
+            'image' => ':attribute harus berupa gambar!',
+            'mimes' => ':attribute harus berupa file jpeg, png, jpg',
+            'max' => 'maksimal ukuran :attribute sebesar 2Mb'
+        ];
+
+        $request->validate([
+            'tgl_peminjaman' => 'required'
+        ], $messages );
+    }
 
 }

@@ -22,7 +22,8 @@
             <div class="row with-forms">
                 <div class="col-md-12">
                     <h5>Tanggal Peminjaman</h5>
-                    <input type="text" id="date-picker" placeholder="Tanggal Peminjaman" readonly="readonly">
+                    <input name="tgl_peminjaman" type="text" id="date-picker" placeholder="Tanggal Peminjaman" readonly="readonly">
+                    {{-- {{ dd($data) }} --}}
                 </div>
             </div>
 
@@ -48,7 +49,7 @@
                 <div class="projects isotope-wrapper">
                     @foreach($data['barang'] as $key => $val)
                         <!-- Listing Item -->
-                        <div class="col-lg-4 col-md-6 isotope-item{{ strtolower($val->jenis_barang) }}">
+                        <div class="col-lg-4 col-md-6 isotope-item {{ strtolower($val->jenis_barang) }}">
                             <div class="listing-item-container compact">
                                 <div class="listing-item">
                                     <img src="{{ url('storage/barang/'.$val->foto) }}" alt="{{ $val->nama }}">
@@ -59,7 +60,7 @@
                                         <span>{{ $val->keterangan }}</span>
                                     </div>
                                     <span class="like-icon">
-                                        <input class="checkbox-hidden" type="checkbox" name="barang" value="{{ $val->id }}">
+                                        <input class="checkbox-hidden" type="checkbox" name="barang[]" value="{{ $val->id }}">
                                     </span>
                                 </div>
                             </div>
@@ -71,7 +72,7 @@
             
             <!-- Title -->
             <div class="row with-forms">
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <h5>Kegiatan</h5>
                     <select class="chosen-select-no-single" >
                         <option label="blank">Pilih Kegiatan</option>
@@ -79,11 +80,12 @@
                         <option {{ @$kegiatan->id == @$data['peminjaman']->id_kegiatan ? 'selected' : '' }}>{{ $kegiatan->judul }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
                 <div class="col-md-12">
                     <h5>Keterangan</h5>
-                    <textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true">{{ @$data['peminjaman']->keterangan }}</textarea>
+                    <textarea name="keterangan" cols="40" rows="3" placeholder="Keterangan Peminjaman"></textarea>
                 </div>
+                @if(Auth::user()->role === "STAFF")
                 <div class="col-md-12">
                     <h5>Status</h5>
                     <select class="chosen-select-no-single" >
@@ -92,10 +94,15 @@
                         <option {{ @$data['peminjaman']->status == 'INACTIVE' ? 'selected' : '' }}>INACTIVE</option>
                     </select>
                 </div>
+                @endif
+           
+                <div class="col-md-6">
+                    <input type="submit" class="submit button" value="Simpan">
+                </div>
+                <div class="col-md-6 text-right">
+                    <a class="button" href="{{ route('peminjaman.index') }}">Batal</a>
+                </div>
             </div>
-
-        <a class="button margin-top-15">Simpan</a>
-        <a class="button margin-top-15" href="{{ route('peminjaman.index') }}">Batal</a>
         
         </form>
     </div>
@@ -127,6 +134,9 @@
     $('#date-picker').daterangepicker({
         "opens": "left",
         // singleDatePicker: true,
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
 
         // Disabling Date Ranges
         isInvalidDate: function(date) {
