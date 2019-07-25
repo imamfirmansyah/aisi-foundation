@@ -13,9 +13,17 @@
             </li>
             @if( Auth::user()->role === 'STAFF' )
             <li class="{{ Request::is('barang*') ? 'active' : '' }}">
-                <a href="{{ route('barang.index') }}"><i class="fa fa-calendar-check-o"></i> Barang & Inventaris</a>
+                <a><i class="fa fa-inbox"></i> Barang & Inventaris</a>
                 <ul>
-                    <li><a href="{{ route('barang.trash') }}"><i class="fa fa-trash-o"></i> Restore Data</a></li>
+                    <li><a href="{{ route('barang.index') }}">Daftar Barang & Inventaris</a></li>
+                    <li><a href="{{ route('barang.trash') }}">Restore Data</a></li>
+                </ul>
+            </li>
+            <li class="{{ Request::is('kategori-barang*') ? 'active' : '' }}">
+                <a><i class="fa fa-calendar-check-o"></i> Kategori Barang</a>
+                <ul>
+                    <li><a href="{{ route('kategori_barang.index') }}">Daftar Kategori</a></li>
+                    <li><a href="{{ route('kategori_barang.trash') }}">Restore Data</a></li>
                 </ul>
             </li>
             @endif

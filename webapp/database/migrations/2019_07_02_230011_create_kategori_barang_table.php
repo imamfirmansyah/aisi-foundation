@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLembagaTable extends Migration
+class CreateKategoriBarangTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateLembagaTable extends Migration
      */
     public function up()
     {
-        Schema::create('lembaga', function (Blueprint $table) {
+        Schema::create('kategori_barang', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_user');
             $table->string('nama')->nullable();
-            $table->string('email')->nullable();
-            $table->text('alamat')->nullable();
-            $table->string('no_hp')->nullable();
-            $table->text('keterangan')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
@@ -33,6 +28,6 @@ class CreateLembagaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lembaga');
+        Schema::dropIfExists('kategori_barang');
     }
 }

@@ -11,6 +11,10 @@ class Barang extends Model
 
     protected $table = 'barang';
     protected $dates = ['deleted_at'];
+
+    protected $primaryKey = 'kode_barang';
+    protected $keyType = 'string';
+    public $incrementing = false;
     
     protected $fillable = [
         'kode_barang',
@@ -22,6 +26,10 @@ class Barang extends Model
     ];
 
     public function peminjaman() {
-        return $this->hasMany(Peminjaman::class,'id_barang','id');
+        return $this->hasMany( Peminjaman::class, 'id_barang', 'id' );
+    }
+
+    public function kategori_barang() {
+        return $this->belongsTo( KategoriBarang::class, 'id_kategori_barang','id');
     }
 }

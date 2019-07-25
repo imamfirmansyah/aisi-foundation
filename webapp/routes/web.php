@@ -18,8 +18,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-// Route::resource('barang', 'BarangController');
-
+/* -- barang dan inventaris -- */
 Route::get('/barang','BarangController@index')->name('barang.index');
 Route::get('/barang-create','BarangController@create')->name('barang.create');
 Route::get('/barang-edit/{id}','BarangController@edit')->name('barang.edit');
@@ -30,6 +29,17 @@ Route::post('/barang-delete','BarangController@delete')->name('barang.delete');
 Route::get('/barang-trash', 'BarangController@trash')->name('barang.trash');
 Route::get('/barang-restore/{id}', 'BarangController@restore')->name('barang.restore');
 Route::post('/barang-force-delete', 'BarangController@force_delete')->name('barang.force.delete');
+
+/* -- katgori barang -- */
+Route::get('/kategori-barang','KategoriBarangController@index')->name('kategori_barang.index');
+Route::get('/kategori-barang-create','KategoriBarangController@create')->name('kategori_barang.create');
+Route::post('/kategori-barang-save','KategoriBarangController@save')->name('kategori_barang.save');
+Route::get('/kategori-barang-edit/{id}','KategoriBarangController@edit')->name('kategori_barang.edit');
+Route::put('/kategori-barang-update/{id}','KategoriBarangController@update')->name('kategori_barang.update');
+Route::post('/kategori-barang-delete','KategoriBarangController@delete')->name('kategori_barang.delete');
+Route::get('/kategori-barang-trash', 'KategoriBarangController@trash')->name('kategori_barang.trash');
+Route::get('/kategori-barang-restore/{id}', 'KategoriBarangController@restore')->name('kategori_barang.restore');
+Route::post('/kategori-barang-force-delete', 'KategoriBarangController@force_delete')->name('kategori_barang.force.delete');
 
 Route::get('/user/{type}','UserController@index')->name('user.index');
 Route::get('/user-profile','UserController@profile')->name('user.profile');

@@ -13,7 +13,7 @@ class Dokumentasi extends Model
         'file'
     ];
     
-    public function kegiatan(){
-        return $this->belongsTo(Kegiatan::class,'id_kegiatan','id');
+    public function kegiatan() {
+        return $this->belongsTo( Kegiatan::class, 'id_kegiatan', 'id' );
     }
 }

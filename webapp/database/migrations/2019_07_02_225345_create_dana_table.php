@@ -15,7 +15,9 @@ class CreateDanaTable extends Migration
     {
         Schema::create('dana', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_kegiatan');
+            $table->bigInteger('id_kegiatan')->unsigned();
+            $table->foreign('id_kegiatan')->references('id')->on('kegiatan')->onDelete('CASCADE');
+            
             $table->decimal('jumlah_pengajuan',8,0)->nullable();
             $table->decimal('jumlah_pencairan',8,0)->nullable();
             $table->text('keterangan')->nullable();

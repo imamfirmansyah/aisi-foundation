@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Daftar Barang dan Inventaris')
-@section('pageHeader', 'Daftar Barang dan Inventaris')
-@section('breadcrumb', 'Barang & Inventaris')
+@section('pageTitle', 'Daftar Kategori')
+@section('pageHeader', 'Daftar Kategori')
+@section('breadcrumb', 'Daftar Kategori')
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('plugin/datatables/datatables.min.css')}}">
@@ -18,36 +18,28 @@
             <a class="close" href="#"></a>
         </div>
         @endif
-        
-        <a href="{{ route('barang.create')  }}" class="button aisi-datatables-button-add">Tambah</a>
+
+        <a href="{{ route('kategori_barang.create')  }}" class="button aisi-datatables-button-add">Tambah</a>
         
         <table id="aisi-datatables" class="basic-table" style="width:100%">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
-                    <th>Jenis</th>
-                    <th>Status</th>
-                    <th>Foto</th>
+                    <th>Nama Kategori</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($data as $key => $val)
                 <tr>
-                    <td>{{ $key+1 }}</td>
-                    <td>{{ $val->kode_barang }}</td>
-                    <td><a href="{{ route('barang.detail', ['id' => $val->kode_barang] ) }}" class="tooltip bottom" title="{{ $val->keterangan }}">{{ $val->nama }}</a></td>
-                    <td>{{ $val->kategori_barang->nama }}</td>
-                    <td>{{ $val->status ? "AKTIF" : "TIDAK AKTIF" }}</td>
-                    <td><img src="{{ url('storage/barang/'.$val->foto) }}" width="100" height="auto"></td>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $val->nama }}</td>
                     <td>                        
                         <div class="aisi-datatables-action">
                             <a class="aisi-datatables-action-button"></a>
                             <div class="aisi-datatables-action-content">
-                                <a href="{{ route('barang.edit',['id' => $val->kode_barang ]) }}" class="aisi-datatables-item"><i class="fa fa-pencil"></i> Ubah</a>
-                                <a href="javascript:;" onclick="deleteData({{ $val->kode_barang }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a>
+                                <a href="{{ route('kategori_barang.edit',['id' => $val->id]) }}" class="aisi-datatables-item"><i class="fa fa-pencil"></i> Ubah</a>
+                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a>
                             </div>
                         </div>
                     </td>
@@ -88,11 +80,11 @@
         .then((process) => {
             if(process){
                 $.ajax({
-                    url: "{{ route('barang.delete') }}", 
+                    url: "{{ route('kategori_barang.delete') }}", 
                     type: "POST",
                     data: {
                         '_token': '{{csrf_token()}}',
-                        'kode_barang': id,
+                        'id':id,
                     },
                     success: function(data) {
                         swal({

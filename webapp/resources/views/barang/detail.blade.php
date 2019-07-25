@@ -18,7 +18,7 @@
                     <!-- Image -->
                     <div class="listing-item-image">
                         <img src="{{ url('storage/barang/'.$data->foto) }}" alt="{{ $data->nama }}">
-                        <span class="tag">{{ $data->jenis_barang }}</span>
+                        <span class="tag">{{ $data->kategori_barang->nama }}</span>
                     </div>
 
                     <!-- Content -->

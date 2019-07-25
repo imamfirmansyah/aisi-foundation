@@ -23,7 +23,7 @@
         <a href="{{ route('kegiatan.create') }}" class="button aisi-datatables-button-add">Tambah</a>
         @else
         <div class="notification success closeable margin-bottom-30">
-            <p>Pengjuan Kegiatan Hanya untuk Lembaga yang sudah terverifikasi, lengkapi informasi profile anda melalui halaman <a href="{{ url('user-profile') }}">profile</a></p>
+            <p>Pengajuan Kegiatan Hanya untuk Lembaga yang sudah terverifikasi, lengkapi informasi profile anda melalui halaman <a href="{{ url('user-profile') }}"><strong>profile</strong></a></p>
             <a class="close" href="#"></a>
         </div>
         @endif

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBarangTable extends Migration
+class CreatePeminjamanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateBarangTable extends Migration
      */
     public function up()
     {
-        Schema::create('barang', function (Blueprint $table) {
+        Schema::create('peminjaman', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode_barang')->nullable();
-            $table->string('nama')->nullable();
-            $table->string('jenis_barang')->nullable();
+            $table->bigInteger('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('user')->onDelete('CASCADE');
+            $table->bigInteger('id_kegiatan')->nullable()->unsigned();
+            $table->foreign('id_kegiatan')->references('id')->on('kegiatan')->onDelete('CASCADE');
+
             $table->text('keterangan')->nullable();
-            $table->text('foto')->nullable();
+            $table->date('tgl_pinjam')->nullable();
+            $table->date('tgl_kembali')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
@@ -33,6 +36,6 @@ class CreateBarangTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang');
+        Schema::dropIfExists('peminjaman');
     }
 }

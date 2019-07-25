@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\Barang;
+use App\KategoriBarang;
 
 class BarangController extends Controller
 {
@@ -17,18 +18,26 @@ class BarangController extends Controller
 
     public function index()
     {
-         $data = Barang::orderBy('created_at', 'desc')->get();
-         return view('barang.index',['data'=>$data]);
+        $data = Barang::with('kategori_barang')
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+
+        return view('barang.index', ['data'=>$data]);
     }
 
     public function create()
     {
-        return view('barang.create');
+        $data = KategoriBarang::all();
+
+        return view( 'barang.create', ['data' => $data] );
     }
 
     public function detail($id)
     {
-        $data = Barang::find($id);
+        $data = Barang::with('kategori_barang')
+                            ->where('kode_barang', $id)
+                            ->first();
+
         return view('barang.detail', ['data'=>$data] );
     }
 
@@ -44,14 +53,14 @@ class BarangController extends Controller
 
         $request->validate([
             'nama' => 'required',
-            'jenis_barang' => 'required',
+            'kategori_barang' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ], $messages );
 
         $barang = new Barang();
 
         $barang->nama = $request->get('nama');
-        $barang->jenis_barang = $request->get('jenis_barang');
+        $barang->id_kategori_barang = $request->get('kategori_barang');
         $barang->keterangan = $request->get('keterangan');
         $barang->status = '1';
         $barang->kode_barang = time();
@@ -69,7 +78,9 @@ class BarangController extends Controller
 
     public function edit($id) {
 
-        $data = Barang::find($id);
+        $data['barang'] = Barang::find($id);
+        $data['kategori_barang'] = KategoriBarang::all();
+
         return view('barang.edit', [ 'data' => $data ]);
 
     }
@@ -87,7 +98,7 @@ class BarangController extends Controller
         if( $request->hasFile('foto') && $request->file('foto')->isValid())  {
             $request->validate([
                 'nama' => 'required',
-                'jenis_barang' => 'required',
+                'kategori_barang' => 'required',
                 'status' => 'required',
                 'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
             ], $messages );
@@ -95,13 +106,13 @@ class BarangController extends Controller
             $request->validate([
                 'nama' => 'required',
                 'status' => 'required',
-                'jenis_barang' => 'required'
+                'kategori_barang' => 'required'
             ], $messages );
         }
 
         $barang = Barang::find($id);
         $barang->nama = $request->get('nama');
-        $barang->jenis_barang = $request->get('jenis_barang');
+        $barang->id_kategori_barang = $request->get('kategori_barang');
         $barang->keterangan = $request->get('keterangan');
         $barang->status = $request->get('status');
 
@@ -126,7 +137,7 @@ class BarangController extends Controller
 
     public function delete(Request $request)
     {
-        $barang = Barang::find($request->id);
+        $barang = Barang::find( $request->kode_barang );
         $barang->delete();
 
         return redirect('barang')->with('message', 'Data Barang Berhasil dihapus');
@@ -142,7 +153,7 @@ class BarangController extends Controller
 
     public function restore($id)
     {
-        $data = Barang::onlyTrashed()->where('id', $id);
+        $data = Barang::onlyTrashed()->where('kode_barang', $id);
         $data->restore();
         
         return redirect('barang-trash')->with('message', 'Data Barang Berhasil dikembalikan');
@@ -150,7 +161,7 @@ class BarangController extends Controller
 
     public function force_delete(Request $request)
     {
-        $data = Barang::onlyTrashed()->where( 'id', $request->id );
+        $data = Barang::onlyTrashed()->where( 'kode_barang', $request->kode_barang );
 
         $barang = $data->get();
 
@@ -160,7 +171,7 @@ class BarangController extends Controller
 
         $data->forceDelete();
  
-        return redirect('barang-trash')->with('message', 'Data Barang Berhasil dihapus Permanent');
+        return redirect('barang-trash')->with('message', 'Data Barang Berhasil dihapus Permanen');
     }
 
 }

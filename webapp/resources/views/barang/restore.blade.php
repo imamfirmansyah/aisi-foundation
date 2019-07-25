@@ -46,8 +46,8 @@
                         <div class="aisi-datatables-action extra-width">
                             <a class="aisi-datatables-action-button"></a>
                             <div class="aisi-datatables-action-content">
-                                <a href="{{ route('barang.restore', ['id' => $val->id]) }}" class="aisi-datatables-item"><i class="fa fa-refresh"></i> Restore</a>
-                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus Permanen</a>
+                                <a href="{{ route('barang.restore', ['id' => $val->kode_barang]) }}" class="aisi-datatables-item"><i class="fa fa-refresh"></i> Restore</a>
+                                <a href="javascript:;" onclick="deleteData({{ $val->kode_barang }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus Permanen</a>
                             </div>
                         </div>
                     </td>
@@ -92,7 +92,7 @@
                     type: "POST",
                     data: {
                         '_token': '{{csrf_token()}}',
-                        'id':id,
+                        'kode_barang':id,
                     },
                     success: function(data) {
                         swal({

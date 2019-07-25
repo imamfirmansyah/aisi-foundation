@@ -31,14 +31,14 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        if (Schema::hasTable('users'))
+        if (Schema::hasTable('user'))
         {
             View::share('jml_user_lembaga', User::where('role','LEMBAGA')->count() );
             View::share('jml_user_umum', User::where('role','UMUM')->count() );
             View::share('jml_semua_user', User::count() );
         }
 
-        if ( Schema::hasTable('users') ) {
+        if ( Schema::hasTable('user') ) {
             View::share('jml_pengajuan_kegiatan', Kegiatan::where('status','PENGAJUAN')->count() );
             View::share('jml_kegiatan_diterima', Kegiatan::where('status','DITERIMA')->count() );
             View::share('jml_kegiatan_ditolak', Kegiatan::where('status','DITOLAK')->count() );

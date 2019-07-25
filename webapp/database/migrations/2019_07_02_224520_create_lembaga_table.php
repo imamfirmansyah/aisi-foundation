@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDokumentasiTable extends Migration
+class CreateLembagaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreateDokumentasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('dokumentasi', function (Blueprint $table) {
+        Schema::create('lembaga', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_kegiatan')->nullable();
+            $table->bigInteger('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('user')->onDelete('CASCADE');
+
+            $table->string('nama')->nullable();
+            $table->string('email')->nullable();
+            $table->text('alamat')->nullable();
+            $table->string('no_hp')->nullable();
             $table->text('keterangan')->nullable();
-            $table->text('file')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
@@ -30,6 +35,6 @@ class CreateDokumentasiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dokumentasi');
+        Schema::dropIfExists('lembaga');
     }
 }

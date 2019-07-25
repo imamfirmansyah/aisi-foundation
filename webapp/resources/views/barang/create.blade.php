@@ -31,17 +31,16 @@
                     @endif
                 </div>
                 <div class="col-md-12">
-                    <h5>Jenis</h5>
-                    <select name="jenis_barang" class="chosen-select-no-single">
-                        <option value="" label="blank">Pilih Jenis</option>
-                        <option value="ATK" {{ old('jenis_barang') === "ATK" ? 'selected' : '' }}>ATK</option>
-                        <option value="ELEKTRONIK" {{ old('jenis_barang') === "ELEKTRONIK" ? 'selected' : '' }}>ELEKTRONIK</option>
-                        <option value="RUANGAN" {{ old('jenis_barang') === "RUANGAN" ? 'selected' : '' }}>RUANGAN</option>
-                        <option value="LAIN-LAIN" {{ old('jenis_barang') === "LAIN-LAIN" ? 'selected' : '' }}>LAIN-LAIN</option>
+                    <h5>Kategori Barang</h5>
+                    <select name="kategori_barang" class="chosen-select-no-single">
+                        <option value="" label="blank">Pilih Kategori</option>
+                        @foreach( $data as $item )
+                        <option value="{{ $item->id }}" {{ old('kategori_barang') == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                        @endforeach
                     </select>
-                    @if ($errors->has('jenis_barang'))
+                    @if ($errors->has('kategori_barang'))
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('jenis_barang') }}</strong>
+                        <strong>{{ $errors->first('kategori_barang') }}</strong>
                     </span>
                     @endif
                 </div>
