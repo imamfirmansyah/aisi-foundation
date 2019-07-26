@@ -12,6 +12,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('user')->delete();
+
         DB::table('user')->insert([
             'nama' => 'AISI Administrator',
             'email' => 'administrator@aisifoundation.org',
@@ -21,20 +23,6 @@ class UserSeeder extends Seeder
             'no_hp' => '018329123',
             'foto' => 'avatar-boy.png',
             'role' => 'ADMIN',
-            'validate_status' => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('user')->insert([
-            'nama' => 'KPMD Depok',
-            'email' => 'kpmd@gmail.com',
-            'password' => bcrypt('pass1234'),
-            'alamat' => 'Depok',
-            'jenis_kelamin' => 1,
-            'no_hp' => '018329123',
-            'foto' => 'avatar-boy.png',
-            'role' => 'LEMBAGA',
             'validate_status' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -63,6 +51,20 @@ class UserSeeder extends Seeder
             'no_hp' => '018329123',
             'foto' => 'avatar-boy.png',
             'role' => 'UMUM',
+            'validate_status' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        $lembaga = DB::table('user')->insert([
+            'nama' => 'KPMD Depok',
+            'email' => 'kpmd@gmail.com',
+            'password' => bcrypt('pass1234'),
+            'alamat' => 'Depok',
+            'jenis_kelamin' => 1,
+            'no_hp' => '018329123',
+            'foto' => 'avatar-boy.png',
+            'role' => 'LEMBAGA',
             'validate_status' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')

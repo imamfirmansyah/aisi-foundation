@@ -12,13 +12,19 @@ class LembagaSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('lembaga')->delete();
+
         $faker = Faker\Factory::create();
+
+        $user_lembaga = App\User::where('role', 'LEMBAGA')
+                                    ->pluck('id')
+                                    ->toArray();
 
         $lembagas = array();
 
-        for ($i=1; $i < 50; $i++) {
+        for ($i=1; $i < count($user_lembaga); $i++) {
             $data = [
-                'id_user' => $i+1,
+                'id_user' => $faker->unique()->randomElement($user_lembaga),
                 'nama' => $faker->company,
                 'email' => $faker->email,
                 'alamat' => $faker->address,

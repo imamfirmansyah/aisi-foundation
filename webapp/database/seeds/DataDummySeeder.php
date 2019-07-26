@@ -13,8 +13,13 @@ class DataDummySeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            LembagaSeeder::class,
             KategoriBarangSeeder::class,
-            BarangSeeder::class
+            BarangSeeder::class,
+            PeminjamanSeeder::class,
+            PeminjamanBarangSeeder::class,
         ]);
+
+        $this->command->info('Berhasil menambah data dummy!');
     }
 }

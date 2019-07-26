@@ -41,6 +41,13 @@ Route::get('/kategori-barang-trash', 'KategoriBarangController@trash')->name('ka
 Route::get('/kategori-barang-restore/{id}', 'KategoriBarangController@restore')->name('kategori_barang.restore');
 Route::post('/kategori-barang-force-delete', 'KategoriBarangController@force_delete')->name('kategori_barang.force.delete');
 
+/* -- peminjaman --*/
+Route::get('/peminjaman','PeminjamanController@index')->name('peminjaman.index');
+Route::get('/peminjaman-create','PeminjamanController@create')->name('peminjaman.create');
+Route::get('/peminjaman-detail/{id}','PeminjamanController@detail')->name('peminjaman.detail');
+Route::post('/peminjaman-save','PeminjamanController@save')->name('peminjaman.save');
+Route::post('/peminjaman-delete','PeminjamanController@delete')->name('peminjaman.delete');
+
 Route::get('/user/{type}','UserController@index')->name('user.index');
 Route::get('/user-profile','UserController@profile')->name('user.profile');
 Route::get('/user-detail/{id}','UserController@detail')->name('user.detail');
@@ -64,11 +71,5 @@ Route::post('/kegiatan-delete','KegiatanController@delete')->name('kegiatan.dele
 Route::post('/kegiatan-save','KegiatanController@save')->name('kegiatan.save');
 Route::get('/kegiatan-edit/{id}','KegiatanController@edit')->name('kegiatan.edit');
 Route::put('/kegiatan-update/{id}','KegiatanController@update')->name('kegiatan.update');
-
-Route::get('/peminjaman','PeminjamanController@index')->name('peminjaman.index');
-Route::get('/peminjaman-create','PeminjamanController@create')->name('peminjaman.create');
-Route::get('/peminjaman-detail/{id}','PeminjamanController@detail')->name('peminjaman.detail');
-Route::post('/peminjaman-save','PeminjamanController@save')->name('peminjaman.save');
-Route::post('/peminjaman-delete','PeminjamanController@delete')->name('peminjaman.delete');
 
 Route::get('/test-email', 'HomeController@sendEmail')->name('sendEmail');

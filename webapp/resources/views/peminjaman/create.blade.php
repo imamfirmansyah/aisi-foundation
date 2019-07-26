@@ -5,7 +5,7 @@
 @section('breadcrumb', 'Pinjam Barang')
 
 @push('customCss')
-
+<link rel="stylesheet" href="{{ url('plugin/datepicker/datepicker.min.css')}}">
 @endpush
 
 @section('content')
@@ -18,12 +18,25 @@
             <div class="add-listing-headline">
                 <h3><i class="sl sl-icon-doc"></i> Informasi Peminjaman</h3>
             </div>
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             
             <div class="row with-forms">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <h5>Tanggal Peminjaman</h5>
-                    <input name="tgl_peminjaman" type="text" id="date-picker" placeholder="Tanggal Peminjaman" readonly="readonly">
-                    {{-- {{ dd($data) }} --}}
+                    <input name="tgl_peminjaman" type="text" id="date-picker-start" placeholder="Tanggal Peminjaman">
+                </div>
+                <div class="col-md-6">
+                    <h5>Tanggal Pengembalian</h5>
+                    <input name="tgl_pengembalian" type="text" id="date-picker-end" placeholder="Tanggal Pengembalian">
                 </div>
             </div>
 
@@ -34,11 +47,10 @@
                     <!-- Filters -->
                     <div id="filters">
                         <ul class="option-set margin-bottom-30">
-                            <li><a href="#filter" class="selected" data-filter="*">SEMUA</a></li>
-                            <li><a href="#filter" data-filter=".atk">ATK</a></li>
-                            <li><a href="#filter" data-filter=".elektronik">ELEKTRONIK</a></li>
-                            <li><a href="#filter" data-filter=".ruangan">RUANGAN</a></li>
-                            <li><a href="#filter" data-filter=".lain-lain">LAIN-LAIN</a></li>
+                            <li><a href="#" class="selected" data-filter="*">SEMUA</a></li>
+                            @foreach( $data['kategori_barang'] as $item )
+                            <li><a href="#" data-filter=".{{ str_replace(" ", "-", strtolower( $item->nama ) ) }}">{{ $item->nama }}</a></li>
+                            @endforeach
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -47,17 +59,21 @@
 
             <div class="row with-forms">
                 <div class="projects isotope-wrapper">
-                    @foreach($data['barang'] as $key => $val)
+                    @foreach( $data['barang'] as $key => $val )
                         <!-- Listing Item -->
-                        <div class="col-lg-4 col-md-6 isotope-item {{ strtolower($val->jenis_barang) }}">
+                        <div class="col-lg-4 col-md-6 isotope-item {{ str_replace(" ", "-", strtolower( $val->kategori_barang->nama ) ) }}">
                             <div class="listing-item-container compact">
                                 <div class="listing-item">
                                     <img src="{{ url('storage/barang/'.$val->foto) }}" alt="{{ $val->nama }}">
 
                                     <div class="listing-item-content">
-                                        <span class="tag">{{ $val->jenis_barang }}</span>
+                                        <span class="tag">{{ $val->kategori_barang->nama }}</span>
                                         <h3>{{ $val->nama }}</h3>
-                                        <span>{{ $val->keterangan }}</span>
+                                        <span>
+                                            @php
+                                                echo Str::limit($val->keterangan, 50);
+                                            @endphp
+                                        </span>
                                     </div>
                                     <span class="like-icon">
                                         <input class="checkbox-hidden" type="checkbox" name="barang[]" value="{{ $val->id }}">
@@ -112,13 +128,15 @@
 @push('customJs')
 <!-- Masonry Filtering -->
 <script src="{{ url('js/template/isotope.min.js') }}"></script>
-<script src="{{ url('js/template/moment.min.js') }}"></script>
-<script src="{{ url('js/template/daterangepicker.js') }}"></script>
+<script src="{{ url('plugin/datepicker/datepicker.min.js ') }}"></script>
+{{-- <script src="{{ url('js/template/moment.min.js') }}"></script> --}}
+{{-- <script src="{{ url('js/template/daterangepicker.js') }}"></script> --}}
 
 <script>
+    /* isotope */
     $(window).load(function(){
-      var $container = $('.isotope-wrapper');
-      $container.isotope({ itemSelector: '.isotope-item', layoutMode: 'masonry' });
+        var $container = $('.isotope-wrapper');
+        $container.isotope({ itemSelector: '.isotope-item', layoutMode: 'masonry' });
     });
 
     $('#filters a').click(function(e){
@@ -131,40 +149,7 @@
       $(this).addClass('selected');
     });
 
-    $('#date-picker').daterangepicker({
-        "opens": "left",
-        // singleDatePicker: true,
-        locale: {
-            format: 'YYYY-MM-DD'
-        },
-
-        // Disabling Date Ranges
-        isInvalidDate: function(date) {
-        // Disabling Date Range
-        var disabled_start = moment('09/02/2018', 'MM/DD/YYYY');
-        var disabled_end = moment('09/06/2018', 'MM/DD/YYYY');
-        return date.isAfter(disabled_start) && date.isBefore(disabled_end);
-
-        // Disabling Single Day
-        // if (date.format('MM/DD/YYYY') == '08/08/2018') {
-        //     return true; 
-        // }
-        }
-    });
-
-    // Calendar animation
-    $('#date-picker').on('showCalendar.daterangepicker', function(ev, picker) {
-        $('.daterangepicker').addClass('calendar-animated');
-    });
-    $('#date-picker').on('show.daterangepicker', function(ev, picker) {
-        $('.daterangepicker').addClass('calendar-visible');
-        $('.daterangepicker').removeClass('calendar-hidden');
-    });
-    $('#date-picker').on('hide.daterangepicker', function(ev, picker) {
-        $('.daterangepicker').removeClass('calendar-visible');
-        $('.daterangepicker').addClass('calendar-hidden');
-    });
-
+    /* custom toggle checkbox value */
     $.fn.toggleCheckbox = function() {
         this.attr('checked', !this.attr('checked'));
     }
@@ -174,6 +159,25 @@
             $(this).find("input").toggleCheckbox();
             return false;
         }
+    });
+
+    /* datepicker */
+    var $startDate = $('#date-picker-start');
+    var $endDate = $('#date-picker-end');
+
+    $startDate.datepicker({
+        autoHide: true,
+        format: 'yyyy-mm-dd'
+    });
+
+    $endDate.datepicker({
+        autoHide: true,
+        format: 'yyyy-mm-dd',
+        startDate: $startDate.datepicker('getDate'),
+    });
+
+    $startDate.on('change', function () {
+        $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
     });
 
 </script>
