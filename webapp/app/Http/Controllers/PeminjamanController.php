@@ -24,6 +24,12 @@ class PeminjamanController extends Controller
     {
         $data = Peminjaman::with(['kegiatan','barang','user'])->get();
 
+        echo "<pre>";
+        print_r($data->toJson());
+        echo "</pre>";
+
+        die();
+
         return view('peminjaman.index', ['data'=>$data]);
     }
 
@@ -48,7 +54,7 @@ class PeminjamanController extends Controller
         $data['barang'] = Barang::all();
         $data['user'] = User::all();
         $data['kegiatan'] = Kegiatan::all();
-        
+
         return view('peminjaman.detail',['data'=>$data]);
     }
 

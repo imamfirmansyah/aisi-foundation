@@ -73,3 +73,25 @@ Route::get('/kegiatan-edit/{id}','KegiatanController@edit')->name('kegiatan.edit
 Route::put('/kegiatan-update/{id}','KegiatanController@update')->name('kegiatan.update');
 
 Route::get('/test-email', 'HomeController@sendEmail')->name('sendEmail');
+
+Route::get('test-relasi', function() {
+    $peminjaman = App\Peminjaman::with(['kegiatan','barang','user'])
+                            ->where('id_user','4')->first();
+
+    echo $peminjaman->user->nama;
+    echo "<br>";
+    echo '<p>';
+    echo "Melakukan peminjaman barang pada :";
+        echo "<ul>";
+        echo "<li>Tanggal Pinjam : ". $peminjaman->tgl_pinjam."</li>";
+        echo "<li>Tanggal Kembali :". $peminjaman->tgl_kembali."</li>";
+        echo "<li>Status Peminjaman :". $peminjaman->status."</li>";
+        echo "</ul>";
+    echo "Dengan Rincian Barang Sebagai Berikut :";
+        echo "<ul>";
+        foreach ($peminjaman->barang as $data) {
+            echo "<li>". $data->nama." --- Kode Barang [". $data->kode_barang ."]</li>";
+        }
+        echo "</ul>";
+    echo '</p>';
+});

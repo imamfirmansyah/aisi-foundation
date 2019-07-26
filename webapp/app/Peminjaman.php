@@ -12,11 +12,11 @@ class Peminjaman extends Model
         return $this->belongsTo( User::class, 'id_user','id' );
     }
 
-    public function barang() {
-        return $this->belongsTo(Barang::class,'id_barang','id');
+    public function kegiatan() {
+        return $this->belongsTo( Kegiatan::class, 'id_kegiatan','id');
     }
 
-    public function kegiatan() {
-        return $this->belongsTo(Kegiatan::class,'id_kegiatan','id');
+    public function barang() {
+        return $this->belongsToMany( Barang::class, 'peminjaman_barang', 'id_peminjaman', 'kode_barang');
     }
 }
