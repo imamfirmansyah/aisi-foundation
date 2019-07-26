@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2019 at 02:39 AM
+-- Generation Time: Jul 26, 2019 at 06:52 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -57,7 +57,8 @@ INSERT INTO `barang` (`kode_barang`, `nama`, `keterangan`, `foto`, `status`, `id
 ('1563150218', 'Tas Dokumen', 'Tas / Map untuk Membawa Dokumen', '1563150218_bag_dokumen.jpg', '1', 1, '2019-07-25 17:36:36', '2019-07-25 17:36:36', NULL),
 ('1563150272', 'Toa Speaker Portable', 'Toa Speaker Portable kecil dengan Wireless dan Batrai', '1563150272_toa_mic_wireless.jpg', '1', 2, '2019-07-25 17:36:36', '2019-07-25 17:36:36', NULL),
 ('1563150312', 'Toa Portable Outdoor', 'Toa Speaker Portable untuk kegiatan Outdoor', '1563150312_TOA_portable.jpg', '1', 2, '2019-07-25 17:36:36', '2019-07-25 17:36:36', NULL),
-('1564048178', 'ROL Kabel', 'ROL Kabel 10 Meter', '1564048178_kabel-rol_10_meter.jpg', '1', 2, '2019-07-25 17:36:35', '2019-07-25 17:36:35', NULL);
+('1564048178', 'ROL Kabel', 'ROL Kabel 10 Meter', '1564048178_kabel-rol_10_meter.jpg', '1', 2, '2019-07-25 17:36:35', '2019-07-25 17:36:35', NULL),
+('1564149189', 'Kapur Tulis', 'Kapur Tulis Putih', '1564149189_kapur-tulis.jpg', '1', 3, '2019-07-26 06:53:09', '2019-07-26 06:53:09', NULL);
 
 -- --------------------------------------------------------
 
@@ -442,8 +443,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`, `nama`, `alamat`, `jenis_kelamin`, `no_hp`, `foto`, `role`, `validate_status`, `deleted_at`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'administrator@aisifoundation.org', '$2y$10$rlXzKYEpx99pToBrHGdBQOsmTvPxzyLsJ0ZxOpD412QFi18MpDfQW', 'AISI Administrator', 'Depok', 1, '018329123', 'avatar-boy.png', 'ADMIN', 1, NULL, NULL, '2019-07-25 17:36:29', '2019-07-25 17:36:29'),
-(2, 'staff@aisifoundation.org', '$2y$10$dyr85chONKPv5VCA7wYy7.eiMEaeTNV2jhAki397EJbIePkxzqQY6', 'Staff Yayasan AISI', 'Depok', 1, '018329123', 'avatar-boy.png', 'STAFF', 1, NULL, NULL, '2019-07-25 17:36:30', '2019-07-25 17:36:30'),
-(3, 'imamfirmansyah27@gmail.com', '$2y$10$Eh9xm1/EA6wiggSiAfM0hO8nX4/uu1SOi1AHQ0A2QVPH9WIgiOz26', 'Imam Firmansyah', 'Depok', 1, '018329123', 'avatar-boy.png', 'UMUM', 1, NULL, NULL, '2019-07-25 17:36:30', '2019-07-25 17:36:30'),
+(2, 'staff@aisifoundation.org', '$2y$10$dyr85chONKPv5VCA7wYy7.eiMEaeTNV2jhAki397EJbIePkxzqQY6', 'Staff Yayasan AISI', 'Depok', 1, '018329123', 'avatar-boy.png', 'STAFF', 1, NULL, '2GR5dwfoxbOrzNSRjspJpjosxV9VHEKeAvZXqFMUaBAqKUVIPFdJmY23n8td', '2019-07-25 17:36:30', '2019-07-25 17:36:30'),
+(3, 'imamfirmansyah27@gmail.com', '$2y$10$Eh9xm1/EA6wiggSiAfM0hO8nX4/uu1SOi1AHQ0A2QVPH9WIgiOz26', 'Imam Firmansyah', 'Depok', 1, '018329123', 'avatar-boy.png', 'UMUM', 1, NULL, 'JkthNu0EBl4tldsKtHXfXFMpafwkDPeMBOKTbv0qutxQHv4fxqdAs2BrRFIs', '2019-07-25 17:36:30', '2019-07-25 17:36:30'),
 (4, 'kpmd@gmail.com', '$2y$10$obTybfwrOF1wGzEjUkY7cupnucErXxj9B1xrZv3sWgi4le.e7STcG', 'KPMD Depok', 'Depok', 1, '018329123', 'avatar-boy.png', 'LEMBAGA', 1, NULL, NULL, '2019-07-25 17:36:30', '2019-07-25 17:36:30'),
 (5, 'fmckenzie@gmail.com', '$2y$10$Fe41cPo85ZTG/zADW.v1AOzbgWFl56mE1WEWzkQ5poxgTpdRojKum', 'Ms. Kasandra Emmerich Sr.', '220 Obie Drives\nLuistown, NH 06316', 1, '+1.645.343.0839', 'avatar-boy.png', 'STAFF', 0, NULL, NULL, '2017-11-08 08:31:20', '1970-05-14 16:57:12'),
 (6, 'sarai69@hotmail.com', '$2y$10$k2xS6J/ci.7zMlsZHwXoC.JG3RCH2dERCaO/smiTJK.JO2cRhOvF2', 'Haylie Halvorson Sr.', '342 Rohan Key Apt. 805\nSouth Billie, NY 85829', 0, '+1-613-823-6886', 'avatar-boy.png', 'UMUM', 0, NULL, NULL, '2017-12-29 02:37:03', '1989-07-11 10:20:55'),

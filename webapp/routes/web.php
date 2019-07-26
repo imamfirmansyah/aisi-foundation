@@ -95,3 +95,25 @@ Route::get('test-relasi', function() {
         echo "</ul>";
     echo '</p>';
 });
+
+Route::get('test-relasi-range', function() {
+
+// where peminjaman.tgl_kembali < start_date and peminjaman.tgl_pinjam > end_date 
+$data = DB::table('barang')
+            ->join('peminjaman_barang', 'barang.kode_barang', '=', 'peminjaman_barang.kode_barang')
+            ->join('peminjaman', 'peminjaman_barang.id_peminjaman', '=', 'peminjaman.id')
+            ->join('kategori_barang', 'barang.id_kategori_barang', '=', 'kategori_barang.id')
+            // ->where('peminjaman.tgl_kembali', '<', '2019-07-23')
+            // ->where('peminjaman.tgl_pinjam', '>', '2019-07-25')
+            ->get();
+
+    // $data = App\Barang::with(['peminjaman' => function($query) {
+    //     $query->where('tgl_pinjam', '!=','2019-07-23');
+    // }])->get();
+    
+    // $data = DB::table('peminjaman')
+    //             ->whereBetween('tgl_pinjam', ['2019-07-23', '2019-07-25'])
+    //             ->get();
+
+    dd($data);
+});

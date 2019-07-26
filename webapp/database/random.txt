@@ -1,0 +1,60 @@
+set @start_date = '2019-07-01';
+set @end_date = '2019-07-26';
+
+Select * from barang 
+left join peminjaman_barang on barang.kode_barang = peminjaman_barang.kode_barang 
+left join peminjaman on peminjaman_barang.id_peminjaman = peminjaman.id
+where peminjaman.tgl_kembali < @start_date and peminjaman.tgl_pinjam > @end_date;
+
+#tapi ga sesederhana ini sih, karena multi tanggal ya untuk satu barang?
+
+#iya bang, ini yg masih mentok dari kemarin, karena sebelum bikin data peminjaman
+#mesti cek dulu semua barang yg tersedia, tadi nya kalau cuma 1 peminjaman bisa pakai flag di kolom barang
+# tapi pas seminar, dosen penguji minta multi barang per peminjaman
+
+#quantity stok barang belum ane liat di tabel barang Mam
+
+
+#select barang yang sudah pernah dikembalikan (tanggal kembali kurang dari tanggal peminjaman baru
+#setelah union all adalah ditambah barang yang belum pernah dipinjam
+#asumsinya pakai desain database ente yang lama nih
+
+#- berarti di table peminjaman balik in lagi ya kolom "id_barang"?
+
+# iya mam, kecuali ente mau bikin semacam tanda peminjaman buat di print semacam struk, baru ente pisah, ada kode peminjaman gitu.
+# kalau enggak, ga apa2 cukup tabel barang dan peminjaman, di peminjaman ga apa2 banyak data yang redundan, 
+# karena id_user, tanggal_kembali, tanggal_pinjam jadi sama untuk beberapa row
+
+#- query ini ane save dulu deh ya bang, ane coba balik in ke table sebelum nya
+
+# Iya, backup database yang ini atau ente bikin dua db aja v1 dan v2
+#- Oh iya bener, bikin 2 DB aja ya, ga harus di delet db yg ini, nanti main di controller nya aja utk munculin datanya
+
+# Tul Mam, ane sampai sini dlu
+# - terima kasih banyak bang, maaf nih sampe tengah malem, harusnya balik gawe ente istirahat
+
+# santai mam, no worries, gini2 aja mah ane doyan mikirnya, selamat berjuang wassalam. wr wb
+
+
+set @start_date = '2019-07-01';
+set @end_date = '2019-07-26';
+
+Select MAX(peminjaman.tgl_kembali) as pengembalian_terakhir, barang.* from barang 
+left join peminjaman on peminjaman.id_barang = barang.id
+where pengembalian_terakhir < @start_date
+UNION ALL
+SELECT "Belum Pernah Dipinjam", barang.* from barang
+where barang.id not in 
+(
+  Select DISTINC peminjaman.id_barang from peminjaman
+)
+
+
+================ 
+$data = DB::table('barang')
+            ->join('peminjaman_barang', 'barang.kode_barang', '=', 'peminjaman_barang.kode_barang')
+            ->join('peminjaman', 'peminjaman_barang.id_peminjaman', '=', 'peminjaman.id')
+            ->join('kategori_barang', 'barang.id_kategori_barang', '=', 'kategori_barang.id')
+            // ->where('peminjaman.tgl_kembali', '<', '2019-07-23')
+            // ->where('peminjaman.tgl_pinjam', '>', '2019-07-25')
+            ->get();
