@@ -14,6 +14,15 @@
 @section('content')
 
 <div class="row">
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            <ul>
+                <li>{{ session('success') }}</li>
+            </ul>
+        </div>
+    @endif
+
     <div class="col-md-12">
         <div id='calendar'></div>
     </div>
@@ -40,9 +49,17 @@
                 @foreach($data as $key => $val)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $val->barang->nama }}</td>
+                    <td>
+                        <?php
+                            $arrayBarang = [];
+                            foreach ($val->barang as $barang){
+                                $arrayBarang[] = $barang->nama;
+                            }
+                            echo implode($arrayBarang,',');
+                        ?>
+                    </td>
                     <td>{{ $val->user->nama }}</td>
-                    <td>{{ $val->kegiatan->judul }}</td>
+                    <td>{{ @$val->kegiatan->judul }}</td>
                     <td>{{ $val->tgl_pinjam }}</td>
                     <td>{{ $val->tgl_kembali }}</td>
                     <td>{{ $val->status }}</td>
