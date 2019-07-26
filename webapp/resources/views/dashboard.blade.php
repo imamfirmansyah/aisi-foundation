@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('pageTitle', 'Dashboard')
-@section('pageHeader', 'Hallo '. Auth::user()->nama.', Selamat Datang!')
+@section('pageHeader', 'Hallo '. @Auth::user()->nama.', Selamat Datang!')
 
 @section('content')
 
@@ -72,8 +72,10 @@
             <ul>
                 @foreach($data['peminjaman'] as $key => $peminjaman)
                     <li>
-                        <i class="list-box-icon sl sl-icon-layers"></i> {!! @$peminjaman->barang->nama . ' dipinjam oleh <b>'.@$peminjaman->user->nama.'</b> pada tanggal '.@$peminjaman->tgl_pinjam !!}
-                        <br>
+                        @foreach($peminjaman->barang as $barang)
+                        <i class="list-box-icon sl sl-icon-layers"></i> {!! $barang->nama.' dipinjam oleh <b>'.@$peminjaman->user->nama.'</b> pada tanggal '.@$peminjaman->tgl_pinjam !!}
+                        <hr>
+                        @endforeach
                         <a href="{{ route('peminjaman.detail',['id'=>@$peminjaman->id]) }}" class="button gray">View</a>
                     </li>
                 @endforeach

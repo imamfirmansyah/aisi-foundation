@@ -24,12 +24,6 @@ class PeminjamanController extends Controller
     {
         $data = Peminjaman::with(['kegiatan','barang','user'])->get();
 
-        echo "<pre>";
-        print_r($data->toJson());
-        echo "</pre>";
-
-        die();
-
         return view('peminjaman.index', ['data'=>$data]);
     }
 
@@ -71,11 +65,36 @@ class PeminjamanController extends Controller
             'tgl_peminjaman' => 'required|after:tomorrow'
         ], $messages );
 
-        $tgl_pinjam = explode(" - ", $request->get('tgl_peminjaman') )[0];
-        $tgl_kembali = explode(" - ", $request->get('tgl_peminjaman') )[1];
 
-        dd($request->all());
-        // $barang->nama = $request->get('nama');
+        $tgl_pinjam = $request->get('tgl_peminjaman');
+        $tgl_kembali = $request->get('tgl_peminjaman');
+
+        //dd($request->all());
+
+        foreach($request->barang as $barang){
+            $checkPeminjaman = Peminjaman::with('barang')->whereHas('barang', function ($query) use ($barang){
+                $query->where('barang.kode_barang',$barang);
+            })
+            ->where('tgl_pinjam','>=', $tgl_pinjam)
+            ->where('status','DIPINJAM')
+            ->count();
+
+            if($checkPeminjaman>0){
+                return back()->with('error','Barang dengan kode : '.$barang.' sedang di pinjam');
+            }
+        }
+
+        $peminjaman = new Peminjaman();
+        $peminjaman->id_user = Auth::user()->id;
+        $peminjaman->keterangan = $request->keterangan;
+        $peminjaman->tgl_pinjam = $tgl_pinjam;
+        $peminjaman->tgl_kembali = $tgl_kembali;
+        $peminjaman->status = 'DIPINJAM';
+        $peminjaman->save();
+
+        $peminjaman->barang()->attach($request->barang);
+
+        return redirect()->route('peminjaman.index')->with('success', 'Berhasil mengajukan peminjaman!');
     }
 
 }

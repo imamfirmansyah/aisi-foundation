@@ -28,6 +28,14 @@
                 </ul>
             </div>
             @endif
+
+            @if(!empty(session('error')))
+                <div class="alert alert-danger" style="color: red">
+                    <ul>
+                        <li>{{ session('error') }}</li>
+                    </ul>
+                </div>
+            @endif
             
             <div class="row with-forms">
                 <div class="col-md-6">
@@ -76,7 +84,7 @@
                                         </span>
                                     </div>
                                     <span class="like-icon">
-                                        <input class="checkbox-hidden" type="checkbox" name="barang[]" value="{{ $val->id }}">
+                                        <input class="checkbox-hidden" type="checkbox" name="barang[]" value="{{ $val->kode_barang }}">
                                     </span>
                                 </div>
                             </div>
