@@ -44,8 +44,12 @@ Route::post('/kategori-barang-force-delete', 'KategoriBarangController@force_del
 /* -- peminjaman --*/
 Route::get('/peminjaman','PeminjamanController@index')->name('peminjaman.index');
 Route::get('/peminjaman-create','PeminjamanController@create')->name('peminjaman.create');
-Route::get('/peminjaman-detail/{id}','PeminjamanController@detail')->name('peminjaman.detail');
+Route::any('/peminjaman-set','PeminjamanController@set')->name('peminjaman.set');
 Route::post('/peminjaman-save','PeminjamanController@save')->name('peminjaman.save');
+Route::get('/peminjaman-edit/{id}','PeminjamanController@edit')->name('peminjaman.edit');
+Route::any('/peminjaman-set-edit','PeminjamanController@setEdit')->name('peminjaman.set.edit');
+Route::post('/peminjaman-update','PeminjamanController@update')->name('peminjaman.update');
+Route::get('/peminjaman-detail/{id}','PeminjamanController@detail')->name('peminjaman.detail');
 Route::post('/peminjaman-delete','PeminjamanController@delete')->name('peminjaman.delete');
 
 Route::get('/user/{type}','UserController@index')->name('user.index');
