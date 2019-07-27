@@ -163,8 +163,8 @@ class PeminjamanController extends Controller
             ->get();
 
         foreach($barangs as $barang){
-            if($peminjaman->tgl_pinjam != $request->tgl_peminjaman && $peminjaman->id_user != Auth::user()->id){
-                if(($barang->lastPeminjaman->count() > 0 && $barang->lastPeminjaman[0]->tgl_pinjam >= $data['tgl_peminjaman']) || $barang->status == 'DIPINJAM'){
+            if(($barang->lastPeminjaman->count() > 0 && $barang->lastPeminjaman[0]->tgl_pinjam >= $data['tgl_peminjaman']) || $barang->status == 'DIPINJAM'){
+                if($barang->lastPeminjaman[0]->id_user != Auth::user()->id){
                     continue;
                 }
             }
