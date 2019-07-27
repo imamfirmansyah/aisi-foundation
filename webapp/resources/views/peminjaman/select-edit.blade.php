@@ -74,7 +74,7 @@
                                                 @endphp
                                             </span>
                                     </div>
-                                    <span class="like-icon">
+                                    <span class="like-icon {{ in_array($val->kode_barang, $data['currentBarang']) ? 'liked' : '' }}">
                                             <input class="checkbox-hidden" type="checkbox" name="barang[]" {{ in_array($val->kode_barang, $data['currentBarang']) ? 'checked' : '' }} value="{{ $val->kode_barang }}">
                                         </span>
                                 </div>
