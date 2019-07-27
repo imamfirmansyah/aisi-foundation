@@ -32,4 +32,9 @@ class Barang extends Model
     public function kategori_barang() {
         return $this->belongsTo( KategoriBarang::class, 'id_kategori_barang','id');
     }
+
+    public function lastPeminjaman(){
+        return $this->peminjaman()
+            ->orderBy('tgl_pinjam','desc');
+    }
 }

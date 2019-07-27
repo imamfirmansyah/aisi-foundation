@@ -64,7 +64,7 @@
                     <td>{{ $val->tgl_kembali }}</td>
                     <td>{{ $val->status }}</td>
                     <td>
-                        <a href="{{ route('peminjaman.detail',['id'=>$val->id]) }}" class="button">Edit</a>
+                        <a href="{{ route('peminjaman.edit',['id'=>$val->id]) }}" class="button">Edit</a>
                         <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="button">Hapus</a>
                     </td>
                 </tr>
@@ -185,6 +185,15 @@
     });
     /* calendar end here */
 
+    @if (session('success'))
+        swal({
+            title: "Sukses simpan data peminjaman",
+            text : "Data peminjaman berhasil disimpan",
+            icon: "success",
+            timer: 3000
+        })
+    @endif
+
     function deleteData(id) {
         swal({
             title: "Yakin Hapus Data Peminjaman?",
@@ -214,7 +223,7 @@
                             icon: 'success',
                             timer: '2000'
                         });
-                        table.ajax.reload();
+                        location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown){
                         swal({
