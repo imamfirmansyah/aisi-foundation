@@ -63,11 +63,13 @@ class PeminjamanController extends Controller
         $data['keterangan'] = $request->keterangan;
         $data['barang'] = [];
 
-        $barangs = Barang::with(['kategori_barang','lastPeminjaman'])
-            ->whereDoesntHave('lastPeminjaman')
+        $barangs = Barang::with(['kategori_barang','peminjaman','lastPeminjaman'])
+            ->whereDoesntHave('peminjaman')
             ->orWhereHas('lastPeminjaman')
             ->where('barang.status', 1)
             ->get();
+
+        //return json_encode($barangs);
 
         foreach($barangs as $barang){
             if(($barang->lastPeminjaman->count() > 0 && $barang->lastPeminjaman[0]->tgl_pinjam >= $data['tgl_peminjaman']) || $barang->status == 'DIPINJAM'){
@@ -161,7 +163,7 @@ class PeminjamanController extends Controller
             ->get();
 
         foreach($barangs as $barang){
-            if($peminjaman->tgl_peminjaman != $request->tgl_peminjaman){
+            if($peminjaman->tgl_pinjam != $request->tgl_peminjaman){
                 if(($barang->lastPeminjaman->count() > 0 && $barang->lastPeminjaman[0]->tgl_pinjam >= $data['tgl_peminjaman']) || $barang->status == 'DIPINJAM'){
                     continue;
                 }
@@ -191,12 +193,12 @@ class PeminjamanController extends Controller
             $checkPeminjaman = Peminjaman::with('barang')->whereHas('barang', function ($query) use ($barang){
                 $query->where('barang.kode_barang',$barang);
             })
-            ->where('tgl_pinjam','>=', $tgl_pinjam)
+            ->where('tgl_pinjam','>', $tgl_pinjam)
             ->where('status','DIPINJAM')
             ->count();
 
             if($checkPeminjaman>0){
-                return redirect()->route('peminjaman.create')->with('error','Barang dengan kode : '.$barang.' sedang di pinjam');
+                return redirect()->route('peminjaman.edit',['id'=>$request->id_peminjaman])->with('error','Barang dengan kode : '.$barang.' sedang di pinjam');
             }
         }
 
