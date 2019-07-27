@@ -167,6 +167,11 @@ class PeminjamanController extends Controller
                 if($barang->lastPeminjaman[0]->id_user != Auth::user()->id){
                     continue;
                 }
+
+                if ( $barang->lastPeminjaman[0]->pivot->id_peminjaman != $data['id_peminjaman'] ) {
+                    continue;
+                }
+
             }
             $data['barang'][] = $barang;
         }
