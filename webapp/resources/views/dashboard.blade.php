@@ -40,7 +40,7 @@
     <div class="col-lg-3 col-md-6">
         <div class="dashboard-stat color-4">
             <div class="dashboard-stat-content">
-                <h4>23</h4>
+                <h4>{{ $data['total_peminjaman'] }}</h4>
                 <span>Total Peminjaman</span>
             </div>
             <div class="dashboard-stat-icon"><i class="im im-icon-Heart"></i></div>

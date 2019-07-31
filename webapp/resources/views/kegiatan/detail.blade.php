@@ -16,13 +16,18 @@
 
             <!-- Content -->
             <h3>Nama Kegiatan : {{ $data->nama }}</h3>
+            <span>Nama Lembaga : {{ $data->lembaga->nama }}</span> <br>
             <span>Deskripsi Kegiatan : {{ $data->deskripsi }}</span>
             <p>
                 Tanggal Kegiatan : <strong>{{ $data->tgl_kegiatan }}</strong><br>
                 Status : <strong>{{ $data->status }}</strong> <br>
                 File Proposal : <a href="{{ url('storage/proposal/'. $data->proposal_kegiatan ) }}">{{ $data->proposal_kegiatan }}</a> <br>
             </p>
-            @if($data->status === 'DITERIMA')
+            @if($data->status === 'DITERIMA' || $data->status === 'DENGAN_LAPORAN')
+            <p>
+                <strong>Catatan / Pesan dari Pihak Yayasan AISI Foundation</strong> <br>
+                {{ $data->pesan }}
+            </p>
             <p>
                 <strong>Informasi Dokumentasi</strong> <br>
                 Link Dokumentasi : {!! $data['dokumentasi'][0]->file !== null ? '<a target="_blank" href="'. $data['dokumentasi'][0]->file .'">Menuju Link</a>' : 'Belum Tersedia' !!}<br>
@@ -30,7 +35,7 @@
             </p>
             <p>
                 <strong>Status Pengajuan Dana : {{ $data->dana->status }}</strong>
-                    @if($data->dana->status === 'DISETUJUI')
+                    @if($data->dana->status === 'DISETUJUI' || $data->dana->status === 'DENGAN_LAPORAN')
                     <ul>
                         <li>Jumlah Pengajuan : Rp. {{ number_format($data->dana->jumlah_pengajuan) }}</li>
                         <li>Jumlah Pencairan : Rp. {{ number_format($data->dana->jumlah_pencairan) }}</li>
@@ -41,6 +46,7 @@
                     @endif
             </p>
             @endif
+            <a class="button" href="{{ route('kegiatan.cetak', ['id' => $data->id]) }}">Cetak Laporan Kegiatan</a>
             <a class="button" href="{{ route('kegiatan.index', ['type'=>'ALL']) }}">Kembali</a>
         </div>
     </div>

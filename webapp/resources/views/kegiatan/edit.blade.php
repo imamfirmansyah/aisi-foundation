@@ -26,7 +26,7 @@
             <div class="row with-forms">
                 <div class="col-md-12">
                     <h5>Nama Kegiatan</h5>
-                    <input type="text" name="nama" value="{{ $data['kegiatan']->nama }}" placeholder="Nama Kegiatan">
+                    <input type="text" name="nama" value="{{ $data['kegiatan']->nama }}" placeholder="Nama Kegiatan" {{ Auth::user()->role !== 'LEMBAGA' ? 'readonly=readonly' : '' }}>
                     @if ($errors->has('nama'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('nama') }}</strong>
@@ -36,7 +36,7 @@
                 <div class="col-md-12">
                     <h5>Tanggal Kegiatan</h5>
                     <!-- Date Range Picker - docs: http://www.daterangepicker.com/ -->
-                    <input name="tgl_kegiatan" type="text" id="date-picker" value="{{ $data['kegiatan']->tgl_kegiatan }}" placeholder="Date" readonly="readonly">
+                    <input name="tgl_kegiatan" type="text" {{ Auth::user()->role !== 'LEMBAGA' ? 'id="date-picker"' : '' }} value="{{ $data['kegiatan']->tgl_kegiatan }}" placeholder="Date" readonly="readonly" {{ Auth::user()->role !== 'LEMBAGA' ? 'readonly="readonly"' : '' }}>
                     @if ($errors->has('tgl_kegiatan'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('tgl_kegiatan') }}</strong>
@@ -45,7 +45,7 @@
                 </div> 
                 <div class="col-md-12">
                     <h5>Desksripsi Singkat Kegiatan</h5>
-                    <textarea name="deskripsi" cols="40" rows="3" placeholder="Desksripsi Singkat Kegiatan">{{ $data['kegiatan']->deskripsi }}</textarea>
+                    <textarea name="deskripsi" cols="40" rows="3" placeholder="Desksripsi Singkat Kegiatan" {{ Auth::user()->role !== 'LEMBAGA' ? 'readonly=readonly' : '' }}>{{ $data['kegiatan']->deskripsi }}</textarea>
                     @if ($errors->has('deskripsi'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('deskripsi') }}</strong>
@@ -55,7 +55,7 @@
                 <div class="col-md-12">
                     <h5>Proposal Kegiatan</h5>
                     <small><em><a href="{{ url( 'storage/proposal/'. $data['kegiatan']->proposal_kegiatan ) }}">{{ $data['kegiatan']->proposal_kegiatan }}</a></em></small>
-                    <input type="file" name="proposal_kegiatan" class="aisi-input-file">
+                    <input type="file" name="proposal_kegiatan" class="aisi-input-file" {{ Auth::user()->role !== 'LEMBAGA' ? 'disabled' : '' }}>
                     @if ($errors->has('proposal_kegiatan'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('proposal_kegiatan') }}</strong>
@@ -63,7 +63,7 @@
                     @endif
                 </div>
 
-                @if ( $data['kegiatan']->status === "DITERIMA" && Auth::user()->role !== 'STAFF')
+                @if ( $data['kegiatan']->status === "DITERIMA" && Auth::user()->role === 'LEMBAGA')
                 <div class="col-md-12">
                     <h5>Dokumentasi Kegiatan</h5>
                     <small><em>Sertakan link google drive yang berisi foto-foto kegiatan dan laporan kegiatan berupa file dokumen pada kolom dibawah ini</em></small>
@@ -75,18 +75,31 @@
                 </div>
                 @endif
 
-                @if ( Auth::user()->role === 'STAFF')
+                @if ( Auth::user()->role === 'ADMIN')
                 <div class="col-md-12">
                     <h5>Status Pengajuan</h5>
-                    <select name="status" class="chosen-select-no-single" {{ $data['kegiatan']->status === "DITERIMA" ? 'disabled' : '' }}>
+                    @if( $data['kegiatan']->status === "DITERIMA" )
+                        <input type="status" name="status" value="{{ $data['kegiatan']->status }}" placeholder="Pilih Status" readonly="readonly">
+                    @else
+                    <select name="status" class="chosen-select-no-single" }}>
                         <option value="" label="blank">Pilih status</option>
                         <option value="DITERIMA" {{ $data['kegiatan']->status === "DITERIMA" ? 'selected' : '' }}>DITERIMA</option>
                         <option value="DITOLAK" {{ $data['kegiatan']->status === "DITOLAK" ? 'selected' : '' }}>DITOLAK</option>
                         <option value="PENGAJUAN" {{ $data['kegiatan']->status === "PENGAJUAN" ? 'selected' : '' }}>PENGAJUAN</option>
                     </select>
+                    @endif
                     @if ($errors->has('status'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('status') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <div class="col-md-12">
+                    <h5>Pesan / Catatan</h5>
+                    <textarea name="pesan" cols="40" rows="3" placeholder="Pesan">{{ $data['kegiatan']->pesan }}</textarea>
+                    @if ($errors->has('pesan'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('pesan') }}</strong>
                     </span>
                     @endif
                 </div>

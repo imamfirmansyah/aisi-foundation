@@ -24,6 +24,7 @@ class DashboardController extends Controller
         $data['total_member'] = User::count();
         $data['total_kegiatan'] = Kegiatan::where('status', 'DITERIMA')->count();
         $data['total_dana'] = Dana::count();
+        $data['total_peminjaman'] = Peminjaman::count();
 
         return view('dashboard', ['data' => $data]);
     }

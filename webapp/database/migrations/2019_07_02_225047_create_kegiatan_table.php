@@ -23,6 +23,7 @@ class CreateKegiatanTable extends Migration
             $table->text('proposal_kegiatan')->nullable();
             $table->date('tgl_kegiatan')->nullable();
             $table->string('status')->nullable();
+            $table->text('pesan')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

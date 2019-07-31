@@ -42,6 +42,8 @@ class AppServiceProvider extends ServiceProvider
             View::share('jml_pengajuan_kegiatan', Kegiatan::where('status','PENGAJUAN')->count() );
             View::share('jml_kegiatan_diterima', Kegiatan::where('status','DITERIMA')->count() );
             View::share('jml_kegiatan_ditolak', Kegiatan::where('status','DITOLAK')->count() );
+            View::share('jml_kegiatan_dg_laporan', Kegiatan::where('status','DENGAN_LAPORAN')->count() );
+            View::share('jml_kegiatan_tanpa_laporan', Kegiatan::where('status','TANPA_LAPORAN')->count() );
             View::share('jml_semua_kegiatan', Kegiatan::count() );
         } 
     }

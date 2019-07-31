@@ -7,6 +7,7 @@ use App\Kegiatan;
 use App\Lembaga;
 use App\Dana;
 use App\Dokumentasi;
+use App\User;
 use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
@@ -15,19 +16,41 @@ class KegiatanController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $data_kegiatan = Kegiatan::where('status','DITERIMA')
+                        ->get();
+        
+        $months_ago = strtotime('-1 months');
+
+        foreach ($data_kegiatan as $key => $val) {
+            /* check tgl_kegiatan jika 1 bulan tidak ada update laporan */
+            if(  strtotime( $val->tgl_kegiatan ) < $months_ago ) {
+                /* update flag status to TANPA_LAPORAN */
+                $kegiatan = Kegiatan::find($val->id);
+                $kegiatan->status = 'TANPA_LAPORAN';
+                $kegiatan->save();
+
+                /* force unverified user */
+                $data_lembaga   = Lembaga::where('id', $val->id_lembaga)->first();
+                $data_user      = User::where('id', $data_lembaga->user->id)->first();
+                
+                $data_user->validate_status = 0;
+                $data_user->save();
+            }
+        }
     }
 
     public function index($type = 'ALL')
     {
         if( $type == 'ALL' ) {
-            if ( Auth::user()->role === 'STAFF' ) {
+            if ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) {
                 $data = Kegiatan::with('lembaga')->get();
             } else {
                 $data = Kegiatan::where('id_lembaga', Auth::user()->lembaga->id)
                                     ->with('lembaga')->get();
             }
         } else {
-            if ( Auth::user()->role === 'STAFF' ) {
+            if ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) {
                 $data = Kegiatan::with('lembaga')->where('status',$type)->get();
             } else {
                 $data = Kegiatan::where('id_lembaga', Auth::user()->lembaga->id)
@@ -47,6 +70,7 @@ class KegiatanController extends Controller
     public function detail($id)
     {
         $data = Kegiatan::with('dokumentasi')
+                            ->with('lembaga')
                             ->with('dana')
                             ->find($id);
 
@@ -127,20 +151,23 @@ class KegiatanController extends Controller
         $kegiatan->deskripsi = $request->get('deskripsi');
         $kegiatan->tgl_kegiatan = $request->get('tgl_kegiatan');
 
-        if ( Auth::user()->role === 'STAFF' ) {
+        if ( Auth::user()->role === 'ADMIN' ) {
             $kegiatan->status = $request->get('status');
+            $kegiatan->pesan = $request->get('pesan');
 
-            if ( $request->get('status') === 'DITERIMA') {
-                Dokumentasi::create([
-                    'id_kegiatan' => $id
-                ]);
+            // $cek_data = Dokumentasi::where('id_kegiatan', $id)->first();
 
-                Dana::create([
-                    'id_kegiatan' => $id,
-                    'tgl_pengajuan' => date('Y-m-d'),
-                    'status' => 'PROSES'
-                ]);
-            }
+            // if ( $request->get('status') === 'DITERIMA' && $cek_data === null) {
+            //     Dokumentasi::create([
+            //         'id_kegiatan' => $id
+            //     ]);
+
+            //     Dana::create([
+            //         'id_kegiatan' => $id,
+            //         'tgl_pengajuan' => date('Y-m-d'),
+            //         'status' => 'PROSES'
+            //     ]);
+            // }
         }
 
         if( $request->hasFile('proposal_kegiatan') && $request->file('proposal_kegiatan')->isValid())  {
@@ -158,13 +185,26 @@ class KegiatanController extends Controller
         }
 
         /* dokumentasi */
-        $kegiatan->dokumentasi()->where( 'id_kegiatan', $id )->update([
-            'keterangan' => $request->get('keterangan'),
-            'file' => $request->get('link_file'),
-        ]);
+        if ( $request->get('keterangan') || $request->get('file') ) {      
+            $kegiatan->status = 'DENGAN_LAPORAN';
+
+            $kegiatan->dokumentasi()->where( 'id_kegiatan', $id )->update([
+                'keterangan' => $request->get('keterangan'),
+                'file' => $request->get('link_file'),
+            ]);
+        }
 
         $kegiatan->save();
 
         return redirect('kegiatan/ALL')->with('message', 'Data Kegiatan Berhasil diubah');
+    }
+
+    public function cetak_laporan_kegiatan($id) {
+        $data = Kegiatan::with('dokumentasi')
+                ->with('lembaga')
+                ->with('dana')
+                ->find($id);
+
+        return view('kegiatan.cetak',['data'=>$data]);
     }
 }

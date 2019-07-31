@@ -30,7 +30,7 @@ body {
     line-height: 28px;
 }
 
-#invoice {
+#laporan {
     background: white;
     width: auto;
     max-width: 900px;
@@ -61,7 +61,7 @@ p {
 }
 
 #logo img {
-  max-height: 44px;
+  max-height: 90px;
 }
 
 #details { text-align: right; }
@@ -142,9 +142,9 @@ th span::after {
    background-color: #e6e6e6;
    border-radius: 50px;
    padding: 10px 20px;
-   display: block;
+   display: inline-block;
    text-align: center;
-   margin: 40px auto 40px auto;
+   margin: 40px 20px;
    max-width: 190px;
    transition: 0.3s;
    text-decoration: none !important;
@@ -155,6 +155,10 @@ th span::after {
    background-color: #e2e2e2;
 }
 
+.print-button.colored {
+    background-color: #fa5b0f;
+    color: #fff;
+}
 
 /* Print Styles*/
 @media print {
@@ -191,7 +195,7 @@ th span::after {
      margin: 0 17mm;
    }
 
-   #invoice {
+   #laporan {
        max-width: 100%;
        padding: 17mm 0;
        margin: 0;

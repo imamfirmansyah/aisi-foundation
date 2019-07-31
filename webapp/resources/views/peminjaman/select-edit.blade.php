@@ -58,39 +58,40 @@
 
             <div class="row with-forms">
                 <div class="projects isotope-wrapper">
-                @foreach( $data['barang'] as $key => $val )
-                    <!-- Listing Item -->
-                        <div class="col-lg-4 col-md-6 isotope-item {{ str_replace(" ", "-", strtolower( $val->kategori_barang->nama ) ) }}">
-                            <div class="listing-item-container compact">
-                                <div class="listing-item">
-                                    <img src="{{ url('storage/barang/'.$val->foto) }}" alt="{{ $val->nama }}">
+                    @foreach( $data['barang'] as $key => $val )
+                        <!-- Listing Item -->
+                            <div class="col-lg-4 col-md-6 isotope-item {{ str_replace(" ", "-", strtolower( $val->kategori_barang->nama ) ) }}">
+                                <div class="listing-item-container compact">
+                                    <div class="listing-item">
+                                        <img src="{{ url('storage/barang/'.$val->foto) }}" alt="{{ $val->nama }}">
 
-                                    <div class="listing-item-content">
-                                        <span class="tag">{{ $val->kategori_barang->nama }}</span>
-                                        <h3>{{ $val->nama }}</h3>
-                                        <span>
-                                                @php
-                                                    echo Str::limit($val->keterangan, 50);
-                                                @endphp
+                                        <div class="listing-item-content">
+                                            <span class="tag">{{ $val->kategori_barang->nama }}</span>
+                                            <h3>{{ $val->nama }}</h3>
+                                            <span>
+                                                    @php
+                                                        echo Str::limit($val->keterangan, 50);
+                                                    @endphp
+                                                </span>
+                                        </div>
+                                            <span class="like-icon {{ in_array($val->kode_barang, $data['currentBarang']) ? 'liked' : '' }}">
+                                                <input class="checkbox-hidden" type="checkbox" name="barang[]" {{ in_array($val->kode_barang, $data['currentBarang']) ? 'checked' : '' }} value="{{ $val->kode_barang }}">
                                             </span>
                                     </div>
-                                    <span class="like-icon {{ in_array($val->kode_barang, $data['currentBarang']) ? 'liked' : '' }}">
-                                            <input class="checkbox-hidden" type="checkbox" name="barang[]" {{ in_array($val->kode_barang, $data['currentBarang']) ? 'checked' : '' }} value="{{ $val->kode_barang }}">
-                                        </span>
                                 </div>
                             </div>
-                        </div>
                         <!-- Listing Item / End -->
                     @endforeach
                 </div>
             </div>
-
-
-            <div class="col-md-6">
-                <input type="submit" class="submit button" value="Simpan">
-            </div>
-            <div class="col-md-6 text-right">
-                <a class="button" href="{{ route('peminjaman.edit',['id'=>$data['id_peminjaman']]) }}">Batal</a>
+            
+            <div class="row with-forms">
+                <div class="col-md-6">
+                    <input type="submit" class="submit button" value="Simpan">
+                </div>
+                <div class="col-md-6 text-right">
+                    <a class="button" href="{{ route('peminjaman.edit',['id'=>$data['id_peminjaman']]) }}">Batal</a>
+                </div>
             </div>
         </form>
     </div>

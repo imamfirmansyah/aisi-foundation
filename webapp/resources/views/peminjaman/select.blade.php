@@ -84,12 +84,13 @@
                 </div>
             </div>
 
-
-            <div class="col-md-6">
-                <input type="submit" class="submit button" value="Simpan">
-            </div>
-            <div class="col-md-6 text-right">
-                <a class="button" href="{{ route('peminjaman.create') }}">Batal</a>
+            <div class="row with-forms">
+                <div class="col-md-6">
+                    <input type="submit" class="submit button" value="Simpan">
+                </div>
+                <div class="col-md-6 text-right">
+                    <a class="button" href="{{ route('peminjaman.create') }}">Batal</a>
+                </div>
             </div>
         </form>
     </div>

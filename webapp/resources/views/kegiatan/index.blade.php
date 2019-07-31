@@ -52,7 +52,7 @@
                             <a class="aisi-datatables-action-button"></a>
                             <div class="aisi-datatables-action-content">
                                 <a href="{{ route('kegiatan.edit',['id' => $val->id]) }}" class="aisi-datatables-item"><i class="fa fa-pencil"></i> Ubah</a>
-                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a>
+                                {{-- <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a> --}}
                             </div>
                         </div>
                     </td>
@@ -90,37 +90,37 @@
                 },
             },
         })
-            .then((process) => {
-                if(process){
-                    $.ajax({
-                        url: "{{ route('kegiatan.delete') }}",
-                        type: "POST",
-                        data: {
-                            '_token': '{{csrf_token()}}',
-                            'id':id,
-                        },
-                        success: function(data) {
-                            swal({
-                                title: 'Berhasil Hapus Kegiatan!',
-                                text: 'Kegiatan berhasil di hapus',
-                                icon: 'success',
-                                timer: '2000'
-                            });
-                            table.ajax.reload();
-                        },
-                        error: function(jqXHR, textStatus, errorThrown){
-                            swal({
-                                title: 'System Error',
-                                text: errorThrown,
-                                icon: 'error',
-                                timer: '2000'
-                            });
-                        }
-                    });
-                }else{
-                    swal('Data kegiatan tidak jadi dihapus');
-                }
-            });
+        .then((process) => {
+            if(process){
+                $.ajax({
+                    url: "{{ route('kegiatan.delete') }}",
+                    type: "POST",
+                    data: {
+                        '_token': '{{csrf_token()}}',
+                        'id':id,
+                    },
+                    success: function(data) {
+                        swal({
+                            title: 'Berhasil Hapus Kegiatan!',
+                            text: 'Kegiatan berhasil di hapus',
+                            icon: 'success',
+                            timer: '2000'
+                        });
+                        table.ajax.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        swal({
+                            title: 'System Error',
+                            text: errorThrown,
+                            icon: 'error',
+                            timer: '2000'
+                        });
+                    }
+                });
+            }else{
+                swal('Data kegiatan tidak jadi dihapus');
+            }
+        });
     }
 </script>
 @endpush

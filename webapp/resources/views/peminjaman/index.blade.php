@@ -27,12 +27,10 @@
         <div id='calendar'></div>
     </div>
 
-    <div class="col-md-12 text-right">
-        <a href="{{ route('peminjaman.detail',[ 'id' => 0])  }}" class="button text-right">Tambah</a>
-    </div>
-
     <div class="col-md-12">
-        <table id="example-table" class="basic-table" style="width: 100%;">
+        <a href="{{ route('peminjaman.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a>
+
+         <table id="aisi-datatables" class="basic-table" style="width:100%">
             <thead>
                 <tr>
                     <th>No</th>
@@ -70,18 +68,6 @@
                 </tr>
                 @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th>Barang</th>
-                    <th>Member</th>
-                    <th>Kegiatan</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Kembali</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </tfoot>
         </table>
     </div>    
 </div>
@@ -96,11 +82,13 @@
 
 <script>
     $(document).ready(function() {
-        $('#example-table').DataTable({
+        $('#aisi-datatables').DataTable({
             responsive: true,
+            "dom" : '<"aisi-datatables"<"aisi-datatables-header"lf>t<"aisi-datatables-footer"ip>>',
         });
 
         $('div.dataTables_paginate').addClass("pagination");
+        $(".aisi-datatables-button-add").prependTo(".aisi-datatables-header");
     } );
 
     /* calendar */

@@ -42,16 +42,31 @@
             <li class="{{ Request::is('kegiatan*') ? 'active' : '' }}">
                 <a><i class="sl sl-icon-layers"></i> List Kegiatan</a>
                 <ul>
-                    <li><a href="{{ route('kegiatan.index',['type'=>'ALL']) }}">Semua {!! Auth::user()->role === 'STAFF' ? '<span class="nav-tag green">'. $jml_semua_kegiatan . '</span>' : '' !!}</a></li>
-                    <li><a href="{{ route('kegiatan.index',['type'=>'DITERIMA']) }}">Diterima {!! Auth::user()->role === 'STAFF' ? '<span class="nav-tag yellow">'. $jml_kegiatan_diterima . '</span>' : '' !!}</a></li>
-                    <li><a href="{{ route('kegiatan.index',['type'=>'DITOLAK']) }}">Ditolak {!! Auth::user()->role === 'STAFF' ? '<span class="nav-tag red">'. $jml_kegiatan_ditolak . '</span>' : '' !!}</a></li>
-                    <li><a href="{{ route('kegiatan.index',['type'=>'PENGAJUAN']) }}">Pengajuan {!! Auth::user()->role === 'STAFF' ? '<span class="nav-tag blue">'. $jml_pengajuan_kegiatan . '</span>' : '' !!}</a></li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'ALL']) }}">
+                        Semua {!! ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) ? '<span class="nav-tag yellow">'. $jml_semua_kegiatan . '</span>' : '' !!}</a>
+                    </li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'DITERIMA']) }}">
+                        Diterima {!! ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) ? '<span class="nav-tag green">'. $jml_kegiatan_diterima . '</span>' : '' !!}</a>
+                    </li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'DITOLAK']) }}">
+                        Ditolak {!! ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) ? '<span class="nav-tag red">'. $jml_kegiatan_ditolak . '</span>' : '' !!}</a>
+                    </li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'PENGAJUAN']) }}">
+                        Pengajuan {!! ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) ? '<span class="nav-tag blue">'. $jml_pengajuan_kegiatan . '</span>' : '' !!}</a>
+                    </li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'DENGAN_LAPORAN']) }}">
+                        Dengan Laporan {!! ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) ? '<span class="nav-tag blue">'. $jml_kegiatan_dg_laporan . '</span>' : '' !!}</a>
+                    </li>
+                    <li><a href="{{ route('kegiatan.index',['type'=>'TANPA_LAPORAN']) }}">
+                        Tanpa Laporan {!! ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) ? '<span class="nav-tag blue">'. $jml_kegiatan_tanpa_laporan . '</span>' : '' !!}</a>
+                    </li>  
                 </ul>
             </li>
             @if( Auth::user()->role === 'STAFF' )
             <li class="{{ Request::is('dana*') ? 'active' : '' }}">
-                <a href="{{ route('dana.index') }}"><i class="sl sl-icon-wallet"></i> Bantuan Dana</a>
+                <a><i class="sl sl-icon-wallet"></i> Bantuan Dana</a>
                 <ul>
+                    <li><a href="{{ route('dana.index') }}"> Dana</a></li>
                     <li><a href="{{ route('dana.grafik') }}"> Grafik</a></li>
                 </ul>
             </li>

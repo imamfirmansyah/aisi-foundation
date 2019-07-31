@@ -9,8 +9,9 @@
   letter-spacing: 0.8px;
 }
 
-input[type=email]:disabled,
-input[type=text]:disabled {
+input#date-picker[disabled],
+textarea[disabled],
+input[disabled] {
   background: #dddddd;
 }
 
@@ -168,6 +169,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
   margin-top: 0 !important;
 }
 .aisi-datatables table.basic-table th {
+  vertical-align: middle;
   background-color: transparent;
   color: #101010;
 }
@@ -180,6 +182,16 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
 }
 .aisi-datatables table.basic-table tr:last-child td {
   border-bottom: none;
+}
+.aisi-datatables table.basic-table thead .sorting:before, .aisi-datatables table.basic-table thead .sorting:after,
+.aisi-datatables table.basic-table thead .sorting_asc:before,
+.aisi-datatables table.basic-table thead .sorting_asc:after,
+.aisi-datatables table.basic-table thead .sorting_desc:before,
+.aisi-datatables table.basic-table thead .sorting_desc:after {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 .dataTables_wrapper .aisi-datatables-header {

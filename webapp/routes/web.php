@@ -75,6 +75,7 @@ Route::post('/kegiatan-delete','KegiatanController@delete')->name('kegiatan.dele
 Route::post('/kegiatan-save','KegiatanController@save')->name('kegiatan.save');
 Route::get('/kegiatan-edit/{id}','KegiatanController@edit')->name('kegiatan.edit');
 Route::put('/kegiatan-update/{id}','KegiatanController@update')->name('kegiatan.update');
+Route::get('/cetak-laporan-kegiatan/{id}','KegiatanController@cetak_laporan_kegiatan')->name('kegiatan.cetak');
 
 Route::get('/test-email', 'HomeController@sendEmail')->name('sendEmail');
 
