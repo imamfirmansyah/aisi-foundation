@@ -29,9 +29,8 @@
         <div class="col-md-6">  
 
             <p id="details">
-                <strong>Order:</strong> #00124 <br>
-                <strong>Issued:</strong> 20/07/2019 <br>
-                Due 7 days from date of issue
+                <strong>ID Kegiatan:</strong> #{{ $data->id }} <br>
+                <strong>Tanggal:</strong> {{ date('d-M-Y') }} <br>
             </p>
         </div>
     </div>
@@ -48,6 +47,15 @@
                 <strong class="margin-bottom-5">Nama Lembaga : </strong> {{ $data->lembaga->nama }} <br>
                 <strong class="margin-bottom-5">Tanggal Kegiatan : </strong> {{ $data->tgl_kegiatan }} <br>
                 <strong class="margin-bottom-5">Deskripsi Kegiatan : </strong> {{ $data->deskripsi }}
+            </p>
+        </div>
+
+        <div class="col-md-12">
+            <p>    
+                <strong>Informasi Dokumentasi</strong> <br>
+                <strong>Link Dokumentasi :</strong> {!! $data->dokumentasi[0]->file !== null ? '<a target="_blank" href="'. $data->dokumentasi[0]->file .'">'. $data->dokumentasi[0]->file .'</a>' : 'Belum Tersedia' !!}<br>
+                <strong>Keterangan Dokumentasi :</strong> {{ $data->dokumentasi[0]->keterangan !== null ? $data->dokumentasi[0]->keterangan : "Belum Tersedia" }} <br>
+                {{-- {{ dd($data) }} --}}
             </p>
         </div>
     </div>

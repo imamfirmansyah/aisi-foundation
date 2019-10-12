@@ -43,6 +43,7 @@ Route::post('/kategori-barang-force-delete', 'KategoriBarangController@force_del
 
 /* -- peminjaman --*/
 Route::get('/peminjaman','PeminjamanController@index')->name('peminjaman.index');
+Route::get('/peminjaman-jadwal','PeminjamanController@jadwal')->name('peminjaman.jadwal');
 Route::get('/peminjaman-create','PeminjamanController@create')->name('peminjaman.create');
 Route::any('/peminjaman-set','PeminjamanController@set')->name('peminjaman.set');
 Route::post('/peminjaman-save','PeminjamanController@save')->name('peminjaman.save');
@@ -51,6 +52,7 @@ Route::any('/peminjaman-set-edit','PeminjamanController@setEdit')->name('peminja
 Route::post('/peminjaman-update','PeminjamanController@update')->name('peminjaman.update');
 Route::get('/peminjaman-detail/{id}','PeminjamanController@detail')->name('peminjaman.detail');
 Route::post('/peminjaman-delete','PeminjamanController@delete')->name('peminjaman.delete');
+Route::post('/peminjaman-selesai','PeminjamanController@selesai')->name('peminjaman.selesai');
 
 Route::get('/user/{type}','UserController@index')->name('user.index');
 Route::get('/user-profile','UserController@profile')->name('user.profile');
@@ -76,6 +78,10 @@ Route::post('/kegiatan-save','KegiatanController@save')->name('kegiatan.save');
 Route::get('/kegiatan-edit/{id}','KegiatanController@edit')->name('kegiatan.edit');
 Route::put('/kegiatan-update/{id}','KegiatanController@update')->name('kegiatan.update');
 Route::get('/cetak-laporan-kegiatan/{id}','KegiatanController@cetak_laporan_kegiatan')->name('kegiatan.cetak');
+Route::post('/kegiatan-delete', 'KegiatanController@delete')->name('kegiatan.delete');
+Route::get('/kegiatan-trash', 'KegiatanController@trash')->name('kegiatan.trash');
+Route::get('/kegiatan-restore/{id}', 'KegiatanController@restore')->name('kegiatan.restore');
+Route::post('/kategori-force-delete', 'KegiatanController@force_delete')->name('kegiatan.force.delete');
 
 Route::get('/test-email', 'HomeController@sendEmail')->name('sendEmail');
 

@@ -24,46 +24,57 @@
     @endif
 
     <div class="col-md-12">
-        <div id='calendar'></div>
-    </div>
+        {{-- <a href="{{ route('peminjaman.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a> --}}
 
-    <div class="col-md-12">
-        <a href="{{ route('peminjaman.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a>
-
-         <table id="aisi-datatables" class="basic-table" style="width:100%">
+        <table id="aisi-datatables" class="basic-table" style="width:100%">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Barang</th>
                     <th>Member</th>
+                    <th>Barang</th>
                     <th>Kegiatan</th>
                     <th>Tgl Pinjam</th>
                     <th>Tgl Kembali</th>
+                    <th>Keterangan</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
+                {{-- {{ dd($data) }} --}}
                 @foreach($data as $key => $val)
                 <tr>
                     <td>{{ $key+1 }}</td>
+                    <td>{{ $val->user->nama }}</td>
                     <td>
                         <?php
                             $arrayBarang = [];
+
                             foreach ($val->barang as $barang){
                                 $arrayBarang[] = $barang->nama;
                             }
-                            echo implode($arrayBarang,',');
+
+                            echo '<a href="'. route('peminjaman.detail',['id' => $val->id ]).'">'.implode($arrayBarang,',').'</a>';
                         ?>
                     </td>
-                    <td>{{ $val->user->nama }}</td>
                     <td>{{ @$val->kegiatan->judul }}</td>
                     <td>{{ $val->tgl_pinjam }}</td>
                     <td>{{ $val->tgl_kembali }}</td>
+                    <td>{{ $val->keterangan }}</td>
                     <td>{{ $val->status }}</td>
-                    <td>
-                        <a href="{{ route('peminjaman.edit',['id'=>$val->id]) }}" class="button">Edit</a>
-                        <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="button">Hapus</a>
+                    <td>                        
+                        @if ( Auth::user()->id === $val->user->id || Auth::user()->role === 'STAFF' )
+                        <div class="aisi-datatables-action">
+                            <a class="aisi-datatables-action-button"></a>
+                            <div class="aisi-datatables-action-content">
+                                @if ( $val->status === 'DIPINJAM' && Auth::user()->role === 'STAFF' )
+                                <a href="javascript:;" onclick="dataSelesai({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-inbox" aria-hidden="true"></i>Selesai</a>
+                                @endif
+                                <a href="{{ route('peminjaman.edit',['id' => $val->id ]) }}" class="aisi-datatables-item"><i class="fa fa-pencil"></i> Ubah</a>
+                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a>
+                            </div>
+                        </div>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -91,88 +102,6 @@
         $(".aisi-datatables-button-add").prependTo(".aisi-datatables-header");
     } );
 
-    /* calendar */
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'interaction', 'dayGrid', 'list' ],
-            header: {
-                left: 'prev,next, today',
-                center: 'title',
-                right: 'dayGridMonth,dayGridWeek,dayGridDay,listDay,listWeek'
-            },
-            views: {
-                listDay: { buttonText: 'list day' },
-                listWeek: { buttonText: 'list week' }
-            },
-
-            defaultDate: '2019-06-12',
-            navLinks: true, 
-            editable: false,
-            eventLimit: true,
-            events: [
-            {
-                title: 'All Day Event',
-                start: '2019-06-01'
-            },
-            {
-                title: 'Long Event',
-                start: '2019-06-07',
-                end: '2019-06-10'
-            },
-            {
-                groupId: 999,
-                title: 'Repeating Event',
-                start: '2019-06-09T16:00:00'
-            },
-            {
-                groupId: 999,
-                title: 'Repeating Event',
-                start: '2019-06-16T16:00:00'
-            },
-            {
-                title: 'Conference',
-                start: '2019-06-11',
-                end: '2019-06-13'
-            },
-            {
-                title: 'Meeting',
-                start: '2019-06-12T10:30:00',
-                end: '2019-06-12T12:30:00'
-            },
-            {
-                title: 'Lunch',
-                start: '2019-06-12T12:00:00'
-            },
-            {
-                title: 'Meeting',
-                start: '2019-06-12T14:30:00'
-            },
-            {
-                title: 'Happy Hour',
-                start: '2019-06-12T17:30:00'
-            },
-            {
-                title: 'Dinner',
-                start: '2019-06-12T20:00:00'
-            },
-            {
-                title: 'Birthday Party',
-                start: '2019-06-13T07:00:00'
-            },
-            {
-                title: 'Click for Google',
-                url: 'http://google.com/',
-                start: '2019-06-28'
-            }
-            ]
-        });
-
-        calendar.render();
-    });
-    /* calendar end here */
-
     @if (session('success'))
         swal({
             title: "Sukses simpan data peminjaman",
@@ -181,6 +110,52 @@
             timer: 3000
         })
     @endif
+
+    function dataSelesai(id) {
+        swal({
+            title: "Data Peminjaman Telah Selesai",
+            text : "Pastikan Barang yang dipinjam sudah dikembalikan",
+            icon: "warning",
+            buttons: {
+                cancel:true,
+                confirm: {
+                    text:'Ya',
+                    closeModal: false,
+                },
+            },
+        })
+        .then((process) => {
+            if(process){
+                $.ajax({
+                    url: "{{ route('peminjaman.selesai') }}",
+                    type: "POST",
+                    data: {
+                        '_token': '{{csrf_token()}}',
+                        'id':id,
+                    },
+                    success: function(data) {
+                        swal({
+                            title: 'Berhasil Mengubah Data Peminjaman!',
+                            text: 'Peminjaman Telah Selesai',
+                            icon: 'success',
+                            timer: '2000'
+                        });
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        swal({
+                            title: 'System Error',
+                            text: errorThrown,
+                            icon: 'error',
+                            timer: '2000'
+                        });
+                    }
+                });
+            }else{
+                swal('Data peminjaman tidak jadi dihapus');
+            }
+        });
+    }
 
     function deleteData(id) {
         swal({

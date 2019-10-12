@@ -16,8 +16,6 @@ class DataDummySeeder extends Seeder
             LembagaSeeder::class,
             KategoriBarangSeeder::class,
             BarangSeeder::class,
-            PeminjamanSeeder::class,
-            PeminjamanBarangSeeder::class,
         ]);
 
         $this->command->info('Berhasil menambah data dummy!');

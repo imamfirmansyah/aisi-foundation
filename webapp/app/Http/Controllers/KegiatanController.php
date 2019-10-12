@@ -155,19 +155,19 @@ class KegiatanController extends Controller
             $kegiatan->status = $request->get('status');
             $kegiatan->pesan = $request->get('pesan');
 
-            // $cek_data = Dokumentasi::where('id_kegiatan', $id)->first();
+            $cek_data = Dokumentasi::where('id_kegiatan', $id)->first();
 
-            // if ( $request->get('status') === 'DITERIMA' && $cek_data === null) {
-            //     Dokumentasi::create([
-            //         'id_kegiatan' => $id
-            //     ]);
+            if ( $request->get('status') === 'DITERIMA' && $cek_data === null) {
+                Dokumentasi::create([
+                    'id_kegiatan' => $id
+                ]);
 
-            //     Dana::create([
-            //         'id_kegiatan' => $id,
-            //         'tgl_pengajuan' => date('Y-m-d'),
-            //         'status' => 'PROSES'
-            //     ]);
-            // }
+                Dana::create([
+                    'id_kegiatan' => $id,
+                    'tgl_pengajuan' => date('Y-m-d'),
+                    'status' => 'PROSES'
+                ]);
+            }
         }
 
         if( $request->hasFile('proposal_kegiatan') && $request->file('proposal_kegiatan')->isValid())  {
@@ -199,12 +199,44 @@ class KegiatanController extends Controller
         return redirect('kegiatan/ALL')->with('message', 'Data Kegiatan Berhasil diubah');
     }
 
-    public function cetak_laporan_kegiatan($id) {
-        $data = Kegiatan::with('dokumentasi')
-                ->with('lembaga')
-                ->with('dana')
-                ->find($id);
+    public function delete(Request $request)
+    {
+        $kegiatan = Kegiatan::find( $request->id );
+        $kegiatan->delete();
 
-        return view('kegiatan.cetak',['data'=>$data]);
+        return redirect('kegiatan/ALL')->with('message', 'Data Kegiatan Berhasil dihapus');
     }
+
+    public function trash()
+    {
+        // mengampil data barang yang sudah dihapus
+        $data = Kegiatan::onlyTrashed()->get();
+
+        return view('kegiatan.restore', [ 'data' => $data ]);
+    }
+
+    public function restore($id)
+    {
+        $data = Kegiatan::onlyTrashed()->where('id', $id);
+        $data->restore();
+        
+        return redirect('kegiatan-trash')->with('message', 'Data Kegiatan Berhasil dikembalikan');
+    }
+
+    public function force_delete(Request $request)
+    {
+        $data = Kegiatan::onlyTrashed()->where( 'id', $request->id );
+        $data->forceDelete();
+
+        return redirect('kegiatan-trash')->with('message', 'Data Kegiatan Berhasil dihapus Permanen');
+    }
+
+public function cetak_laporan_kegiatan($id) {
+    $data = Kegiatan::with('dokumentasi')
+            ->with('lembaga')
+            ->with('dana')
+            ->find($id);
+
+    return view('kegiatan.cetak',['data'=>$data]);
+}
 }

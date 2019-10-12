@@ -12,6 +12,8 @@ use App\Kegiatan;
 use App\Peminjaman;
 use App\User;
 
+use DB;
+
 class PeminjamanController extends Controller
 {
 
@@ -23,8 +25,16 @@ class PeminjamanController extends Controller
     public function index()
     {
         $data = Peminjaman::with(['kegiatan','barang','user'])->get();
+        // $data = Peminjaman::with(['barang', 'user']);
 
         return view('peminjaman.index', ['data'=>$data]);
+    }
+
+    public function jadwal()
+    {
+        $data = Peminjaman::with(['kegiatan','barang','user'])->get();
+
+        return view('peminjaman.jadwal', ['data'=>$data]);
     }
 
     public function create()
@@ -38,10 +48,14 @@ class PeminjamanController extends Controller
 
     public function detail($id)
     {
-        $data['peminjaman'] = Peminjaman::find($id);
-        $data['barang'] = Barang::all();
-        $data['user'] = User::all();
-        $data['kegiatan'] = Kegiatan::all();
+
+        $data = Peminjaman::where('id', $id)
+                    ->with(['kegiatan','barang','user'])->first();
+
+        // $data['peminjaman'] = Peminjaman::find($id);
+        // $data['barang'] = Barang::all();
+        // $data['user'] = User::all();
+        // $data['kegiatan'] = Kegiatan::all();
 
         return view('peminjaman.detail',['data'=>$data]);
     }
@@ -63,13 +77,18 @@ class PeminjamanController extends Controller
         $data['keterangan'] = $request->keterangan;
         $data['barang'] = [];
 
+        DB::enableQueryLog();          
         $barangs = Barang::with(['kategori_barang','peminjaman','lastPeminjaman'])
             ->whereDoesntHave('peminjaman')
             ->orWhereHas('lastPeminjaman')
             ->where('barang.status', 1)
             ->get();
 
-        //return json_encode($barangs);
+        $barangs = DB::getQueryLog();
+        $barangs = end($barangs);
+        dd($barangs);
+
+        return json_encode($barangs);
 
         foreach($barangs as $barang){
             if(($barang->lastPeminjaman->count() > 0 && $barang->lastPeminjaman[0]->tgl_pinjam >= $data['tgl_peminjaman']) || $barang->status == 'DIPINJAM'){
@@ -225,4 +244,12 @@ class PeminjamanController extends Controller
         return redirect()->route('peminjaman.index')->with('message', 'Data Peminjaman Berhasil dihapus');
     }
 
+    public function selesai(Request $request)
+    {
+        $peminjaman = Peminjaman::find($request->id);
+        $peminjaman->status = "DIKEMBALIKAN";
+        $peminjaman->save();
+
+        return redirect()->route('peminjaman.index')->with('message', 'Data Peminjaman Berhasil dihapus');
+    }    
 }

@@ -46,7 +46,10 @@
                     @endif
             </p>
             @endif
+            
+            @if( Auth::user()->role === 'ADMIN' && $data->dana->status === 'DISETUJUI')
             <a class="button" href="{{ route('kegiatan.cetak', ['id' => $data->id]) }}">Cetak Laporan Kegiatan</a>
+            @endif
             <a class="button" href="{{ route('kegiatan.index', ['type'=>'ALL']) }}">Kembali</a>
         </div>
     </div>

@@ -32,6 +32,7 @@
                 <a><i class="sl sl-icon-plus"></i>Peminjaman</a>
                 <ul>
                     <li><a href="{{ route('peminjaman.index') }}"> Daftar Peminjaman</a></li>
+                    <li><a href="{{ route('peminjaman.jadwal') }}"> Jadwal Peminjaman</a></li>
                     <li><a href="{{ route('peminjaman.create') }}"> Pinjam Barang</a></li>
                 </ul>
             </li>
@@ -59,10 +60,11 @@
                     </li>
                     <li><a href="{{ route('kegiatan.index',['type'=>'TANPA_LAPORAN']) }}">
                         Tanpa Laporan {!! ( Auth::user()->role === 'STAFF' || Auth::user()->role === 'ADMIN' ) ? '<span class="nav-tag blue">'. $jml_kegiatan_tanpa_laporan . '</span>' : '' !!}</a>
-                    </li>  
+                    </li>
+                    <li><a href="{{ route('kegiatan.trash') }}">Restore Data</a></li>  
                 </ul>
             </li>
-            @if( Auth::user()->role === 'STAFF' )
+            @if( Auth::user()->role === 'ADMIN' )
             <li class="{{ Request::is('dana*') ? 'active' : '' }}">
                 <a><i class="sl sl-icon-wallet"></i> Bantuan Dana</a>
                 <ul>

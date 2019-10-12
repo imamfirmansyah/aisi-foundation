@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Daftar Kegiatan')
-@section('pageHeader', 'Daftar Kegiatan')
-@section('breadcrumb', 'Daftar Kegiatan')
+@section('pageTitle', 'Restore Daftar Kegiatan')
+@section('pageHeader', 'Restore Data Kegiatan')
+@section('breadcrumb', 'Restore Kegiatan')
 
 @push('customCss')
 <link rel="stylesheet" href="{{ url('plugin/datatables/datatables.min.css')}}">
@@ -18,24 +18,14 @@
             <a class="close" href="#"></a>
         </div>
         @endif
-        
-        @if( Auth::user()->validate_status && Auth::user()->role !== 'STAFF' && Auth::user()->role !== 'ADMIN' )
-        <a href="{{ route('kegiatan.create') }}" class="button aisi-datatables-button-add">Tambah</a>
-        @else
-        <div class="notification success closeable margin-bottom-30">
-            <p>Pengajuan Kegiatan Hanya untuk Lembaga yang sudah terverifikasi, lengkapi informasi profile anda melalui halaman <a href="{{ url('user-profile') }}"><strong>profile</strong></a></p>
-            <a class="close" href="#"></a>
-        </div>
-        @endif
 
-        <table id="aisi-datatables" class="basic-table" style="width: 100%;">
+        {{-- <a href="{{ route('barang.create')  }}" class="button aisi-datatables-button-add">Tambah</a> --}}
+        
+        <table id="aisi-datatables" class="basic-table" style="width:100%">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Lembaga</th>
-                    <th>Nama Kegiatan</th>
-                    <th>Tgl Kegiatan</th>
-                    <th>Status</th>
+                    <th>Nama</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -43,16 +33,13 @@
                 @foreach($data as $key => $val)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $val->lembaga->nama }}</td>
-                    <td><a href="{{ route('kegiatan.detail', ['id' => $val->id] ) }}" class="tooltip bottom" title="{{ $val->deskripsi }}">{{ $val->nama }}</a></td>
-                    <td>{{ $val->tgl_kegiatan }}</td>
-                    <td>{{ $val->status }}</td>
+                    <td>{{ $val->nama }}</td>
                     <td>                        
-                        <div class="aisi-datatables-action">
+                        <div class="aisi-datatables-action extra-width">
                             <a class="aisi-datatables-action-button"></a>
                             <div class="aisi-datatables-action-content">
-                                <a href="{{ route('kegiatan.edit',['id' => $val->id]) }}" class="aisi-datatables-item"><i class="fa fa-pencil"></i> Ubah</a>
-                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus</a>
+                                <a href="{{ route('kegiatan.restore', ['id' => $val->id]) }}" class="aisi-datatables-item"><i class="fa fa-refresh"></i> Restore</a>
+                                <a href="javascript:;" onclick="deleteData({{ $val->id }})" class="aisi-datatables-item"><i class="fa fa-trash"></i> Hapus Permanen</a>
                             </div>
                         </div>
                     </td>
@@ -79,8 +66,8 @@
 
     function deleteData(id) {
         swal({
-            title: "Yakin Hapus Data Kegiatan?",
-            text : "Data kegiatan akan dihapus permanen",
+            title: "Yakin Hapus Data Barang?",
+            text : "Data barang akan dihapus permanen",
             icon: "warning",
             buttons: {
                 cancel:true,
@@ -91,9 +78,9 @@
             },
         })
         .then((process) => {
-            if(process){
+            if(process) {
                 $.ajax({
-                    url: "{{ route('kegiatan.delete') }}",
+                    url: "{{ route('kegiatan.force.delete') }}", 
                     type: "POST",
                     data: {
                         '_token': '{{csrf_token()}}',
@@ -101,12 +88,14 @@
                     },
                     success: function(data) {
                         swal({
-                            title: 'Berhasil Hapus Kegiatan!',
-                            text: 'Kegiatan berhasil di hapus',
+                            title: 'Berhasil Hapus Barang!',
+                            text: 'Barang berhasil di hapus',
                             icon: 'success',
                             timer: '2000'
                         });
-                        table.ajax.reload();
+                        setTimeout(function() {
+                            location.reload()
+                        }, 750);
                     },
                     error: function(jqXHR, textStatus, errorThrown){
                         swal({
@@ -117,8 +106,8 @@
                         });
                     }
                 });
-            }else{
-                swal('Data kegiatan tidak jadi dihapus');
+            } else {
+                swal('Data barang tidak jadi dihapus');
             }
         });
     }
