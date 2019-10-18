@@ -1,4 +1,5 @@
 
+
 # Sistem Informasi AISI
 Repositori untuk Sistem Informasi Pengelolaan Inventaris dan Dokumentasi Kegiatan Yayasan AISI Foundation
 
@@ -69,12 +70,13 @@ Repositori untuk Sistem Informasi Pengelolaan Inventaris dan Dokumentasi Kegiata
       AND P.tgl_pinjam <= "2019-08-12"
       AND P.status LIKE 'DIKEMBALIKAN%'
 
-Hasil eksekusi sql
+------
+### Hasil Eksekusi Raw SQL
 | kode_barang | nama barang | tgl_pinjam | tgl_kembali | status |
 |--|--|--|--|--|
 | 1562933685 | EPSON LCD Proyektor | 2019-08-10 | 2019-08-11 | DIKEMBALIKAN |
 | 1562947460 | ROL Kabel Steker  |  2019-08-10 | 2019-08-11  | DIKEMBALIKAN |
-| 1562940709 | HP LCD Proyektor   |   Null          |    Null         |   Null          |        
+| 1562940709 | HP LCD Proyektor   |   Null          |    Null         |   Null          |      
 | 1562947595 | Speaker Portable Besar |Null |Null |Null |
 | 1563149913 | Layar Proyektor |Null |Null |Null |       
 | 1563150087 | Papan Tulis Kecil |Null |Null |Null |           
