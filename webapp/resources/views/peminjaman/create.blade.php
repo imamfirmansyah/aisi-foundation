@@ -40,11 +40,11 @@
             <div class="row with-forms">
                 <div class="col-md-6">
                     <h5>Tanggal Peminjaman</h5>
-                    <input name="tgl_peminjaman" type="text" id="date-picker-start" placeholder="Tanggal Peminjaman">
+                    <input name="tgl_peminjaman" type="text" id="date-picker-start" autocomplete="off" placeholder="Tanggal Peminjaman">
                 </div>
                 <div class="col-md-6">
                     <h5>Tanggal Pengembalian</h5>
-                    <input name="tgl_pengembalian" type="text" id="date-picker-end" placeholder="Tanggal Pengembalian">
+                    <input name="tgl_pengembalian" type="text" id="date-picker-end" autocomplete="off" placeholder="Tanggal Pengembalian">
                 </div>
             </div>
             

@@ -58,28 +58,28 @@ Repositori untuk Sistem Informasi Pengelolaan Inventaris dan Dokumentasi Kegiata
       ON PB.id_peminjaman = P.id
       
     /* 3 table opsi A expand script - work for case peminjaman */
-    SELECT B.kode_barang, B.nama AS "nama barang",
-           P.tgl_pinjam, P.tgl_kembali, P.status
+    SELECT B.kode_barang, B.nama AS "nama barang", B.status AS "status barang",
+           P.tgl_pinjam, P.tgl_kembali, P.status AS "status peminjaman"
     FROM barang B
     LEFT JOIN peminjaman_barang PB
       ON B.kode_barang = PB.kode_barang
     LEFT JOIN peminjaman P
       ON PB.id_peminjaman = P.id
-    WHERE P.tgl_pinjam IS NUll
+    WHERE B.status LIKE '1'
+      AND P.tgl_pinjam IS NUll
       OR P.tgl_pinjam >= "2019-08-10"
       AND P.tgl_pinjam <= "2019-08-12"
-      AND P.status LIKE 'DIKEMBALIKAN%'
+      AND P.status LIKE 'DIKEMBALIKAN'
 
 ------
 ### Hasil Eksekusi Raw SQL
-| kode_barang | nama barang | tgl_pinjam | tgl_kembali | status |
+| kode_barang | nama barang | status barang | tgl_pinjam | tgl_kembali | status peminjaman |
 |--|--|--|--|--|
-| 1562933685 | EPSON LCD Proyektor | 2019-08-10 | 2019-08-11 | DIKEMBALIKAN |
-| 1562947460 | ROL Kabel Steker  |  2019-08-10 | 2019-08-11  | DIKEMBALIKAN |
-| 1562940709 | HP LCD Proyektor   |   Null          |    Null         |   Null          |      
-| 1562947595 | Speaker Portable Besar |Null |Null |Null |
-| 1563149913 | Layar Proyektor |Null |Null |Null |       
-| 1563150087 | Papan Tulis Kecil |Null |Null |Null |           
-| 1563150146 | Spidol Papan Tulis |Null |Null |Null |  
-| 1563150312 | Toa Portable Outdoor |Null |Null |Null |     
-| 1571394732 | Map Batik |Null |Null |Null |
+| 1562933685 | EPSON LCD Proyektor | 1 | 2019-08-10 | 2019-08-11 | DIKEMBALIKAN |
+| 1562947460 | ROL Kabel Steker  | 1 |  2019-08-10 | 2019-08-11  | DIKEMBALIKAN |
+| 1562940709 | HP LCD Proyektor   | 1 |   Null          |    Null         |   Null          |      
+| 1562947595 | Speaker Portable Besar | 1 | Null |Null |Null |
+| 1563149913 | Layar Proyektor | 1 | Null | Null |Null |       
+| 1563150087 | Papan Tulis Kecil | 1 | Null |Null |Null |           
+| 1563150146 | Spidol Papan Tulis | 1 | Null |Null |Null |  
+| 1563150312 | Toa Portable Outdoor | 1 | Null |Null |Null |     

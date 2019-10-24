@@ -14,19 +14,18 @@
 @section('content')
 
 <div class="row">
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            <ul>
-                <li>{{ session('success') }}</li>
-            </ul>
-        </div>
-    @endif
-
     <div class="col-md-12">
+        @if (session('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{{ session('success') }}</li>
+                </ul>
+            </div>
+        @endif
+
         {{-- <a href="{{ route('peminjaman.detail',[ 'id' => 0])  }}" class="button aisi-datatables-button-add">Tambah</a> --}}
 
-        <table id="aisi-datatables" class="basic-table" style="width:100%">
+        <table id="aisi-datatables" class="basic-table">
             <thead>
                 <tr>
                     <th>No</th>
