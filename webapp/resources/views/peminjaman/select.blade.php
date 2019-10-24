@@ -69,14 +69,14 @@
                                         <span class="tag">{{ $val->kategori_barang }}</span>
                                         <h3>{{ $val->nama_barang }}</h3>
                                         <span>
-                                                @php
-                                                    echo Str::limit($val->keterangan, 50);
-                                                @endphp
-                                            </span>
+                                            @php
+                                                echo Str::limit($val->keterangan, 50);
+                                            @endphp
+                                        </span>
                                     </div>
                                     <span class="like-icon">
-                                            <input class="checkbox-hidden" type="checkbox" name="barang[]" value="{{ $val->kode_barang }}">
-                                        </span>
+                                        <input class="checkbox-hidden" type="checkbox" name="barang[]" value="{{ $val->kode_barang }}">
+                                    </span>
                                 </div>
                             </div>
                         </div>

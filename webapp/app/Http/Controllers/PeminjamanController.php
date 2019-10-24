@@ -72,7 +72,8 @@ class PeminjamanController extends Controller
         // dd($request->all());
 
         $request->validate([
-            'tgl_peminjaman' => 'required|date|after:'. date('Y-m-d'),
+            'tgl_peminjaman'    => 'required|date|after:'. date('Y-m-d'),
+            'tgl_pengembalian'  => 'required|date|after:tgl_peminjaman',
         ], $messages );
         
         $data['tgl_peminjaman'] = $request->tgl_peminjaman;
@@ -112,26 +113,6 @@ class PeminjamanController extends Controller
         $tgl_kembali = $request->get('tgl_pengembalian');
 
         //dd($request->all());
-
-        $barangs = DB::table('barang')
-            ->select([
-                'barang.kode_barang', 'barang.nama AS nama_barang', 
-                'kategori_barang.nama AS kategori_barang',
-                'barang.foto',
-                'barang.status AS status_barang',
-                'peminjaman.tgl_pinjam','peminjaman.tgl_kembali',
-                'peminjaman.status AS status_peminjaman',
-                'barang.keterangan'])
-            ->leftJoin('peminjaman_barang', 'barang.kode_barang', '=', 'peminjaman_barang.kode_barang')
-            ->leftJoin('peminjaman', 'peminjaman_barang.id_peminjaman', '=', 'peminjaman.id')
-            ->leftJoin('kategori_barang', 'barang.id_kategori_barang', '=', 'kategori_barang.id')
-            ->where('barang.status', 'LIKE', '1')
-            ->whereNull('peminjaman.tgl_pinjam')
-            ->orWhere('peminjaman.tgl_pinjam', '>=', $data['tgl_peminjaman'])
-            ->where('peminjaman.tgl_pinjam', '<=', $data['tgl_peminjaman'])
-            ->orWhere('peminjaman.status', 'LIKE', 'DIKEMBALIKAN')
-            ->orderBy('barang.nama', 'asc')
-            ->get();
 
         if(count($request->barang) == 0){
             return redirect()->back()->with('error','Minimal pinjam satu barang');
@@ -179,7 +160,8 @@ class PeminjamanController extends Controller
         ];
 
         $request->validate([
-            'tgl_peminjaman' => 'required|date|after:'. date('Y-m-d'),
+            'tgl_peminjaman'    => 'required|date|after:'. date('Y-m-d'),
+            'tgl_pengembalian'  => 'required|date|after:tgl_peminjaman',
         ], $messages );
 
         $data['tgl_peminjaman'] = $request->tgl_peminjaman;
@@ -190,34 +172,56 @@ class PeminjamanController extends Controller
         $data['id_peminjaman'] = $request->id;
         $data['currentBarang'] = [];
 
-        if(!empty($request->id)){
+        if(!empty($request->id)) {
             $peminjaman = Peminjaman::with(['barang'])->find($request->id);
-            foreach ($peminjaman->barang as $barang){
+            foreach ($peminjaman->barang as $barang) {
                 $data['currentBarang'][] = $barang->kode_barang;
             }
         }
 
-        $barangs = Barang::with(['kategori_barang','lastPeminjaman'])
-            ->whereDoesntHave('lastPeminjaman')
-            ->orWhereHas('lastPeminjaman')
-            ->where('barang.status', 1)
+        // $barangs = Barang::with(['kategori_barang','lastPeminjaman'])
+        //     ->whereDoesntHave('lastPeminjaman')
+        //     ->orWhereHas('lastPeminjaman')
+        //     ->where('barang.status', 1)
+        //     ->get();
+
+        $barangs = DB::table('barang')
+            ->select([
+                'barang.kode_barang', 'barang.nama AS nama_barang', 
+                'kategori_barang.nama AS kategori_barang',
+                'barang.foto',
+                'barang.status AS status_barang',
+                'peminjaman.tgl_pinjam','peminjaman.tgl_kembali',
+                'peminjaman.status AS status_peminjaman',
+                'barang.keterangan'])
+            ->leftJoin('peminjaman_barang', 'barang.kode_barang', '=', 'peminjaman_barang.kode_barang')
+            ->leftJoin('peminjaman', 'peminjaman_barang.id_peminjaman', '=', 'peminjaman.id')
+            ->leftJoin('kategori_barang', 'barang.id_kategori_barang', '=', 'kategori_barang.id')
+            ->where('barang.status', 'LIKE', '1')
+            ->whereNull('peminjaman.tgl_pinjam')
+            ->orWhere('peminjaman.tgl_pinjam', '>=', $data['tgl_peminjaman'])
+            ->where('peminjaman.tgl_pinjam', '<=', $data['tgl_peminjaman'])
+            ->orWhere('peminjaman.status', 'LIKE', 'DIKEMBALIKAN')
+            ->orderBy('barang.nama', 'asc')
             ->get();
 
-        foreach($barangs as $barang){
-            if(($barang->lastPeminjaman->count() > 0 && $barang->lastPeminjaman[0]->tgl_pinjam >= $data['tgl_peminjaman']) || $barang->status == 'DIPINJAM'){
-                if($barang->lastPeminjaman[0]->id_user != Auth::user()->id){
-                    continue;
-                }
+        $data['barang'] = $barangs;
+        
+        // foreach($data['currentBarang'] as $kode_barang) {
+        //     $current_barang = DB::table('barang')
+        //         ->select([
+        //             'barang.kode_barang', 
+        //             'barang.nama AS nama_barang',
+        //             'kategori_barang.nama AS kategori _barang', 
+        //             'barang.foto',
+        //             'barang.keterangan'
+        //         ])
+        //         ->leftJoin('kategori_barang', 'barang.id_kategori_barang', '=', 'kategori_barang.id')
+        //         ->where('barang.kode_barang', 'LIKE', $kode_barang)
+        //         ->first();
 
-                if ( $barang->lastPeminjaman[0]->pivot->id_peminjaman != $data['id_peminjaman'] ) {
-                    continue;
-                }
-
-            }
-            $data['barang'][] = $barang;
-        }
-
-        //return json_encode($data['barang']);
+        //     // $data['barang'][] = $current_barang;
+        // }
 
         $data['kategori_barang'] = KategoriBarang::all();
 

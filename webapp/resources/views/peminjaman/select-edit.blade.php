@@ -58,25 +58,25 @@
 
             <div class="row with-forms">
                 <div class="projects isotope-wrapper">
+                    {{-- {{ dd($data['barang']) }} --}}
                     @foreach( $data['barang'] as $key => $val )
-                        <!-- Listing Item -->
-                            <div class="col-lg-4 col-md-6 isotope-item {{ str_replace(" ", "-", strtolower( $val->kategori_barang->nama ) ) }}">
+                            <div class="col-lg-4 col-md-6 isotope-item {{ str_replace(" ", "-", strtolower( $val->kategori_barang ) ) }}">
                                 <div class="listing-item-container compact">
                                     <div class="listing-item">
-                                        <img src="{{ url('storage/barang/'.$val->foto) }}" alt="{{ $val->nama }}">
+                                        <img src="{{ url('storage/barang/'.$val->foto) }}" alt="{{ $val->nama_barang }}">
 
                                         <div class="listing-item-content">
-                                            <span class="tag">{{ $val->kategori_barang->nama }}</span>
-                                            <h3>{{ $val->nama }}</h3>
+                                            <span class="tag">{{ $val->kategori_barang }}</span>
+                                            <h3>{{ $val->nama_barang }}</h3>
                                             <span>
-                                                    @php
-                                                        echo Str::limit($val->keterangan, 50);
-                                                    @endphp
-                                                </span>
-                                        </div>
-                                            <span class="like-icon {{ in_array($val->kode_barang, $data['currentBarang']) ? 'liked' : '' }}">
-                                                <input class="checkbox-hidden" type="checkbox" name="barang[]" {{ in_array($val->kode_barang, $data['currentBarang']) ? 'checked' : '' }} value="{{ $val->kode_barang }}">
+                                                @php
+                                                    echo Str::limit( $val->keterangan, 50);
+                                                @endphp
                                             </span>
+                                        </div>
+                                        <span class="like-icon {{ in_array( $val->kode_barang, $data['currentBarang']) ? 'liked' : '' }}">
+                                            <input class="checkbox-hidden" type="checkbox" name="barang[]" {{ in_array( $val->kode_barang, $data['currentBarang']) ? 'checked' : '' }} value="{{ $val->kode_barang }}">
+                                        </span>
                                     </div>
                                 </div>
                             </div>
